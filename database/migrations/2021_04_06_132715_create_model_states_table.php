@@ -14,19 +14,19 @@ class CreateModelStatesTable extends Migration
     public function up()
     {
         Schema::create('model_states', function (Blueprint $table) {
+            // $table->id();
+            // $table->timestamps();
             $table->integer('id')->unique()->unsigned();
-            $table->string('status',99);
+            $table->string('state',99);
             $table->engine = 'InnoDB';
             
            // $table->timestamps();
         });
-
+ 
         Schema::connection('mysql')->table('model_states', function (Blueprint $table) {
-            $table->foreign('id')->references('status_id')->on('models');
-            
+            $table->foreign('id')->references('state_id')->on('model_tbls');
         });
-    }
-
+     }
     /**
      * Reverse the migrations.
      *
