@@ -22,17 +22,17 @@ class CreateTrainingFilesTable extends Migration
             $table->string('path', 99);
             $table->string('output_path', 99);
             $table->date('uploaded_date');
-            $table->integer('state')->unique()->unsigned();
+            $table->unsignedBigInteger('state');
             $table->string('type', 99);
  
            // $table->timestamps();
         });
         Schema::connection('mysql')->table('training_files', function (Blueprint $table) {
         $table->foreign('model_id')->references('id')->on('model_tbls');
+        $table->foreign('state')->references('id')->on('training_states');
          });
        
      }
-
     /**
      * Reverse the migrations.
      *

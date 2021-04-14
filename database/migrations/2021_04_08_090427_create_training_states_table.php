@@ -16,17 +16,13 @@ class CreateTrainingStatesTable extends Migration
         Schema::create('training_states', function (Blueprint $table) {
             //$table->id();
             //$table->timestamps();
-           $table->integer('id')->unique()->unsigned();
+           $table->bigInteger('id')->unique()->unsigned();
            $table->string('training_state',99);
         });
-        Schema::connection('mysql')->table('training_states', function (Blueprint $table) {
-        $table->foreign('id')->references('state')->on('training_files');
-             
-
-        });
-
+       
     
-    }  /**
+    } 
+    /**
      * Reverse the migrations.
      *
      * @return void

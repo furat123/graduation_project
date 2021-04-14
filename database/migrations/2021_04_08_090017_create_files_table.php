@@ -23,8 +23,8 @@ class CreateFilesTable extends Migration
             $table->string('output_path', 99);
             $table->date('uploaded_date');
            // $table->integer('user_model_id')->unsigned();
-            $table->integer('verify_state')->unique()->unsigned();//verify of picture
-            $table->integer('state')->unique()->unsigned();
+            $table->unsignedBigInteger('verify_state');;//verify of picture
+            $table->unsignedBigInteger('state');
             $table->integer('accuracy');
             
             
@@ -32,6 +32,8 @@ class CreateFilesTable extends Migration
         });
         Schema::connection('mysql')->table('files', function (Blueprint $table) {
         $table->foreign('user_model_id')->references('id')->on('user_has_models');
+        $table->foreign('state')->references('id')->on('file_states');
+        $table->foreign('verify_state')->references('id')->on('verify_states');
          });
      }
 

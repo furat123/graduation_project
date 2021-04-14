@@ -18,4 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 
 });
-Route::resource('/model',"App\Http\Controllers\ModelController"); 
+Route::resource('/model',"App\Http\Controllers\ModelTblController"); 
+Route::resource('/user_has_model',"App\Http\Controllers\UserHasModelController"); 
+Route::resource('/file',"App\Http\Controllers\FilesController"); 
+
+////////relation///////////
+Route::get('/has-one', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
+Route::get('/has-one-reverse', "App\Http\Controllers\Relation\RelationsController@HasOneRelationReverse" );
+
+

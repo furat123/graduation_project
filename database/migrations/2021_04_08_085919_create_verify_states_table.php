@@ -16,14 +16,10 @@ class CreateVerifyStatesTable extends Migration
         Schema::create('verify_states', function (Blueprint $table) {
             //  $table->id();
              // $table->timestamps();
-             $table->integer('id')->unique()->unsigned();
+             $table->bigInteger('id')->unique()->unsigned();
              $table->string('verify_state',99);
           });
-          Schema::connection('mysql')->table('verify_states', function (Blueprint $table) {
-          $table->foreign('id')->references('verify_state')->on('files');
-               
-  
-          });
+         
       }
 
     /**

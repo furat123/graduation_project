@@ -16,12 +16,10 @@ class CreateFileStatesTable extends Migration
         Schema::create('file_states', function (Blueprint $table) {
             // $table->id();
             // $table->timestamps();
-            $table->integer('id')->unique()->unsigned();
+            $table->bigInteger('id')->unique()->unsigned();
             $table->string('state',99);
          });
-         Schema::connection('mysql')->table('file_states', function (Blueprint $table) {
-         $table->foreign('id')->references('state')->on('files');
-              });
+        
      }
     /**
      * Reverse the migrations.
