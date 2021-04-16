@@ -22,7 +22,7 @@ class CreateModelTblsTable extends Migration
               $table->string('picture', 99)->unique();
               $table->date('created_date');
               $table->date('last_use_date');
-              $table->unsigidnedBigInteger('owner_id');
+              $table->unsignedBigInteger('owner_id');
               $table->boolean('public_state');
               $table->integer('number_of_feature')->unsigned();
               $table->integer('number_of_using')->unsigned();
