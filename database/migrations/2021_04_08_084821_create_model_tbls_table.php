@@ -33,7 +33,7 @@ class CreateModelTblsTable extends Migration
           });
           
           Schema::connection('mysql')->table('model_tbls', function (Blueprint $table) {
-          $table->foreign('owner_id')->references('id')->on('users');
+          //$table->foreign('owner_id')->references('id')->on('users');
           $table->foreign('state_id')->references('id')->on('model_states');
            });
       }
