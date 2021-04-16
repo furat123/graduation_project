@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\model_tbl;
 use App\Models\model_tbls;
 use App\Models\User;
+use App\Models\user_has_model;
 use Illuminate\Http\Request;
 
 class RelationsController extends Controller
@@ -46,4 +47,29 @@ class RelationsController extends Controller
 
     }
 
+    ///////////////// one to many relation 
+    public function  getFilesOfMdel(){
+       //$FilesOfMdel= user_has_model::FindOrFail(1);
+      // return $FilesOfMdel->fun_file;
+      $FilesOfMdel= user_has_model::with('fun_file')->FindOrFail(1);
+      //return $FilesOfMdel ;
+      $allFile=$FilesOfMdel->fun_file;
+      foreach ($allFile as $var){
+          echo $var->name ; 
+          echo "\n";
+
+    }}
+
+    ///////////////// one to many relation 
+    public function getModelsOFUser($id){
+        $user= User::with('User_Models')->FindOrFail($id);
+         return $user->User_Models;
+    }
+    public function getuserslOFmodel($id){
+        $model=model_tbls::with(['Users_Of_Model'=>function($q){
+            $q->select('users.id','name');
+        }])->FindOrFail($id);
+         return $model->Users_Of_Model;
+
+   }
 }

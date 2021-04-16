@@ -18,15 +18,17 @@ class model_tbls extends Model
         'last_use_date',
         'owner_id',
         'public_state',
-        'number_of_feature',
         'number_of_using',
         'state_id',
 
     ];
-    protected $hidden=['owner_id'];
+    protected $hidden=['owner_id','pivot'];
    
     //////////relation/////////
     public function OwnerModel (){
         return $this ->belongsTo('App\Models\User', 'id');
+    }
+    public function Users_Of_Model(){
+        return $this ->belongsToMany("App\Models\User",'user_has_models','model_id','user_id');
     }
 }
