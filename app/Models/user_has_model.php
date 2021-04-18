@@ -18,5 +18,10 @@ class user_has_model extends Model
         
 
     ];
+     //////////relation/////////
+     //relation between user has models and files
+     public function fun_file (){
+        return $this ->hasMany('App\Models\file', 'user_model_id');
+    }
     
 }

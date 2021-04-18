@@ -24,9 +24,9 @@ class CreateModelTblsTable extends Migration
               $table->date('last_use_date');
               $table->unsignedBigInteger('owner_id');
               $table->boolean('public_state');
-              $table->integer('number_of_feature')->unsigned();
               $table->integer('number_of_using')->unsigned();
               $table->unsignedBigInteger('state_id');
+              
               //$table->timestamps();
             //  $table->id();
              

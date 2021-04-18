@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\verify_state;
+use App\Models\label;
 use Illuminate\Http\Request;
 
-class VerifyStateController extends Controller
+class LabelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class VerifyStateController extends Controller
      */
     public function index()
     {
-        return response()->json(verify_state::get(),200);
+        return response()->json(label::get(),200);
 
     }
 
@@ -36,8 +36,9 @@ class VerifyStateController extends Controller
      */
     public function store(Request $request)
     {
-        $verify_state = verify_state::create($request->all());
-        return response()->json($verify_state,201);
+        $label_tbl = label::create($request->all());
+        return response()->json($label_tbl,201);
+   
     }
 
     /**
@@ -48,11 +49,11 @@ class VerifyStateController extends Controller
      */
     public function show($id)
     {
-        $verify_state=verify_state::FindOrFail($id);
-       if(is_null($verify_state)){
-       return response()->json(["message"=>'record not find!!!'], 404);
-       }
-       return response()->json($verify_state, 200);
+        $label_tbl=label::FindOrFail($id);
+        if(is_null($label_tbl)){
+        return response()->json(["message"=>'record not find!!!'], 404);
+        }
+        return response()->json($label_tbl, 200);
     }
 
     /**
@@ -75,13 +76,13 @@ class VerifyStateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $verify_state=$request->except(['id']);
-        $verify_state=array_filter($verify_state);
-        $update1=verify_state::where('id',$id)->update($verify_state);
+        $label_tbl=$request->except(['id']);
+        $label_tbl=array_filter($label_tbl);
+        $update1=label::where('id',$id)->update($label_tbl);
 
-        if(is_null($verify_state)){
+        if(is_null($label_tbl)){
            return response()->json(["message"=>'record not find!!!'], 404);
-       }
+       } 
     }
 
     /**
@@ -92,11 +93,11 @@ class VerifyStateController extends Controller
      */
     public function destroy($id)
     {
-        $verify_sate=verify_state::FindOrFail($id);
-        if(is_null($verify_sate)){
+        $label_tbl=label::FindOrFail($id);
+        if(is_null($label_tbl)){
         return response()->json(["message"=>'record not find!!!'], 404);
         }
-        $verify_sate->delete();
+        $label_tbl->delete();
         return response()->json(null,204);
     }
 }

@@ -102,5 +102,6 @@ class FilesController extends Controller
         }
         $file_tbl->delete();
         return response()->json(null,204);
+    
     }
 }

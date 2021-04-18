@@ -77,7 +77,13 @@ class UserHasModelController extends Controller
      */
     public function update(Request $request, $id)
     {
-       //not now
+        $user_model=$request->except(['user_id','model_id','end_date']);
+        $modeltbl=array_filter( $user_model);
+        $update1=user_has_model::where('id',$id)->update($user_model);
+
+        if(is_null($user_model)){
+           return response()->json(["message"=>'record not find!!!'], 404);
+       }
     }
 
     /**
@@ -92,8 +98,10 @@ class UserHasModelController extends Controller
         if(is_null($user_model)){
         return response()->json(["message"=>'record not find!!!'], 404);
         }
+        
+        //delete files for this model
+        $user_model->fun_file()->delete();
         $user_model->delete();
-        return response()->json(null,204);
     
     }
 }

@@ -38,6 +38,10 @@ Route::get('/has-one-reverse', "App\Http\Controllers\Relation\RelationsControlle
 //////// one to many relation  ///////////
 Route::get('/userhasmodel', "App\Http\Controllers\Relation\RelationsController@getFilesOfMdel" );
 
+//////// many to many relation  ///////////
+Route::get('/user_to_model/{id}', "App\Http\Controllers\Relation\RelationsController@getModelsOFUser" );
+Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getuserslOFmodel" );
+
 
 
 

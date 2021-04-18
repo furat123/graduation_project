@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class training_state extends Model
+class label extends Model
 {
     use HasFactory;
-    protected $table="training_states";
+    protected $table="labels";
     public $timestamps=false;
     protected $fillable=[
-        'id',
-        'training_state', ];
+        'model_id',
+        'label',
+        'index',
+
+    ];
 }
