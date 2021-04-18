@@ -19,7 +19,7 @@ class CreateLabelsTable extends Migration
             $table->bigIncrements('id');
              $table->unsignedBigInteger('model_id');
              $table->string('label',99); 
-             $table->string('index',99); 
+             $table->integer('index',99); 
             });
              Schema::connection('mysql')->table('labels', function (Blueprint $table) {
                 $table->foreign('model_id')->references('id')->on('model_tbls');
