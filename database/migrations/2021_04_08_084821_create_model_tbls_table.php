@@ -17,12 +17,12 @@ class CreateModelTblsTable extends Migration
             //  $table->id();
              // $table->timestamps();
   
-              $table->bigIncrements('id');
+              $table->id('id');
               $table->string('name', 99)->unique();
               $table->string('picture', 99)->unique();
               $table->date('created_date');
               $table->date('last_use_date');
-              $table->unsignedBigInteger('owner_id');
+              $table->bigInteger('owner_id');
               $table->boolean('public_state');
               $table->integer('number_of_using')->unsigned();
               $table->unsignedBigInteger('state_id');
@@ -33,8 +33,8 @@ class CreateModelTblsTable extends Migration
           });
           
           Schema::connection('mysql')->table('model_tbls', function (Blueprint $table) {
-          $table->foreign('owner_id')->references('id')->on('users');
-          $table->foreign('state_id')->references('id')->on('model_states');
+          //$table->foreign('owner_id')->references('id')->on('users');
+          //$table->foreign('state_id')->references('id')->on('model_states');
            });
       }
 

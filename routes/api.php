@@ -33,7 +33,9 @@ Route::resource('/label',"App\Http\Controllers\LabelController");
 //////// one to one relation  ///////////
 Route::get('/has-one', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
 Route::get('/has-one-reverse', "App\Http\Controllers\Relation\RelationsController@HasOneRelationReverse" );
-
+Route::get('/a',function (){
+    return "ahmad";
+});
 
 //////// one to many relation  ///////////
 Route::get('/userhasmodel', "App\Http\Controllers\Relation\RelationsController@getFilesOfMdel" );
