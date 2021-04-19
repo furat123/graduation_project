@@ -56,6 +56,16 @@ class LabelController extends Controller
         return response()->json($label_tbl, 200);
     }
 
+    public function labelsForModel($id)
+    {   
+        $label_tbl=label::where('model_id', '=', $id)->orderBy('index')->pluck('label')->toArray();;
+        if(is_null($label_tbl)){
+        return response()->json(["message"=>'record not find!!!'], 404);
+        }
+
+        return $label_tbl;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

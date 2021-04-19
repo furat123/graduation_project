@@ -29,9 +29,11 @@ Route::resource('/train_state',"App\Http\Controllers\TrainingStateController");
 Route::resource('/label',"App\Http\Controllers\LabelController"); 
 
 
-
+//////// AI Algorithim Api  ///////////
 Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
 Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
+Route::post('/predict/{id}', "App\Http\Controllers\ModelTblController@predict" );
+Route::post('/store_labeld_op/{id}', "App\Http\Controllers\ModelTblController@store_op" );
 
 //////// one to one relation  ///////////
 Route::get('/has-one', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
