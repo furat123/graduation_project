@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\model_tbls;
+use App\Models\label;
+use App\Http\Controllers\LabelController;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Log;
+use GuzzleHttp\Client;
 class ModelTblController extends Controller
 {
     /**
@@ -37,7 +40,6 @@ class ModelTblController extends Controller
      */
     public function store(Request $request)
     {
-        
     $model_tbl = model_tbls::create($request->all());
     return response()->json($model_tbl,201);
     }
@@ -105,5 +107,31 @@ class ModelTblController extends Controller
         }
         $modeltbl->delete();
         return response()->json(null,204);
+    } 
+     public function csvs(Request $request,$id)
+    {
+        $multipart=[];
+        $client= new Client();
+        foreach ($request->file('images') as $file)
+       $multipart[] = array('name'=>'images','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName()); 
+
+      $apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/object_map_generation/'.$id, 
+        [
+        'multipart' => $multipart]);
+         $response = $apiRequest->getBody();
+         return $response;
     }
+
+    public function train(Request $request,$id)
+    {
+
+        $client= new Client();
+        $labels=new LabelController();
+        $labels=$labels->show($id);
+        return $labels;
+        //$apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/train/'.$id);
+    }
+
+
+
 }
