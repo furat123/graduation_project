@@ -143,7 +143,8 @@ class ModelTblController extends Controller
         $client= new Client();
         $labels=new LabelController();
         $labels=$labels->labelsForModel($id);
-        $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/train'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
+        //$apiRequest = $client->request('POST', 'http://127.0.0.1:5000/train/'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
+        $apiRequest = $client->request('POST', 'https://graduationprojectt.herokuapp.com/api/train'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
         return   $apiRequest->getBody();  
     }
 
@@ -157,7 +158,8 @@ class ModelTblController extends Controller
         $file=$request->file('image');
         $multipart[]=array('name'=>'image','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
         $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
-        $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
+        //$apiRequest = $client->request('POST', 'http://127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
+        $apiRequest = $client->request('POST', 'https://graduationprojectt.herokuapp.com/api/predict/'.$id,['multipart' => $multipart]);
         return   $apiRequest->getBody();  
     }
 
