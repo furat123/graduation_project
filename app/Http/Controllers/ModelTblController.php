@@ -114,12 +114,12 @@ class ModelTblController extends Controller
         $client= new Client();
         foreach ($request->file('images') as $file)
        $multipart[] = array('name'=>'images','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName()); 
-
-      $apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/object_map_generation/'.$id, 
+       //$apiRequest = $client->request('POST', 'http://127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
+       $apiRequest = $client->request('POST','https://hi55.herokuapp.com/object_map_generation/'.$id, 
         [
         'multipart' => $multipart]);
         return   $apiRequest->getBody();
-        
+
     }
     
     public function getProgress(Request $request,$id)
@@ -162,6 +162,7 @@ class ModelTblController extends Controller
         $apiRequest = $client->request('POST', 'https://graduationprojectt.herokuapp.com/api/predict/'.$id,['multipart' => $multipart]);
         return   $apiRequest->getBody();  
     }
+    
 
     public function store_op(Request $request,$id)
     {
