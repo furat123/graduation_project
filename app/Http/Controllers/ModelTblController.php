@@ -137,6 +137,21 @@ class ModelTblController extends Controller
      
     }
 
+    public function getProgress_op(Request $request,$id)
+    {
+    return model_tbls::FindOrFail($id)['progress_op'];
+    }
+
+    public function setProgress_op(Request $request,$id)
+    {
+     if(model_tbls::FindOrFail($id)->update(['progress_op'=> $request->input('progress')]))
+       return response()->json("Progress updated successfully",200);
+     else 
+       return response()->json("Something goes wrong",500);
+
+     
+    }
+
     public function train(Request $request,$id)
     {
 

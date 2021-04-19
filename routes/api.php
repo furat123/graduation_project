@@ -42,6 +42,8 @@ Route::post('/predict/{id}', "App\Http\Controllers\ModelTblController@predict" )
 Route::post('/store_labeld_op/{id}', "App\Http\Controllers\ModelTblController@store_op" );
 Route::get('/progress/{id}', "App\Http\Controllers\ModelTblController@getProgress" );
 Route::post('/progress/{id}', "App\Http\Controllers\ModelTblController@setProgress" );
+Route::get('/progress_op/{id}', "App\Http\Controllers\ModelTblController@getProgress_op" );
+Route::post('/progress_op/{id}', "App\Http\Controllers\ModelTblController@setProgress_op" );
 //////// one to one relation  ///////////
 Route::get('/has-one', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
 Route::get('/has-one-reverse', "App\Http\Controllers\Relation\RelationsController@HasOneRelationReverse" );
