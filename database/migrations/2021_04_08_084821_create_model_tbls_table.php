@@ -25,6 +25,7 @@ class CreateModelTblsTable extends Migration
               $table->boolean('public_state');
               $table->integer('number_of_using')->unsigned();
               $table->unsignedBigInteger('state_id');
+              $table->float('progress',99);
               
               //$table->timestamps();
             //  $table->id();
@@ -32,8 +33,8 @@ class CreateModelTblsTable extends Migration
           });
           
           Schema::connection('mysql')->table('model_tbls', function (Blueprint $table) {
-          $table->foreign('owner_id')->references('id')->on('users');
-          $table->foreign('state_id')->references('id')->on('model_states');
+            $table->foreign('owner_id')->references('id')->on('users');
+            $table->foreign('state_id')->references('id')->on('model_states');
            });
       }
 

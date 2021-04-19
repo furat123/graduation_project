@@ -14,6 +14,10 @@ class model_states extends Model
     protected $fillable=[
         'id',
         'state',
-
+        'color',
     ];
+  //  protected $hidden=['id'];
+  
+
+   
 }

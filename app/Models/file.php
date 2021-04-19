@@ -18,7 +18,7 @@ class file extends Model
         'uploaded_date',
         'verify_state',
         'remember_token',
-        'state',
+         'state_id',
         'accuracy',
     ];
    //////////relation/////////
@@ -26,4 +26,11 @@ class file extends Model
      public function fun_UserHasModel (){
         return $this ->belongsTo('App\Models\user_has_models', 'user_model_id');
     }
+
+    public function State_Of_File (){
+        
+        return  $this ->belongsTo('App\Models\file_state', 'id');
+       
+     }
+
 }

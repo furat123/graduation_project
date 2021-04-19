@@ -12,7 +12,7 @@ class file_state extends Model
     public $timestamps=false;
     protected $fillable=[
         'id',
-        'state',
+        'state_name',
 
     ];
 }

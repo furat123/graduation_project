@@ -17,7 +17,7 @@ class CreateFileStatesTable extends Migration
             // $table->id();
             // $table->timestamps();
             $table->bigInteger('id')->unique()->unsigned();
-            $table->string('state',99);
+            $table->string('state_name',99);
          });
         
      }

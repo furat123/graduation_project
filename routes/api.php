@@ -27,6 +27,12 @@ Route::resource('/verify_state',"App\Http\Controllers\VerifyStateController");
 Route::resource('/train_file',"App\Http\Controllers\TrainingFileController"); 
 Route::resource('/train_state',"App\Http\Controllers\TrainingStateController"); 
 Route::resource('/label',"App\Http\Controllers\LabelController"); 
+///// state of model 
+Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfModel" );
+///// state of file
+Route::get('/state_of_file/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfFile" );
+
+
 
 
 //////// AI Algorithim Api  ///////////
@@ -41,6 +47,7 @@ Route::get('/has-one-reverse', "App\Http\Controllers\Relation\RelationsControlle
 Route::get('/a',function (){
     return "ahmad";
 });
+
 
 //////// one to many relation  ///////////
 Route::get('/userhasmodel', "App\Http\Controllers\Relation\RelationsController@getFilesOfMdel" );
