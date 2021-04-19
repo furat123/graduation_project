@@ -14,8 +14,8 @@ class CreateFilesTable extends Migration
     public function up()
     {
         Schema::create('files', function (Blueprint $table) {
-            // $table->id();
-            // $table->timestamps();
+           // $table->id();
+           // $table->timestamps();
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_model_id');
             $table->string('name', 99);
@@ -24,18 +24,15 @@ class CreateFilesTable extends Migration
             $table->date('uploaded_date');
            // $table->integer('user_model_id')->unsigned();
             $table->unsignedBigInteger('verify_state');;//verify of picture
-            $table->unsignedBigInteger('state');
+            $table->unsignedBigInteger('state_id');
             $table->integer('accuracy');
-            
-            
-           // $table->timestamps();
         });
         Schema::connection('mysql')->table('files', function (Blueprint $table) {
-        $table->foreign('user_model_id')->references('id')->on('user_has_models');
-        $table->foreign('state')->references('id')->on('file_states');
-        $table->foreign('verify_state')->references('id')->on('verify_states');
-         });
-     }
+            $table->foreign('user_model_id')->references('id')->on('user_has_models');
+            $table->foreign('state_id')->references('id')->on('file_states');
+            $table->foreign('verify_state')->references('id')->on('verify_states');
+             });
+    }
 
     /**
      * Reverse the migrations.

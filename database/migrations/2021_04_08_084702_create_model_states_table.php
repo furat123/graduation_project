@@ -18,7 +18,8 @@ class CreateModelStatesTable extends Migration
             // $table->timestamps();
             $table->bigInteger('id')->unique()->unsigned();
             $table->string('state',99);
-            $table->float('progress',99);
+            $table->string('color',99);
+          
             $table->engine = 'InnoDB';
             
            // $table->timestamps();

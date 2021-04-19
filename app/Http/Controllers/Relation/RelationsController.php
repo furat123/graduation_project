@@ -7,6 +7,7 @@ use App\Models\model_tbl;
 use App\Models\model_tbls;
 use App\Models\User;
 use App\Models\user_has_model;
+use App\Models\file;
 use Illuminate\Http\Request;
 
 class RelationsController extends Controller
@@ -38,13 +39,33 @@ class RelationsController extends Controller
        //$model = model_tbls::with('OwnerModel')->FindOrFail(1);///
        $model = model_tbls::with(['OwnerModel'=>function($q){
         $q -> select('name','id');
-   }])->FindOrFail(1);
+              }])->FindOrFail(1);
 
      //  $model ->makeVisible(['owner_id']);
       // return $model ->OwnerModel;//all information about owner of the model 
-     return response()->json($model, 200);
+        return response()->json($model, 200);
       //return $model -> OwnerModel-> name; owner for this model
 
+    }
+
+    public function getStateOfModel($id){
+        
+            $model =model_tbls::FindOrFail($id);
+            return  $model-> State_Of_Model -> state ; 
+        }
+
+        
+
+    public function getStateOfFile($id){
+         $file= file::FindOrFail($id);
+         return  $file ->  State_Of_File -> state_name ;// -> state ; //State_Of_File
+          
+         //  $file= file::with('State_Of_File')->FindOrFail($id);
+
+       // $file= file::with(['State_Of_File'=>function($q){
+        //    $q -> select('state_name','id');
+          //        }])->FindOrFail(1);
+   
     }
 
     ///////////////// one to many relation 

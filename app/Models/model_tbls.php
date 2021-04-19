@@ -20,6 +20,7 @@ class model_tbls extends Model
         'public_state',
         'number_of_using',
         'state_id',
+        'progress',
 
     ];
     protected $hidden=['owner_id','pivot'];
@@ -30,5 +31,8 @@ class model_tbls extends Model
     }
     public function Users_Of_Model(){
         return $this ->belongsToMany("App\Models\User",'user_has_models','model_id','user_id');
+    }
+    public function State_Of_Model(){
+       return $this ->belongsTo('App\Models\model_states', 'id');
     }
 }
