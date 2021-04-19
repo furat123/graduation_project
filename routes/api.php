@@ -36,6 +36,9 @@ Route::get('/state_of_file/{id}', "App\Http\Controllers\Relation\RelationsContro
 
 
 
+Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
+Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
+
 //////// one to one relation  ///////////
 Route::get('/has-one', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
 Route::get('/has-one-reverse', "App\Http\Controllers\Relation\RelationsController@HasOneRelationReverse" );

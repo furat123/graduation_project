@@ -13,7 +13,6 @@ class model_tbls extends Model
     public $timestamps=false;
     protected $fillable=[
         'name',
-        'picture',
         'created_date',
         'last_use_date',
         'owner_id',
