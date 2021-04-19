@@ -144,7 +144,7 @@ class ModelTblController extends Controller
         $labels=new LabelController();
         $labels=$labels->labelsForModel($id);
         //$apiRequest = $client->request('POST', 'http://127.0.0.1:5000/train/'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
-        $apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/train'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
+        $apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/train/'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
         return   $apiRequest->getBody();  
     }
 
