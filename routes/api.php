@@ -40,7 +40,8 @@ Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblControl
 Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
 Route::post('/predict/{id}', "App\Http\Controllers\ModelTblController@predict" );
 Route::post('/store_labeld_op/{id}', "App\Http\Controllers\ModelTblController@store_op" );
-
+Route::get('/progress/{id}', "App\Http\Controllers\ModelTblController@getProgress" );
+Route::post('/progress/{id}', "App\Http\Controllers\ModelTblController@setProgress" );
 //////// one to one relation  ///////////
 Route::get('/has-one', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
 Route::get('/has-one-reverse', "App\Http\Controllers\Relation\RelationsController@HasOneRelationReverse" );

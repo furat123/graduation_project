@@ -121,6 +121,21 @@ class ModelTblController extends Controller
         return   $apiRequest->getBody();
         
     }
+    
+    public function getProgress(Request $request,$id)
+    {
+    return model_tbls::FindOrFail($id)['progress'];
+    }
+
+    public function setProgress(Request $request,$id)
+    {
+     if(model_tbls::FindOrFail($id)->update(['progress'=> $request->input('progress')]))
+       return response()->json("Progress updated successfully",200);
+     else 
+       return response()->json("Something goes wrong",500);
+
+     
+    }
 
     public function train(Request $request,$id)
     {
@@ -128,10 +143,11 @@ class ModelTblController extends Controller
         $client= new Client();
         $labels=new LabelController();
         $labels=$labels->labelsForModel($id);
-
-        $apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/train/'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
+        $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/train'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
         return   $apiRequest->getBody();  
     }
+
+
     public function predict(Request $request,$id)
     {
 
@@ -148,15 +164,7 @@ class ModelTblController extends Controller
     public function store_op(Request $request,$id)
     {
 
-        $client= new Client();
-        $labels=new LabelController();
-        $labels=$labels->labelsForModel($id);
-        $file=$request->file('image');
-        
-        $multipart[]=array('name'=>'image','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
-        $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
-        $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
-        return   $apiRequest->getBody();  
+       
     }
 
 
