@@ -234,7 +234,7 @@ class ModelTblController extends Controller
     { 
 
           $client= new Client();
-          $apiRequest = $client->request('GET', "https:/dataset/".$id);
+          $apiRequest = $client->request('GET', "https:/https://hi55.herokuapp.com/dataset/".$id);
           $url =  $apiRequest->getBody();
           $apiRequest = $client->request('GET', (string)$url);
           return response($apiRequest->getBody()->getContents(), 200)
