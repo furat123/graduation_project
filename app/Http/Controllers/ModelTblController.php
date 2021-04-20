@@ -243,6 +243,21 @@ class ModelTblController extends Controller
              
     }
 
+    
+    public function get_csvs(Request $request,$id)
+    { 
+
+          $client= new Client();
+          $apiRequest = $client->request('GET', "https://hi55.herokuapp.com/get_object_maps/".$id);
+          $url =  $apiRequest->getBody();
+          $apiRequest = $client->request('GET', (string)$url);
+          return response($apiRequest->getBody()->getContents(), 200)
+          ->header('Content-Type', 'application/zip')->header('Content-disposition','attachment; filename="object_maps.zip"');
+
+             
+    }
+
+
 
 
 }

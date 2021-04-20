@@ -38,6 +38,7 @@ Route::get('/state_of_file/{id}', "App\Http\Controllers\Relation\RelationsContro
 
 //////// AI Algorithim Api  ///////////
 Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
+Route::get('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
 Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
 Route::post('/predict/{id}', "App\Http\Controllers\ModelTblController@predict" );
 Route::post('/store_labeld_op/{id}', "App\Http\Controllers\ModelTblController@store_op" );
