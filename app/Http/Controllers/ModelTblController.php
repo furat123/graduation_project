@@ -235,7 +235,7 @@ class ModelTblController extends Controller
             'url' => [
               'secure' => true]]);
               $cloudinary = new Cloudinary($config);
-           return   $cloudinary->adminApi()->assets(["folder"=>"models/".$id."/dataset"]);
+           return   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/dataset"]);
 
              
     }
