@@ -9,6 +9,10 @@ use App\Http\Controllers\LabelController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Client;
+use Cloudinary\Configuration\Configuration;
+use ZipArchive;
+use Cloudinary\Cloudinary as Cloudinary;
+
 class ModelTblController extends Controller
 {
     /**
@@ -16,6 +20,7 @@ class ModelTblController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
         return response()->json(model_tbls::get(),200);
@@ -178,11 +183,64 @@ class ModelTblController extends Controller
         return   $apiRequest->getBody();  
     }
     
-
+    
+    
+    
     public function store_op(Request $request,$id)
-    {
+    {        
+     
+    }
 
-       
+    public function store_dataset(Request $request,$id)
+    { 
+
+      // configure globally via a JSON object
+      
+     
+     $config = Configuration::instance([
+        'cloud' => [
+          'cloud_name' => 'hi5', 
+          'api_key' => '323435588613243', 
+          'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+        'url' => [
+          'secure' => true]]);
+          $cloudinary = new Cloudinary($config);
+          // Prepare File
+        
+          $zip = new ZipArchive();
+          $zip->open($id.".zip", ZipArchive::CREATE);
+      
+          // Stuff with content
+          foreach ($request->file('images') as $file)
+          $zip->addFile($file,$file->getClientOriginalName());
+
+          // Close and send to users
+          $zip->close();
+        
+
+          $cloudinary->uploadApi()->upload($id.".zip" , 
+          ["public_id" => "data_set.zip" ,"format" => "zip" , "type" => "private" ,  "resource_type" => "raw"
+           , "resource_type	" => "private" , "folder" => "models/".$id."/"]);
+           // Prepare File
+
+            readfile($id.".zip");
+            unlink($id.".zip"); 
+          return "Ahmad mohammad ";
+          
+             
+    }
+
+    public function get_dataset(Request $request,$id)
+    { 
+
+          $client= new Client();
+          $apiRequest = $client->request('GET', "https:/dataset/".$id);
+          $url =  $apiRequest->getBody();
+          $apiRequest = $client->request('GET', (string)$url);
+          return response($apiRequest->getBody()->getContents(), 200)
+          ->header('Content-Type', 'application/zip')->header('Content-disposition','attachment; filename="data_set.zip"');
+
+             
     }
 
 

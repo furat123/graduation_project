@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -44,6 +45,12 @@ Route::get('/progress/{id}', "App\Http\Controllers\ModelTblController@getProgres
 Route::post('/progress/{id}', "App\Http\Controllers\ModelTblController@setProgress" );
 Route::get('/progress_op/{id}', "App\Http\Controllers\ModelTblController@getProgress_op" );
 Route::post('/progress_op/{id}', "App\Http\Controllers\ModelTblController@setProgress_op" );
+Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@store_dataset" );
+Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
+// configure globally via a JSON object
+
+
+
 //////// one to one relation  ///////////
 Route::get('/has-one', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
 Route::get('/has-one-reverse', "App\Http\Controllers\Relation\RelationsController@HasOneRelationReverse" );
