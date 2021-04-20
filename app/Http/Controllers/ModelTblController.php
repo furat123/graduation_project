@@ -197,7 +197,7 @@ class ModelTblController extends Controller
       // configure globally via a JSON object
       
      
-     $config = Configuration::instance([
+       $config = Configuration::instance([
         'cloud' => [
           'cloud_name' => 'hi5', 
           'api_key' => '323435588613243', 
@@ -205,26 +205,14 @@ class ModelTblController extends Controller
         'url' => [
           'secure' => true]]);
           $cloudinary = new Cloudinary($config);
-          // Prepare File
-        
-          $zip = new ZipArchive();
-          $zip->open($id.".zip", ZipArchive::CREATE);
       
-          // Stuff with content
+         
           foreach ($request->file('images') as $file)
-          $zip->addFile($file,$file->getClientOriginalName());
+          $cloudinary->uploadApi()->upload((string)$file, 
+          ["public_id" => $file->getClientOriginalName() , "type" => "private" 
+           , "resource_type	" => "private" , "folder" => "models/".$id."/dataset"]);
+         
 
-          // Close and send to users
-          $zip->close();
-        
-
-          $cloudinary->uploadApi()->upload($id.".zip" , 
-          ["public_id" => "data_set.zip" ,"format" => "zip" , "type" => "private" ,  "resource_type" => "raw"
-           , "resource_type	" => "private" , "folder" => "models/".$id."/"]);
-           // Prepare File
-
-            readfile($id.".zip");
-            unlink($id.".zip"); 
           return "Ahmad mohammad ";
           
              
@@ -233,12 +221,21 @@ class ModelTblController extends Controller
     public function get_dataset(Request $request,$id)
     { 
 
-          $client= new Client();
-          $apiRequest = $client->request('GET', "https://hi55.herokuapp.com/dataset/".$id);
-          $url =  $apiRequest->getBody();
-          $apiRequest = $client->request('GET', (string)$url);
-          return response($apiRequest->getBody()->getContents(), 200)
-          ->header('Content-Type', 'application/zip')->header('Content-disposition','attachment; filename="data_set.zip"');
+          // $client= new Client();
+          // $apiRequest = $client->request('GET', "https://hi55.herokuapp.com/dataset/".$id);
+          // $url =  $apiRequest->getBody();
+          // $apiRequest = $client->request('GET', (string)$url);
+          // return response($apiRequest->getBody()->getContents(), 200)
+          // ->header('Content-Type', 'application/zip')->header('Content-disposition','attachment; filename="data_set.zip"');
+          $config = Configuration::instance([
+            'cloud' => [
+              'cloud_name' => 'hi5', 
+              'api_key' => '323435588613243', 
+              'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+            'url' => [
+              'secure' => true]]);
+              $cloudinary = new Cloudinary($config);
+           return   $cloudinary->adminApi()->assets(["folder"=>"models/".$id."/dataset"]);
 
              
     }
