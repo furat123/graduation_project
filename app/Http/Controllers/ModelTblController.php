@@ -209,7 +209,7 @@ class ModelTblController extends Controller
          
           foreach ($request->file('images') as $file)
           $cloudinary->uploadApi()->upload((string)$file, 
-          ["public_id" => $file->getClientOriginalName() , "type" => "private" 
+          ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private" 
            , "resource_type	" => "private" , "folder" => "models/".$id."/dataset"]);
          
 
