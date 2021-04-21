@@ -179,7 +179,7 @@ class ModelTblController extends Controller
         $multipart[]=array('name'=>'image','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
         $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
         //$apiRequest = $client->request('POST', 'http://127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
-        $apiRequest = $client->request('POST', 'https://graduationprojectt.herokuapp.com/api/predict/'.$id,['multipart' => $multipart]);
+        $apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
         return   $apiRequest->getBody();  
     }
     
