@@ -252,7 +252,6 @@ class ModelTblController extends Controller
           $multipart[] = array('name'=>'csv','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
           foreach ($request->input('nodes') as $node)
           $multipart[] = array('name'=>'nodes','contents'=>$node);
-          print_r($multipart);
           $apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
           return  $apiRequest->getBody();
           

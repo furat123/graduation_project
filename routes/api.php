@@ -36,7 +36,7 @@ Route::get('/state_of_file/{id}', "App\Http\Controllers\Relation\RelationsContro
 
 
 
-//////// AI Algorithim Api  ///////////
+//////// AI Algorithim Apis  ///////////
 Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
 Route::get('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
 Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
@@ -50,7 +50,7 @@ Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@store_data
 Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
 Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
 Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
-// configure globally via a JSON object
+
 
 
 
