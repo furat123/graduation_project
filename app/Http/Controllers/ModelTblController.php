@@ -121,8 +121,7 @@ class ModelTblController extends Controller
        $multipart[] = array('name'=>'images','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName()); 
        //$apiRequest = $client->request('POST', 'http://127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
        $apiRequest = $client->request('POST','https://hi55.herokuapp.com/object_map_generation/'.$id, 
-        [
-        'multipart' => $multipart]);
+        ['multipart' => $multipart]);
         return   $apiRequest->getBody();
 
     }
@@ -183,13 +182,6 @@ class ModelTblController extends Controller
         return   $apiRequest->getBody();  
     }
     
-    
-    
-    
-    public function store_op(Request $request,$id)
-    {        
-     
-    }
 
     public function store_dataset(Request $request,$id)
     { 
@@ -210,9 +202,7 @@ class ModelTblController extends Controller
           foreach ($request->file('images') as $file)
           $cloudinary->uploadApi()->upload((string)$file, 
           ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private" 
-           , "resource_type	" => "private" , "folder" => "models/".$id."/dataset"]);
-         
-
+           , "resource_type	" => "private" , "folder" => "models/".$id."/dataset"]);         
           return "Ahmad mohammad ";
           
              
@@ -251,6 +241,33 @@ class ModelTblController extends Controller
           return response($apiRequest->getBody()->getContents(), 200)
           ->header('Content-Type', 'application/zip')->header('Content-disposition','attachment; filename="object_maps.zip"');
 
+             
+    }
+
+    public function object_map_labeling(Request $request,$id)
+    { 
+          $multipart = [];
+          $client= new Client();
+          foreach ($request->file('csvs') as $file)
+          $multipart[] = array('name'=>'csv','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
+          foreach ($request->input('nodes') as $node)
+          $multipart[] = array('name'=>'nodes','contents'=>$node);
+          print_r($multipart);
+          $apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
+          return  $apiRequest->getBody();
+          
+             
+    }
+
+    public function text_form_box(Request $request)
+    { 
+          $multipart = [];
+          $client= new Client();
+          $multipart[] = array('name'=>'csv','contents'=>fopen($request->file('csv'),'r'),"filename" => "assa");
+          $multipart[] = array('name'=>'node','contents'=>$request->input('node'));
+          $apiRequest = $client->request('POST', "https://hi55.herokuapp.com/text_form_box", [ 'multipart' => $multipart]);
+          return  $apiRequest->getBody();
+          
              
     }
 

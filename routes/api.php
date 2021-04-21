@@ -48,6 +48,8 @@ Route::get('/progress_op/{id}', "App\Http\Controllers\ModelTblController@getProg
 Route::post('/progress_op/{id}', "App\Http\Controllers\ModelTblController@setProgress_op" );
 Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@store_dataset" );
 Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
+Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
+Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
 // configure globally via a JSON object
 
 
