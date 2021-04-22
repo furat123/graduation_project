@@ -65,6 +65,17 @@ Route::get('/userhasmodel', "App\Http\Controllers\Relation\RelationsController@g
 Route::get('/user_to_model/{id}', "App\Http\Controllers\Relation\RelationsController@getModelsOFUser" );
 Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getuserslOFmodel" );
 
+//public api
+Route::post('/Register', [AuthController::class, 'register']);
+Route::post('/Login', [AuthController::class, 'login']);
+
+
+// protected api
+Route::group(['middleware' => ['auth:sanctum']],function (){
+    Route::get('/Muhannad', [Muhannad::class, 'index']);
+    Route::post('/Logout', [AuthController::class, 'logout']);
+    Route::get('/who', [AuthController::class, 'who']);
+});
 
 
 
