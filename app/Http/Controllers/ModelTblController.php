@@ -208,6 +208,29 @@ class ModelTblController extends Controller
              
     }
 
+    public function delete_from_dataset(Request $request)
+    { 
+
+          // $client= new Client();
+          // $apiRequest = $client->request('GET', "https://hi55.herokuapp.com/dataset/".$id);
+          // $url =  $apiRequest->getBody();
+          // $apiRequest = $client->request('GET', (string)$url);
+          // return response($apiRequest->getBody()->getContents(), 200)
+          // ->header('Content-Type', 'application/zip')->header('Content-disposition','attachment; filename="data_set.zip"');
+          $config = Configuration::instance([
+            'cloud' => [
+              'cloud_name' => 'hi5', 
+              'api_key' => '323435588613243', 
+              'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+            'url' => [
+              'secure' => true]]);
+              $cloudinary = new Cloudinary($config);
+           return   $cloudinary->adminApi()->deleteAssets($request->input("public_ids"));
+
+             
+    }
+
+
     public function get_dataset(Request $request,$id)
     { 
 
@@ -225,10 +248,11 @@ class ModelTblController extends Controller
             'url' => [
               'secure' => true]]);
               $cloudinary = new Cloudinary($config);
-           return   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/dataset", 'type' => 'private']);
+           return   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/dataset", "max_results" => 500 ,'type' => 'private']);
 
              
     }
+    
 
     
     public function get_csvs(Request $request,$id)
