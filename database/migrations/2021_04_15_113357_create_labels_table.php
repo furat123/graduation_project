@@ -20,6 +20,8 @@ class CreateLabelsTable extends Migration
              $table->unsignedBigInteger('model_id');
              $table->string('label',99); 
              $table->integer('index',99)->unsigned();
+             $table->string('color',99);
+
             });
              Schema::connection('mysql')->table('labels', function (Blueprint $table) {
                 $table->foreign('model_id')->references('id')->on('model_tbls');

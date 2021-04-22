@@ -33,9 +33,6 @@ Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsContr
 ///// state of file
 Route::get('/state_of_file/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfFile" );
 
-
-
-
 //////// AI Algorithim Apis  ///////////
 Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
 Route::get('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
@@ -47,11 +44,9 @@ Route::get('/progress_op/{id}', "App\Http\Controllers\ModelTblController@getProg
 Route::put('/progress_op/{id}', "App\Http\Controllers\ModelTblController@setProgress_op" );
 Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@store_dataset" );
 Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
-Route::delete('/dataset', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
+Route::post('/dataset', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
 Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
 Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
-
-
 
 
 //////// one to one relation  ///////////
