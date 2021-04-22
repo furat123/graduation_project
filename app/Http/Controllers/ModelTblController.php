@@ -248,7 +248,23 @@ class ModelTblController extends Controller
 
              
     }
-    
+
+    public function delete_all_dataset(Request $request,$id)
+    { 
+      $config = Configuration::instance([
+        'cloud' => [
+          'cloud_name' => 'hi5', 
+          'api_key' => '323435588613243', 
+          'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+        'url' => [
+          'secure' => true]]);
+          $cloudinary = new Cloudinary($config);
+          return   $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/dataset", ['type' => 'private']);
+
+         
+          
+             
+    }
 
     
     public function get_csvs(Request $request,$id)
@@ -289,6 +305,9 @@ class ModelTblController extends Controller
           
              
     }
+
+  
+    
 
 
 
