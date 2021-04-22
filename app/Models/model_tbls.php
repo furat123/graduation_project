@@ -20,7 +20,7 @@ class model_tbls extends Model
         'number_of_using',
         'state_id',
         'progress',
-
+        'progress_op',
     ];
     protected $hidden=['owner_id','pivot'];
    

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,16 +33,23 @@ Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsContr
 ///// state of file
 Route::get('/state_of_file/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfFile" );
 
-
-
-
-//////// AI Algorithim Api  ///////////
+//////// AI Algorithim Apis  ///////////
 Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
+Route::get('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
 Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
 Route::post('/predict/{id}', "App\Http\Controllers\ModelTblController@predict" );
-Route::post('/store_labeld_op/{id}', "App\Http\Controllers\ModelTblController@store_op" );
 Route::get('/progress/{id}', "App\Http\Controllers\ModelTblController@getProgress" );
-Route::post('/progress/{id}', "App\Http\Controllers\ModelTblController@setProgress" );
+Route::put('/progress/{id}', "App\Http\Controllers\ModelTblController@setProgress" );
+Route::get('/progress_op/{id}', "App\Http\Controllers\ModelTblController@getProgress_op" );
+Route::put('/progress_op/{id}', "App\Http\Controllers\ModelTblController@setProgress_op" );
+Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@store_dataset" );
+Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
+Route::delete('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_all_dataset");
+Route::post('/dataset', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
+Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
+Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
+
+
 //////// one to one relation  ///////////
 Route::get('/has-one', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
 Route::get('/has-one-reverse', "App\Http\Controllers\Relation\RelationsController@HasOneRelationReverse" );
@@ -58,17 +66,6 @@ Route::get('/user_to_model/{id}', "App\Http\Controllers\Relation\RelationsContro
 Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getuserslOFmodel" );
 
 
-//public api
-Route::post('/Register', [AuthController::class, 'register']);
-Route::post('/Login', [AuthController::class, 'login']);
-
-
-// protected api
-Route::group(['middleware' => ['auth:sanctum']],function (){
-    Route::get('/Muhannad', [Muhannad::class, 'index']);
-    Route::post('/Logout', [AuthController::class, 'logout']);
-    Route::get('/who', [AuthController::class, 'who']);
-});
 
 
 
