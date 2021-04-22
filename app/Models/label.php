@@ -13,7 +13,7 @@ class label extends Model
     protected $fillable=[
         'model_id',
         'label',
-        'index',
+        'color',
 
     ];
 }

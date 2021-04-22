@@ -16,10 +16,9 @@ class CreateLabelsTable extends Migration
         Schema::create('labels', function (Blueprint $table) {
            
             
-             $table->bigInteger('id')->unique()->unsigned();
+             $table->id('id')->unique()->unsigned();
              $table->unsignedBigInteger('model_id');
              $table->string('label',99); 
-             $table->integer('index',99)->unsigned();
              $table->string('color',99);
 
             });
