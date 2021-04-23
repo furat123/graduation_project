@@ -38,12 +38,12 @@ class RelationsController extends Controller
       // $model= model_tbls::FindOrFail(1);
        //$model = model_tbls::with('OwnerModel')->FindOrFail(1);///
        $model = model_tbls::with(['OwnerModel'=>function($q){
-        $q -> select('name','user.id');
+        $q -> select('id');
               }])->FindOrFail($id);
 
      //  $model ->makeVisible(['owner_id']);
       // return $model ->OwnerModel;//all information about owner of the model
-        return response()->json($model, 200);
+        return $model;
       //return $model -> OwnerModel-> name; owner for this model
 
     }
