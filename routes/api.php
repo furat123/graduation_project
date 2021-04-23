@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -48,6 +47,7 @@ Route::delete('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_a
 Route::post('/dataset', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
 Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
 Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
+
 
 
 //////// one to one relation  ///////////
