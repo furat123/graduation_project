@@ -17,6 +17,7 @@ class AuthId
      * @param  \Closure  $next
      * @return mixed
      */
+    //k
     public function handle(Request $request, Closure $next)
     {
        $rc = new ModelTblController();
