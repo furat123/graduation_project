@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Muhannad;
+use App\Http\Middleware\AuthId;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,8 +78,14 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/Muhannad', [Muhannad::class, 'index']);
     Route::post('/Logout', [AuthController::class, 'logout']);
     Route::get('/who', [AuthController::class, 'who']);
+
+    Route::post('/Muhannad', function () {
+        return "muhannad";
+    })->middleware(['AuthId']);
 });
 
-
+//Route::group(['middleware' => ['AuthId']],function (){
+//
+//});
 
 
