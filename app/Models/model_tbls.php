@@ -22,7 +22,7 @@ class model_tbls extends Model
         'progress',
         'progress_op',
     ];
-    protected $hidden=['owner_id','pivot'];
+    protected $hidden=['pivot'];
    
     //////////relation/////////
     public function OwnerModel (){

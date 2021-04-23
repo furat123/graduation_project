@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Muhannad;
+use App\Http\Controllers\LabelController;
 use App\Http\Middleware\AuthId;
 
 /*
@@ -69,14 +69,14 @@ Route::get('/user_to_model/{id}', "App\Http\Controllers\Relation\RelationsContro
 Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getuserslOFmodel" );
 
 //public api
-Route::post('/Register', [AuthController::class, 'register']);
-Route::post('/Login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
 
 // protected api
 Route::group(['middleware' => ['auth:sanctum']],function (){
-    Route::get('/Muhannad', [Muhannad::class, 'index']);
-    Route::post('/Logout', [AuthController::class, 'logout']);
+    Route::get('/muhannad', [LabelController::class, 'index']);
+    Route::post('/mogout', [AuthController::class, 'logout']);
     Route::get('/who', [AuthController::class, 'who']);
 
     Route::post('/Muhannad', function () {
