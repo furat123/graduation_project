@@ -16,7 +16,7 @@ class CreateModelStatesTable extends Migration
         Schema::create('model_states', function (Blueprint $table) {
             // $table->id();
             // $table->timestamps();
-            $table->id('id')->unique()->unsigned();
+            $table->bigInteger('id')->unique()->unsigned();
             $table->string('state',99);
             $table->string('color',99);
           

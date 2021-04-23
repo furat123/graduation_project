@@ -13,6 +13,7 @@ class model_tbls extends Model
     public $timestamps=false;
     protected $fillable=[
         'name',
+        'number_of_feature',
         'created_date',
         'last_use_date',
         'owner_id',
@@ -20,9 +21,9 @@ class model_tbls extends Model
         'number_of_using',
         'state_id',
         'progress',
-        'progress_op',
+
     ];
-    protected $hidden=['pivot'];
+    protected $hidden=['owner_id','pivot'];
    
     //////////relation/////////
     public function OwnerModel (){
@@ -34,4 +35,9 @@ class model_tbls extends Model
     public function State_Of_Model(){
        return $this ->belongsTo('App\Models\model_states', 'id');
     }
+    public function label_for_model(){
+        return $this ->hasMany('App\Models\label', 'model_id');
+                 }
+  
+       
 }

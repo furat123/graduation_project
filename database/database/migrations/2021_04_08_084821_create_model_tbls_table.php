@@ -19,6 +19,7 @@ class CreateModelTblsTable extends Migration
   
               $table->id('id');
               $table->string('name', 99)->unique();
+              $table->integer('number_of_feature')->unsigned();
               $table->date('created_date');
               $table->date('last_use_date');
               $table->unsignedBigInteger('owner_id');
