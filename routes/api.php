@@ -52,6 +52,7 @@ Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblControlle
 Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
 
 
+
 //////// one to one relation  ///////////
 Route::get('/has-one', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
 Route::get('/has-one-reverse', "App\Http\Controllers\Relation\RelationsController@HasOneRelationReverse" );
