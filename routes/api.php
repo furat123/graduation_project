@@ -54,7 +54,7 @@ Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form
 
 
 //////// one to one relation  /////////// ----(has one to return the model which the user owner )
-//===========has one reverse to return the owner of model 
+//===========has one reverse to return the owner of model
 Route::get('/has-one/{id}', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
 Route::get('/has-one-reverse/{id}', "App\Http\Controllers\Relation\RelationsController@HasOneRelationReverse" );
 Route::get('/a',function (){
@@ -72,19 +72,23 @@ Route::get('/user_to_model/{id}', "App\Http\Controllers\Relation\RelationsContro
 Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getusersOFmodel" );
 
 //public api
-Route::post('/Register', [AuthController::class, 'register']);
-Route::post('/Login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
 
 // protected api
 Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/Muhannad', [LabelController::class, 'index']);
-    Route::post('/Logout', [AuthController::class, 'logout']);
+    Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/who', [AuthController::class, 'who']);
 
     Route::post('/Muhannad', function () {
         return "muhannad";
     })->middleware(['AuthId']);
+
+    Route::post('/MuhannadAdmin', function () {
+        return "muhannadAdmin";
+    })->middleware(['AuthAdmin']);
 });
 
 //Route::group(['middleware' => ['AuthId']],function (){

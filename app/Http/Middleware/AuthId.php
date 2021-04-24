@@ -22,9 +22,15 @@ class AuthId
        $rc = new ModelTblController();
        $user = $request->user();
        $idModel = $request->input('id');
+       $responsefromuser =  $rc->show($idModel)->status();
+       print($responsefromuser);
+       if($responsefromuser== 404)
+           return response()->json(['msg' => 'model not found',
+           ] ,404);
+
         if($user['id'] != $rc->show($idModel)->getData()->owner_id)
-            return response()->json(['msg' => 'not valid id',
-            ]);
+            return response()->json(['msg' => 'not authorized to use this model',
+            ] , 403);
 
         return $next($request);
     }
