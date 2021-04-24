@@ -53,20 +53,23 @@ Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form
 
 
 
-//////// one to one relation  ///////////
-Route::get('/has-one', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
-Route::get('/has-one-reverse', "App\Http\Controllers\Relation\RelationsController@HasOneRelationReverse" );
+//////// one to one relation  /////////// ----(has one to return the model which the user owner )
+//===========has one reverse to return the owner of model 
+Route::get('/has-one/{id}', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
+Route::get('/has-one-reverse/{id}', "App\Http\Controllers\Relation\RelationsController@HasOneRelationReverse" );
 Route::get('/a',function (){
     return "ahmad";
 });
 
 
 //////// one to many relation  ///////////
-Route::get('/userhasmodel', "App\Http\Controllers\Relation\RelationsController@getFilesOfMdel" );
+Route::get('/userhasmodel/{id}', "App\Http\Controllers\Relation\RelationsController@getFilesOfMdel" );
+//Route::get('/label_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getLabelOfModel");
+
 
 //////// many to many relation  ///////////
 Route::get('/user_to_model/{id}', "App\Http\Controllers\Relation\RelationsController@getModelsOFUser" );
-Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getuserslOFmodel" );
+Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getusersOFmodel" );
 
 //public api
 Route::post('/register', [AuthController::class, 'register']);

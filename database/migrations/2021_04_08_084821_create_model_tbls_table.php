@@ -26,6 +26,8 @@ class CreateModelTblsTable extends Migration
               $table->integer('number_of_using')->unsigned();
               $table->unsignedBigInteger('state_id');
               $table->float('progress',99);
+              $table->float('progress_op',99);
+
               
               //$table->timestamps();
             //  $table->id();
