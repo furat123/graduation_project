@@ -52,8 +52,8 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $token = $user->createToken('hi5Token', ['canLogout'])->plainTextToken;
-
+     //  $token = $user->createToken('hi5Token', ['canLogout'])->plainTextToken;
+        $token = $user->createToken('hi5Token')->plainTextToken;
         $response = [
             'user' => $user,
             'token' => $token
@@ -63,13 +63,13 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request) {
-        if(auth()->user()->tokencan('canLogout')) {
+//        if(auth()->user()->tokencan('canLogout')) {
             auth()->user()->tokens()->delete();
-        }else {
+  //      }else {
             return response()->json([
                 'msg' => 'unautharized'
             ] , 204);
-        }
+    //    }
         //$request->user()->currentAccessToken()->delete();
         return response([
             'msg' => 'logout success'
