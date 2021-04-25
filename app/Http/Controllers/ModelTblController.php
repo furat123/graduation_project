@@ -311,19 +311,9 @@ class ModelTblController extends Controller
 
     public function image(Request $request,$id)
     {
-      $config = Configuration::instance([
-        'cloud' => [
-          'cloud_name' => 'hi5',
-          'api_key' => '323435588613243',
-          'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
-        'url' => [
-          'secure' => true]]);
-          $cloudinary = new Cloudinary($config);
-          $url = 
-          $client= new Client();
           $url = "https://res.cloudinary.com/hi5/image/upload/v1619392994/models/".$id."/image";
-          $apiRequest = $client->request($url);
-          return  $apiRequest->getBody();
+
+          return  $url;
 
 
     }
