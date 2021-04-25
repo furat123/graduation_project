@@ -97,6 +97,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::post('/dataset', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
     Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
     Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
+    Route::get('/model/image/{id}', "App\Http\Controllers\ModelTblController@image" );
 
 });
 
