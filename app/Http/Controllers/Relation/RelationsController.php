@@ -10,6 +10,9 @@ use App\Models\user_has_model;
 use App\Models\file;
 use App\Models\label;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+
 
 class RelationsController extends Controller
 {
@@ -67,6 +70,13 @@ class RelationsController extends Controller
           //        }])->FindOrFail(1);
    
     }
+  
+    public function getVerifyOfFile($id){
+    //  return 0;
+      $file= file::FindOrFail($id);
+      return  $file ->  Verify_Of_File -> verify_state;
+
+    }
 
     ///////////////// one to many relation 
     public function  getFilesOfMdel($id){
@@ -117,4 +127,34 @@ class RelationsController extends Controller
         echo $var->label ; 
         echo "\n";
    
-}}}
+}}
+   public function ShowModelOfowner($id){
+    
+   // $FilesOfMdel= user_has_model::with('fun_file','User_Models')->get();
+   
+   // return $FilesOfMdel;;
+          $data = DB::table('user_has_models')
+          ->join('files','files.user_model_id','=','user_has_models.id')
+          ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
+          ->select('files.name as file_name','model_tbls.id','model_tbls.name','files.state_id')
+          ->where('user_has_models.id',$id)
+          ->whereColumn('owner_id','=','user_id')
+          ->get();
+          return $data;
+        }
+
+        public function ShowModelUsed($id){
+              
+                 $data = DB::table('user_has_models')
+                 ->join('files','files.user_model_id','=','user_has_models.id')
+                ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
+                  //orWhereNull('owner_id')
+                 ->select('files.name as file_name','model_tbls.id','model_tbls.name','files.state_id')
+                 ->where('user_has_models.id',$id)
+                 ->whereColumn('owner_id','!=','user_id')
+                 ->get();
+                 return $data;
+               }
+
+
+}

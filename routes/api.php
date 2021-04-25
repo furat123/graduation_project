@@ -34,6 +34,9 @@ Route::resource('/label',"App\Http\Controllers\LabelController");
 Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfModel" );
 ///// state of file
 Route::get('/state_of_file/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfFile" );
+///// verify of file
+Route::get('/verify_of_file/{id}', "App\Http\Controllers\Relation\RelationsController@getVerifyOfFile" );
+
 
 //////// AI Algorithim Apis  ///////////
 Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
@@ -94,5 +97,9 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 //Route::group(['middleware' => ['AuthId']],function (){
 //
 //});
+//this relation to show the model which the user owns
+Route::get('/furat/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelOfowner");
+//this relation to show the model which the user use
+Route::get('/fur/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelUsed");
 
 

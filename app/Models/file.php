@@ -29,7 +29,12 @@ class file extends Model
 
     public function State_Of_File (){
         
-        return  $this ->belongsTo('App\Models\file_state', 'id');
+        return  $this ->belongsTo('App\Models\file_state', 'state_id');
+       
+     }
+     public function Verify_Of_File (){
+        
+        return  $this ->belongsTo('App\Models\verify_state', 'verify_state');
        
      }
 
