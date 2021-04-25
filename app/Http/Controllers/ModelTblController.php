@@ -57,7 +57,7 @@ class ModelTblController extends Controller
         $cloudinary->uploadApi()->upload((string)$request->file('image'),
         ["public_id" => 'image' , "type" => "private"
          , "resource_type	" => "private" , "folder" => "models/".$model_tbl->id."/dataset"]);
-
+        
 
 
     return response()->json($model_tbl,201);
