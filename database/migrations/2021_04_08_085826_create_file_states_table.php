@@ -16,7 +16,7 @@ class CreateFileStatesTable extends Migration
         Schema::create('file_states', function (Blueprint $table) {
             // $table->id();
             // $table->timestamps();
-            $table->bigInteger('id')->unique()->unsigned();
+            $table->bigInteger('id')->unique()->unsigned();#->autoIncrement();
             $table->string('state_name',99);
          });
         
