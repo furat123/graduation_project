@@ -45,7 +45,21 @@ class ModelTblController extends Controller
      */
     public function store(Request $request)
     {
-    $model_tbl = model_tbls::create($request->all());
+    $model_tbl = model_tbls::create($request->except('image'));
+    $config = Configuration::instance([
+      'cloud' => [
+        'cloud_name' => 'hi5',
+        'api_key' => '323435588613243',
+        'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+      'url' => [
+        'secure' => true]]);
+        $cloudinary = new Cloudinary($config);
+        $cloudinary->uploadApi()->upload((string)$request->file('image'),
+        ["public_id" => 'image' , "type" => "private"
+         , "resource_type	" => "private" , "folder" => "models/".$model_tbl->id."/dataset"]);
+
+
+
     return response()->json($model_tbl,201);
     }
 
@@ -63,6 +77,7 @@ class ModelTblController extends Controller
        if(is_null($modeltbl)){
        return response()->json(["message"=>'record not find!!!'], 404);
        }
+       
        return response()->json($modeltbl, 200);
 
     }
