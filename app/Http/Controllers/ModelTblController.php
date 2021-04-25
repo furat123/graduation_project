@@ -321,7 +321,7 @@ class ModelTblController extends Controller
           $cloudinary = new Cloudinary($config);
           $url = 
           $client= new Client();
-          $url = "https://res.cloudinary.com/hi5/image/upload/v1619392994/models/".$id."/image"
+          $url = "https://res.cloudinary.com/hi5/image/upload/v1619392994/models/".$id."/image";
           $apiRequest = $client->request($url);
           return  $apiRequest->getBody();
 
