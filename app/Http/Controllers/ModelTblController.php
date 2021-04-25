@@ -56,7 +56,7 @@ class ModelTblController extends Controller
         $cloudinary = new Cloudinary($config);
         $cloudinary->uploadApi()->upload((string)$request->file('image'),
         ["public_id" => 'image' , "type" => "upload"
-         , "resource_type	" => "private" , "folder" => "models/".$model_tbl->id."/dataset"]);
+         , "resource_type	" => "private" , "folder" => "models/".$model_tbl->id]);
         
 
 
@@ -309,7 +309,7 @@ class ModelTblController extends Controller
 
     }
 
-    public function image(Request $request)
+    public function image(Request $request,$id)
     {
       $config = Configuration::instance([
         'cloud' => [
@@ -321,7 +321,7 @@ class ModelTblController extends Controller
           $cloudinary = new Cloudinary($config);
           $url = 
           $client= new Client();
-          $url = 
+          $url = "https://res.cloudinary.com/hi5/image/upload/v1619392994/models/".$id."/image"
           $apiRequest = $client->request($url);
           return  $apiRequest->getBody();
 
