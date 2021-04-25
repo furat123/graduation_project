@@ -32,6 +32,7 @@ class User extends Model
     public function User_Models(){
         return $this ->belongsToMany("App\Models\model_tbls",'user_has_models','user_id','model_id');
     }
+   
 
 
 }

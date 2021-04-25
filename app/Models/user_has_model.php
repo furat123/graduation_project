@@ -23,5 +23,6 @@ class user_has_model extends Model
      public function fun_file (){
         return $this ->hasMany('App\Models\file', 'user_model_id');
     }
+   
     
 }
