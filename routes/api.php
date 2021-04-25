@@ -62,11 +62,24 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 
+
+
 //////////////// protected api
 Route::group(['middleware' => ['auth:sanctum']],function (){
 
     Route::post('/logout', [AuthController::class, 'logout']);
-    //////// AI Algorithim Apis  ///////////
+//    Route::get('/Muhannad', [LabelController::class, 'index'])
+//    Route::get('/who', [AuthController::class, 'who']);
+//    Route::post('/Muhannad', function () {
+//        return "muhannad";
+//    })->middleware(['AuthId']);
+//    Route::post('/MuhannadAdmin', function () {
+//        return "muhannadAdmin";
+//    })->middleware(['AuthAdmin']);
+    ///////////// Authentication///////////////
+
+
+//////// AI Algorithim Apis  ///////////
     Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
     Route::get('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
     Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
@@ -81,16 +94,6 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::post('/dataset', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
     Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
     Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
-
-    //    Route::get('/Muhannad', [LabelController::class, 'index'])
-//    Route::get('/who', [AuthController::class, 'who']);
-//    Route::post('/Muhannad', function () {
-//        return "muhannad";
-//    })->middleware(['AuthId']);
-//    Route::post('/MuhannadAdmin', function () {
-//        return "muhannadAdmin";
-//    })->middleware(['AuthAdmin']);
-    ///////////// Authentication///////////////
 
 });
 
