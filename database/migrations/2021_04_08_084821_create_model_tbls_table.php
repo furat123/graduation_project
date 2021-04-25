@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateModelTblsTable extends Migration
 {
@@ -18,15 +19,15 @@ class CreateModelTblsTable extends Migration
              // $table->timestamps();
   
               $table->id('id');
-              $table->string('name', 99)->unique();
-              $table->date('created_date');
-              $table->date('last_use_date');
+              $table->string('name', 99);//->unique();
+              $table->date('created_date')->default(DB::raw('CURRENT_TIMESTAMP'));
+              $table->date('last_use_date')->default(DB::raw('CURRENT_TIMESTAMP'));
               $table->unsignedBigInteger('owner_id');
               $table->boolean('public_state');
-              $table->integer('number_of_using')->unsigned();
+              $table->integer('number_of_using')->unsigned()->default(0);
               $table->unsignedBigInteger('state_id');
-              $table->float('progress',99);
-              $table->float('progress_op',99);
+              $table->float('progress',99)->default(0.0);
+              $table->float('progress_op',99)->default(0.0);
 
               
               //$table->timestamps();
