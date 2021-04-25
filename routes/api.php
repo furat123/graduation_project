@@ -62,25 +62,27 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 
+//////// AI Algorithim Apis  ///////////
+Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
+Route::get('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
+Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
+Route::post('/predict/{id}', "App\Http\Controllers\ModelTblController@predict" );
+Route::get('/progress/{id}', "App\Http\Controllers\ModelTblController@getProgress" );
+Route::put('/progress/{id}', "App\Http\Controllers\ModelTblController@setProgress" );
+Route::get('/progress_op/{id}', "App\Http\Controllers\ModelTblController@getProgress_op" );
+Route::put('/progress_op/{id}', "App\Http\Controllers\ModelTblController@setProgress_op" );
+Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@store_dataset" );
+Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
+Route::delete('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_all_dataset");
+Route::post('/dataset', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
+Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
+Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
+
 //////////////// protected api
 Route::group(['middleware' => ['auth:sanctum']],function (){
 
     Route::post('/logout', [AuthController::class, 'logout']);
-    //////// AI Algorithim Apis  ///////////
-    Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
-    Route::get('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
-    Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
-    Route::post('/predict/{id}', "App\Http\Controllers\ModelTblController@predict" );
-    Route::get('/progress/{id}', "App\Http\Controllers\ModelTblController@getProgress" );
-    Route::put('/progress/{id}', "App\Http\Controllers\ModelTblController@setProgress" );
-    Route::get('/progress_op/{id}', "App\Http\Controllers\ModelTblController@getProgress_op" );
-    Route::put('/progress_op/{id}', "App\Http\Controllers\ModelTblController@setProgress_op" );
-    Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@store_dataset" );
-    Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
-    Route::delete('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_all_dataset");
-    Route::post('/dataset', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
-    Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
-    Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
+
 
     //    Route::get('/Muhannad', [LabelController::class, 'index'])
 //    Route::get('/who', [AuthController::class, 'who']);
