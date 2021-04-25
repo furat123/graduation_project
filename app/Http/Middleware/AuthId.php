@@ -22,9 +22,9 @@ class AuthId
        $rc = new ModelTblController();
        $user = $request->user();
        $idModel = $request->route('id');
-       print($idModel);
+       //print($idModel);
        $responsefromuser =  $rc->show($idModel)->status();
-       print($responsefromuser);
+       //print($responsefromuser);
        if($responsefromuser== 404)
            return response()->json(['msg' => 'model not found',
            ] ,404);
