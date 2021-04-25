@@ -21,7 +21,8 @@ class AuthId
     {
        $rc = new ModelTblController();
        $user = $request->user();
-       $idModel = $request->input('id');
+       $idModel = $request->route('id');
+       print($idModel);
        $responsefromuser =  $rc->show($idModel)->status();
        print($responsefromuser);
        if($responsefromuser== 404)
