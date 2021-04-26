@@ -96,10 +96,10 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::delete('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_all_dataset");
     Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
     
-    Route::post('/predict/{id}', "App\Http\Controllers\ModelTblController@store_predict" );
-    Route::get('/predict/{id}', "App\Http\Controllers\ModelTblController@get_predict" );
-    Route::delete('/predict/{id}', "App\Http\Controllers\ModelTblController@delete_all_predict");
-    Route::post('/predict/{id}', "App\Http\Controllers\ModelTblController@delete_from_predict" );
+    Route::post('images/predict/{id}', "App\Http\Controllers\ModelTblController@store_predict" );
+    Route::get('images/predict/{id}', "App\Http\Controllers\ModelTblController@get_predict" );
+    Route::delete('images/predict/{id}', "App\Http\Controllers\ModelTblController@delete_all_predict");
+    Route::post('images/predict/{id}', "App\Http\Controllers\ModelTblController@delete_from_predict" );
 
     Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
     Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
