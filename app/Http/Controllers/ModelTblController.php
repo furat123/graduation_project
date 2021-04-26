@@ -186,7 +186,6 @@ class ModelTblController extends Controller
 
     public function predict(Request $request,$id)
     {
-
         $client= new Client();
         $labels=new LabelController();
         $labels=$labels->labelsForModel($id);
