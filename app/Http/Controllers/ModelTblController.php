@@ -55,8 +55,8 @@ class ModelTblController extends Controller
         'secure' => true]]);
         $cloudinary = new Cloudinary($config);
         $cloudinary->uploadApi()->upload((string)$request->file('image'),
-        ["public_id" => 'image' , "type" => "private"
-         , "resource_type	" => "private" , "folder" => "models/".$model_tbl->id."/dataset"]);
+        ["public_id" => 'image' , "type" => "upload"
+         , "resource_type	" => "private" , "folder" => "models/".$model_tbl->id]);
         
 
 
@@ -305,6 +305,15 @@ class ModelTblController extends Controller
           $multipart[] = array('name'=>'nodes','contents'=>$node);
           $apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
           return  $apiRequest->getBody();
+
+
+    }
+
+    public function image(Request $request,$id)
+    {
+          $url = "https://res.cloudinary.com/hi5/image/upload/v1619392994/models/".$id."/image";
+
+          return  $url;
 
 
     }
