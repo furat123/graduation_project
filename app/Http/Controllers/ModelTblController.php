@@ -297,15 +297,12 @@ class ModelTblController extends Controller
         'url' => [
         'secure' => true]]);
         $cloudinary = new Cloudinary($config);
-        $use_has_id = (new UserHasModelController())->user_model_id($id , $request->input('model_id'));
-        $use_has_id = $use_has_id->get();
-        print_r($use_has_id);
-        // foreach ($request->file('images') as $file){
-        // file::created(['name'=>$file->getClientOriginalName() ,  'user_model_id' => $use_has_id]);
-        // $cloudinary->uploadApi()->upload((string)$file,
-        // ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
-        //  , "resource_type	" => "private" , "folder" => "models/".$id."/predict"."/".$request->input('model_id')]);
-        // }
+        foreach ($request->file('images') as $file){
+        file::created(['name'=>$file->getClientOriginalName() , 'model_id' => $id ,'user_id' => $request->input('user_id')]);
+        $cloudinary->uploadApi()->upload((string)$file,
+        ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
+         , "resource_type	" => "private" , "folder" => "models/".$id."/predict"."/".$request->input('model_id')]);
+        }
         return "ahmad";
 
 

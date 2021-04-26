@@ -1,0 +1,48 @@
+[2021-04-26 21:15:43] production.ERROR: Uncaught PDOException: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ in C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php:70
+Stack trace:
+#0 C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php(70): PDO->__construct('mysql:host=127....', 'forge', '', Array)
+#1 C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php(46): Illuminate\Database\Connectors\Connector->createPdoConnection('mysql:host=127....', 'forge', '', Array)
+#2 C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\framework\src\Illuminate\Database\Connectors\MySqlConnector.php(24): Illuminate\Database\Connectors\Connector->createConnection('mysql:host=127....', Array, Array)
+#3 C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\ {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught PDOException: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ in C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70
+Stack trace:
+#0 C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(70): PDO->__construct('mysql:host=127....', 'forge', '', Array)
+#1 C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(46): Illuminate\\Database\\Connectors\\Connector->createPdoConnection('mysql:host=127....', 'forge', '', Array)
+#2 C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\MySqlConnector.php(24): Illuminate\\Database\\Connectors\\Connector->createConnection('mysql:host=127....', Array, Array)
+#3 C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\ at C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:678)
+[stacktrace]
+#0 {main}
+"} 
+[2021-04-26 21:15:52] production.ERROR: Uncaught PDOException: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ in C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php:70
+Stack trace:
+#0 C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php(70): PDO->__construct('mysql:host=127....', 'forge', '', Array)
+#1 C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php(46): Illuminate\Database\Connectors\Connector->createPdoConnection('mysql:host=127....', 'forge', '', Array)
+#2 C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\framework\src\Illuminate\Database\Connectors\MySqlConnector.php(24): Illuminate\Database\Connectors\Connector->createConnection('mysql:host=127....', Array, Array)
+#3 C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\ {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught PDOException: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ in C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70
+Stack trace:
+#0 C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(70): PDO->__construct('mysql:host=127....', 'forge', '', Array)
+#1 C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(46): Illuminate\\Database\\Connectors\\Connector->createPdoConnection('mysql:host=127....', 'forge', '', Array)
+#2 C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\MySqlConnector.php(24): Illuminate\\Database\\Connectors\\Connector->createConnection('mysql:host=127....', Array, Array)
+#3 C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\ at C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:678)
+[stacktrace]
+#0 {main}
+"} 
+[2021-04-26 21:17:13] production.ERROR: Uncaught PDOException: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ in C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php:70
+Stack trace:
+#0 C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php(70): PDO->__construct('mysql:host=127....', 'forge', '', Array)
+#1 C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php(46): Illuminate\Database\Connectors\Connector->createPdoConnection('mysql:host=127....', 'forge', '', Array)
+#2 C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\framework\src\Illuminate\Database\Connectors\MySqlConnector.php(24): Illuminate\Database\Connectors\Connector->createConnection('mysql:host=127....', Array, Array)
+#3 C:\Users\ahmad\Desktop\laravel - hi5\graduation_project\vendor\laravel\ {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught PDOException: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ in C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70
+Stack trace:
+#0 C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(70): PDO->__construct('mysql:host=127....', 'forge', '', Array)
+#1 C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(46): Illuminate\\Database\\Connectors\\Connector->createPdoConnection('mysql:host=127....', 'forge', '', Array)
+#2 C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\MySqlConnector.php(24): Illuminate\\Database\\Connectors\\Connector->createConnection('mysql:host=127....', Array, Array)
+#3 C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\ at C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:678)
+[stacktrace]
+#0 {main}
+"} 
