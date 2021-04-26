@@ -298,7 +298,8 @@ class ModelTblController extends Controller
           'secure' => true]]);
           $cloudinary = new Cloudinary($config);
           $use_has_id = (new UserHasModelController())->user_model_id($id , $request->input('model_id'));
-          $use_has_id = $use_has_id->get()['id'];
+          $use_has_id = $use_has_id->get();
+          print_r($use_has_id);
           foreach ($request->file('images') as $file){
           file::created(['name'=>$file->getClientOriginalName() ,  'user_model_id' => $use_has_id]);
           $cloudinary->uploadApi()->upload((string)$file,
