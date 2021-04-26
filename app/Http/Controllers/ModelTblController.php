@@ -289,14 +289,14 @@ class ModelTblController extends Controller
       // configure globally via a JSON object
 
 
-       $config = Configuration::instance([
-        'cloud' => [
-          'cloud_name' => 'hi5',
-          'api_key' => '323435588613243',
-          'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
-        'url' => [
-          'secure' => true]]);
-          $cloudinary = new Cloudinary($config);
+      //  $config = Configuration::instance([
+      //   'cloud' => [
+      //     'cloud_name' => 'hi5',
+      //     'api_key' => '323435588613243',
+      //     'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+      //   'url' => [
+      //     'secure' => true]]);
+      //     $cloudinary = new Cloudinary($config);
         //  $use_has_id = (new UserHasModelController())->user_model_id($id , $request->input('model_id'));
           //$use_has_id = $use_has_id->get();
          // print_r($use_has_id);
