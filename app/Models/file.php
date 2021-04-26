@@ -11,7 +11,8 @@ class file extends Model
     protected $table="files";
     public $timestamps=true;
     protected $fillable=[
-        'user_model_id',
+        'user_id',
+        'model_id',
         'name',
         'verify_state',
          'state_id',
