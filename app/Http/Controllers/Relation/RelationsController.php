@@ -156,5 +156,24 @@ class RelationsController extends Controller
                  return $data;
                }
 
+                public function getallmodel($id){
+                $data = DB::table('user_has_models')
+                //->select('model_id')
+                ->where('user_id',$id)
+                ->where('accept',1)
+                ->get();
+               // return $data;
+               foreach($data as $val){
+                 echo $val->model_id;
+                 echo "\n";
+               }
+               }
+               
+                
+
+                
+              
+            
+
 
 }

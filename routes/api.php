@@ -111,8 +111,10 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 //
 //});
 //this relation to show the model which the user owns
-Route::get('/furat/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelOfowner");
+Route::get('/show_model_user_owns/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelOfowner");
 //this relation to show the model which the user use
-Route::get('/fur/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelUsed");
+Route::get('/show_model_user_use/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelUsed");
+//all models which the user own it or not 
+Route::get('/All_Model/{id}', "App\Http\Controllers\Relation\RelationsController@getallmodel");
 
 
