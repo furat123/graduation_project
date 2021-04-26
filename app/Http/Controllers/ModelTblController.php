@@ -291,12 +291,12 @@ class ModelTblController extends Controller
 
        $config = Configuration::instance([
         'cloud' => [
-          'cloud_name' => 'hi5',
-          'api_key' => '323435588613243',
-          'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+        'cloud_name' => 'hi5',
+        'api_key' => '323435588613243',
+        'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
         'url' => [
-          'secure' => true]]);
-         $cloudinary = new Cloudinary($config);
+        'secure' => true]]);
+        $cloudinary = new Cloudinary($config);
         $use_has_id = (new UserHasModelController())->user_model_id($id , $request->input('model_id'));
         $use_has_id = $use_has_id->get();
         print_r($use_has_id);
@@ -306,7 +306,7 @@ class ModelTblController extends Controller
         // ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
         //  , "resource_type	" => "private" , "folder" => "models/".$id."/predict"."/".$request->input('model_id')]);
         // }
-     return "ahmad";
+        return "ahmad";
 
 
     }
