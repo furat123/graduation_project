@@ -305,7 +305,7 @@ class ModelTblController extends Controller
       //     ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
       //      , "resource_type	" => "private" , "folder" => "models/".$id."/predict"."/".$request->input('model_id')]);
       //     }
-
+     return "ahmad"
 
 
     }

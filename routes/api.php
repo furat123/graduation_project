@@ -79,10 +79,10 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 //    Route::post('/MuhannadAdmin', function () {
 //        return "muhannadAdmin";
 //    })->middleware(['AuthAdmin']);
-    ///////////// Authentication///////////////
+///////////// Authentication////////////
 
 
-//////// AI Algorithim Apis  ///////////
+//////// AI Algorithim Apis ///////////
     Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
     Route::get('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
     Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
