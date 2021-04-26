@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\UserHasModelController;
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ use GuzzleHttp\Client;
 use Cloudinary\Configuration\Configuration;
 use ZipArchive;
 use Cloudinary\Cloudinary as Cloudinary;
-
+use App\Models\file;
 class ModelTblController extends Controller
 {
     /**
@@ -54,6 +54,7 @@ class ModelTblController extends Controller
       'url' => [
         'secure' => true]]);
         $cloudinary = new Cloudinary($config);
+      
         $cloudinary->uploadApi()->upload((string)$request->file('image'),
         ["public_id" => 'image' , "type" => "upload"
          , "resource_type	" => "private" , "folder" => "models/".$model_tbl->id]);
@@ -213,7 +214,7 @@ class ModelTblController extends Controller
           'secure' => true]]);
           $cloudinary = new Cloudinary($config);
 
-
+          
           foreach ($request->file('images') as $file)
           $cloudinary->uploadApi()->upload((string)$file,
           ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
@@ -265,6 +266,92 @@ class ModelTblController extends Controller
     }
 
     public function delete_all_dataset(Request $request,$id)
+    {
+      $config = Configuration::instance([
+        'cloud' => [
+          'cloud_name' => 'hi5',
+          'api_key' => '323435588613243',
+          'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+        'url' => [
+          'secure' => true]]);
+          $cloudinary = new Cloudinary($config);
+          return   $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/dataset", ['type' => 'private']);
+
+
+
+
+    }
+
+    
+    public function store_predict(Request $request,$id)
+    {
+
+      // configure globally via a JSON object
+
+
+       $config = Configuration::instance([
+        'cloud' => [
+          'cloud_name' => 'hi5',
+          'api_key' => '323435588613243',
+          'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+        'url' => [
+          'secure' => true]]);
+          $cloudinary = new Cloudinary($config);
+          $use_has_id = (new UserHasModelController())->user_model_id($id , $request->input('model_id'));
+          $use_has_id = $use_has_id->get()['id'];
+          foreach ($request->file('images') as $file){
+          file::created(['name'=>$file->getClientOriginalName() ,  'user_model_id' => $use_has_id]);
+          $cloudinary->uploadApi()->upload((string)$file,
+          ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
+           , "resource_type	" => "private" , "folder" => "models/".$id."/predict"."/".$request->input('model_id')]);
+          }
+
+
+
+    }
+
+    public function delete_from_predict(Request $request)
+    {
+
+          $config = Configuration::instance([
+            'cloud' => [
+              'cloud_name' => 'hi5',
+              'api_key' => '323435588613243',
+              'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+            'url' => [
+              'secure' => true]]);
+              $cloudinary = new Cloudinary($config);
+              foreach ($request->input('publicIds') as $node)
+              print($node);
+            return   $cloudinary->adminApi()->deleteAssets($request->input("publicIds"),["type" => "private"]);
+
+
+    }
+
+
+    public function get_predict(Request $request,$id)
+    {
+
+          // $client= new Client();
+          // $apiRequest = $client->request('GET', "https://hi55.herokuapp.com/dataset/".$id);
+          // $url =  $apiRequest->getBody();
+          // $apiRequest = $client->request('GET', (string)$url);
+          // return response($apiRequest->getBody()->getContents(), 200)
+          // ->header('Content-Type', 'application/zip')->header('Content-disposition','attachment; filename="data_set.zip"');
+          $config = Configuration::instance([
+            'cloud' => [
+              'cloud_name' => 'hi5',
+              'api_key' => '323435588613243',
+              'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+            'url' => [
+              'secure' => true]]);
+              $cloudinary = new Cloudinary($config);
+           return   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/dataset", "max_results" => 500 ,'type' => 'private']);
+
+
+    }
+
+    public function delete_all_predict(Request $request,$id)
     {
       $config = Configuration::instance([
         'cloud' => [
