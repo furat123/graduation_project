@@ -298,8 +298,9 @@ class ModelTblController extends Controller
         'secure' => true]]);
         $cloudinary = new Cloudinary($config);
         foreach ($request->file('images') as $file){
-     return  file::created(['name'=>$file->getClientOriginalName() , 'model_id' => $id ,'user_id' => $request->input('user_id')]);
-       print_r($i);
+     $i= file::created(['name'=>$file->getClientOriginalName() , 'model_id' => $id ,'user_id' => $request->input('user_id')]);
+     return $i;  
+     print_r($i);
         $cloudinary->uploadApi()->upload((string)$file,
         ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
          , "resource_type	" => "private" , "folder" => "models/".$id."/predict"."/".$request->input('user_id')]);
