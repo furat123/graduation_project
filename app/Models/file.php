@@ -13,11 +13,7 @@ class file extends Model
     protected $fillable=[
         'user_model_id',
         'name',
-        'path',
-        'output_path',
-        'uploaded_date',
         'verify_state',
-        'remember_token',
          'state_id',
         'accuracy',
     ];
