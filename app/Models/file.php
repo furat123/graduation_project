@@ -9,7 +9,7 @@ class file extends Model
 {
     use HasFactory;
     protected $table="files";
-    public $timestamps=true;
+    public $timestamps=false;
     protected $fillable=[
         'user_id',
         'model_id',
