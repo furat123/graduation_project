@@ -13,6 +13,7 @@ use Cloudinary\Configuration\Configuration;
 use ZipArchive;
 use Cloudinary\Cloudinary as Cloudinary;
 use App\Models\file;
+use Exception;
 class ModelTblController extends Controller
 {
     /**
@@ -286,8 +287,8 @@ class ModelTblController extends Controller
     {
 
       // configure globally via a JSON object
-
-
+       
+       $respose=[];
        $config = Configuration::instance([
         'cloud' => [
         'cloud_name' => 'hi5',
@@ -297,12 +298,24 @@ class ModelTblController extends Controller
         'secure' => true]]);
         $cloudinary = new Cloudinary($config);
         foreach ($request->file('images') as $file){
-        file::create(['name'=>$file->getClientOriginalName() , 'model_id' => $id ,'user_id' => $request->input('user_id')]);
+          try{
+            file::create(['name'=>$file->getClientOriginalName() , 'model_id' => $id ,'user_id' => $request->input('user_id')]);
+             
+        }catch(Exception $exception)
+        {
+            if($exception->getCode()==23000)
+            {
+              $respose[$file->getClientOriginalName()]="Failed-23000";
+            }
+            continue;
+        }
+      
         $cloudinary->uploadApi()->upload((string)$file,
         ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
          , "resource_type	" => "private" , "folder" => "models/".$id."/predict"."/".$request->input('user_id')]);
+         $respose[$file->getClientOriginalName()]="success";
         }
-        return "ahmad";
+       return response()->json($respose,200);
 
 
     }
