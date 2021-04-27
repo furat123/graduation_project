@@ -224,7 +224,7 @@ class ModelTblController extends Controller
 
     }
 
-    public function delete_from_dataset(Request $request)
+    public function delete_from_dataset(Request $request,$id)
     {
 
           $config = Configuration::instance([
@@ -234,10 +234,16 @@ class ModelTblController extends Controller
               'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
             'url' => [
               'secure' => true]]);
+              $mod=[];
               $cloudinary = new Cloudinary($config);
-              foreach ($request->input('publicIds') as $node)
-              print($node);
-            return   $cloudinary->adminApi()->deleteAssets($request->input("publicIds"),["type" => "private"]);
+              foreach ($request->input('publicIds') as &$node)
+               {$node = "models/".$id."/dataset/".$node;
+                $mod[]=$node;
+                 }
+                foreach ($mod as &$node)
+                print($node);
+              
+            return   $cloudinary->adminApi()->deleteAssets($mod,["type" => "private"]);
 
 
     }
@@ -299,7 +305,7 @@ class ModelTblController extends Controller
         $cloudinary = new Cloudinary($config);
         foreach ($request->file('images') as $file){
           try{
-            file::create(['name'=>$file->getClientOriginalName() , 'model_id' => $id ,'user_id' => $request->input('user_id')]);
+            file::create(['name'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , 'model_id' => $id ,'user_id' => $request->input('user_id')]);
              
         }catch(Exception $exception)
         {
@@ -320,21 +326,28 @@ class ModelTblController extends Controller
 
     }
 
-    public function delete_from_predict(Request $request)
+    public function delete_from_predict(Request $request,$id)
     {
 
-          $config = Configuration::instance([
-            'cloud' => [
-              'cloud_name' => 'hi5',
-              'api_key' => '323435588613243',
-              'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
-            'url' => [
-              'secure' => true]]);
-              $cloudinary = new Cloudinary($config);
-              foreach ($request->input('publicIds') as $node)
-              print($node);
-            return   $cloudinary->adminApi()->deleteAssets($request->input("publicIds"),["type" => "private"]);
-
+      $config = Configuration::instance([
+        'cloud' => [
+          'cloud_name' => 'hi5',
+          'api_key' => '323435588613243',
+          'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+        'url' => [
+          'secure' => true]]);
+          $mod=[];
+          $cloudinary = new Cloudinary($config);
+          foreach ($request->input('publicIds') as &$node)
+           {
+            $mod[]="models/".$id."/predict/".$request->input('user_id')."/".$node;
+            file::where('user_id',$request->input('user_id'))->where('model_id',$id)->where('name',$node)->delete();
+             }
+             file::where('user_id',$request->input('user_id'))->where('model_id',$id)->where('name',)->delete();
+            foreach ($mod as &$node)
+            print($node);
+          
+        return   $cloudinary->adminApi()->deleteAssets($mod,["type" => "private"]);
 
     }
 
@@ -356,11 +369,46 @@ class ModelTblController extends Controller
             'url' => [
               'secure' => true]]);
               $cloudinary = new Cloudinary($config);
-           return   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/dataset", "max_results" => 500 ,'type' => 'private']);
 
+           $resposes=   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/predict/".$request->input('user_id'), "max_results" => 500 ,'type' => 'private']);
+         foreach($resposes['resources'] as &$respose)
+         {
+          $name= $this->name($respose['public_id']);
+          foreach(file::where("user_id",$request->input('user_id'))->where('model_id',$id)->where('name',$name)->get()->toArray() as $raw)
+          {
+           
+          foreach($raw as $key => $val)
+          $respose[$key]=$val;
+          }
+        
+          
+          //print_r($respose);
+         }
+         return $resposes;
 
     }
+    public function name($pi){
+     
+      $s = "";
+      $index=0;
+      for($i = 0 ;$i<strlen($pi);$i++)
+      {
+        if($pi[$i]=='/')
+        {
+          $index=$i+1;
+        }
+      }
 
+      for($i = $index ;$i<strlen($pi);$i++)
+      {
+      
+          $s.=$pi[$i];
+      
+
+      }
+      return $s; 
+
+    }
     public function delete_all_predict(Request $request,$id)
     {
       $config = Configuration::instance([
@@ -371,7 +419,8 @@ class ModelTblController extends Controller
         'url' => [
           'secure' => true]]);
           $cloudinary = new Cloudinary($config);
-          return   $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/dataset", ['type' => 'private']);
+         file::where('user_id',$request->input('user_id'))->where('model_id',$id)->delete();
+          return   $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/predict/".$request->input('user_id'), ['type' => 'private']);
 
 
 
