@@ -191,8 +191,8 @@ class ModelTblController extends Controller
         $labels=new LabelController();
         $labels=$labels->labelsForModel($id);
         
-        $multipart[]=array('name'=>'image',$request->input('image'));
-        $multipart[]=array('name'=>'user_id',$request->input('user_id'));
+        $multipart[]=array('name'=>'image', 'contents'=>$request->input('image'));
+        $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
         $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
         //$apiRequest = $client->request('POST', 'http://127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
         $apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
