@@ -190,8 +190,9 @@ class ModelTblController extends Controller
         $client= new Client();
         $labels=new LabelController();
         $labels=$labels->labelsForModel($id);
-        $file=$request->file('image');
-        $multipart[]=array('name'=>'image','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
+        
+        $multipart[]=array('name'=>'image',$request->input('image'));
+        $multipart[]=array('name'=>'user_id',$request->input('user_id'));
         $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
         //$apiRequest = $client->request('POST', 'http://127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
         $apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
