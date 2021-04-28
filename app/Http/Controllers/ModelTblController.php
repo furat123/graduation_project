@@ -312,7 +312,7 @@ class ModelTblController extends Controller
         {
             if($exception->getCode()==23000)
             {
-              $respose[$file->getClientOriginalName()]="Failed-23000";
+              $respose[$file->getClientOriginalName()]=$exception->getMessage();
             }
             continue;
         }
@@ -385,7 +385,7 @@ class ModelTblController extends Controller
           
           //print_r($respose);
          }
-         return $resposes;
+         return $resposes["resources"];
 
     }
     public function name($pi){
