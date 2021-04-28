@@ -92,6 +92,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/progress_op/{id}', "App\Http\Controllers\ModelTblController@getProgress_op" );
     Route::put('/progress_op/{id}', "App\Http\Controllers\ModelTblController@setProgress_op" );
     Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@store_dataset" );
+    Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" )->middleware(['AuthId']);
     Route::delete('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_all_dataset");
     Route::post('/datasetdel/{id}', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
     
@@ -105,7 +106,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/model/image/{id}', "App\Http\Controllers\ModelTblController@image" );
 
 });
-Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" )->middleware(['AuthId']);
+Route::get('images/predict/{id}', "App\Http\Controllers\ModelTblController@get_predict" );
 
 //Route::group(['middleware' => ['AuthId']],function (){
 //
