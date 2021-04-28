@@ -106,7 +106,6 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/model/image/{id}', "App\Http\Controllers\ModelTblController@image" );
 
 });
-Route::get('images/predict/{id}', "App\Http\Controllers\ModelTblController@get_predict" );
 
 //Route::group(['middleware' => ['AuthId']],function (){
 //
