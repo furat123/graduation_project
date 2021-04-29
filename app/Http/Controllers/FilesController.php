@@ -107,8 +107,9 @@ class FilesController extends Controller
 
     public function set_labels(Request $request,$id)
     {   
-
-        file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->update(['labels' => $request->input('labels')]) ;
+        
+        file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->update(['labels' => $request->input('labels')]);
+       
 
     }
 }

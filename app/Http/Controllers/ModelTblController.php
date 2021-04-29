@@ -324,7 +324,7 @@ class ModelTblController extends Controller
         $labels=$labels->labelsForModel($id);
        
         $cloudinary->uploadApi()->upload((string)$file,["public_id" => pathinfo($file->getClientOriginalName(),
-        PATHINFO_FILENAME) , "type" => "private", "resource_type	" => "private" , "folder" => "models/".$id."/predict"."/images/".$request->input('user_id')]);
+        PATHINFO_FILENAME) , "type" => "private", "resource_type	" => "private" , "folder" => "models/".$id."/predict/".$request->input('user_id')."/images"]);
          $respose[$file->getClientOriginalName()]="success";
          $multipart[]=array('name'=>'image', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
          $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
