@@ -1,6 +1,7 @@
 <?php
-use App\Http\Controllers\UserHasModelController;
+
 namespace App\Http\Controllers;
+use App\Http\Controllers\UserHasModelController;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\model_tbls;
@@ -55,11 +56,11 @@ class ModelTblController extends Controller
       'url' => [
         'secure' => true]]);
         $cloudinary = new Cloudinary($config);
-      
+
         $cloudinary->uploadApi()->upload((string)$request->file('image'),
         ["public_id" => 'image' , "type" => "upload"
          , "resource_type	" => "private" , "folder" => "models/".$model_tbl->id]);
-        
+
 
 
     return response()->json($model_tbl,201);
@@ -79,7 +80,7 @@ class ModelTblController extends Controller
        if(is_null($modeltbl)){
        return response()->json(["message"=>'record not find!!!'], 404);
        }
-       
+
        return response()->json($modeltbl, 200);
 
     }
@@ -190,7 +191,7 @@ class ModelTblController extends Controller
         $client= new Client();
         $labels=new LabelController();
         $labels=$labels->labelsForModel($id);
-        
+
         $multipart[]=array('name'=>'image', 'contents'=>$request->input('image'));
         $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
         $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
@@ -215,7 +216,7 @@ class ModelTblController extends Controller
           'secure' => true]]);
           $cloudinary = new Cloudinary($config);
 
-          
+
           foreach ($request->file('images') as $file)
           $cloudinary->uploadApi()->upload((string)$file,
           ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
@@ -243,7 +244,7 @@ class ModelTblController extends Controller
                  }
                 foreach ($mod as &$node)
                 print($node);
-              
+
             return   $cloudinary->adminApi()->deleteAssets($mod,["type" => "private"]);
 
 
@@ -289,12 +290,12 @@ class ModelTblController extends Controller
 
     }
 
-    
+
     public function store_predict(Request $request,$id)
     {
 
       // configure globally via a JSON object
-       
+
        $respose=[];
        $config = Configuration::instance([
         'cloud' => [
@@ -307,22 +308,22 @@ class ModelTblController extends Controller
         foreach ($request->file('images') as $file){
           try{
             file::create(['name'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , 'model_id' => $id ,'user_id' => $request->input('user_id')]);
-            
+
         }catch(Exception $exception)
         {
             if($exception->getCode()==23000)
             {
               $respose[$file->getClientOriginalName()]="Name of image duplicated";
             }
-            else 
+            else
             $respose[$file->getClientOriginalName()]="Faild";
-           
+
             continue;
         }
         $guzzel = new Client();
         $labels=new LabelController();
         $labels=$labels->labelsForModel($id);
-       
+
         $cloudinary->uploadApi()->upload((string)$file,["public_id" => pathinfo($file->getClientOriginalName(),
         PATHINFO_FILENAME) , "type" => "private", "resource_type	" => "private" , "folder" => "models/".$id."/predict/".$request->input('user_id')."/images"]);
          $respose[$file->getClientOriginalName()]="success";
@@ -332,11 +333,11 @@ class ModelTblController extends Controller
          $apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
         }
 
-        
-       
-      
+
+
+
        return response()->json($respose,200);
-       
+
 
     }
 
@@ -360,7 +361,7 @@ class ModelTblController extends Controller
              file::where('user_id',$request->input('user_id'))->where('model_id',$id)->where('name',)->delete();
             foreach ($mod as &$node)
             print($node);
-          
+
         return   $cloudinary->adminApi()->deleteAssets($mod,["type" => "private"]);
 
     }
@@ -390,19 +391,19 @@ class ModelTblController extends Controller
           $name= $this->name($respose['public_id']);
           foreach(file::where("user_id",$request->input('user_id'))->where('model_id',$id)->where('name',$name)->get()->toArray() as $raw)
           {
-           
+
           foreach($raw as $key => $val)
           $respose[$key]=$val;
           }
-        
-          
+
+
           //print_r($respose);
          }
          return $resposes["resources"];
 
     }
     public function name($pi){
-     
+
       $s = "";
       $index=0;
       for($i = 0 ;$i<strlen($pi);$i++)
@@ -415,12 +416,12 @@ class ModelTblController extends Controller
 
       for($i = $index ;$i<strlen($pi);$i++)
       {
-      
+
           $s.=$pi[$i];
-      
+
 
       }
-      return $s; 
+      return $s;
 
     }
     public function delete_all_predict(Request $request,$id)
