@@ -107,6 +107,8 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
 });
 
+Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_labels");
+
 //Route::group(['middleware' => ['AuthId']],function (){
 //
 //});

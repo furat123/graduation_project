@@ -104,4 +104,11 @@ class FilesController extends Controller
         return response()->json(null,204);
     
     }
+
+    public function set_labels(Request $request,$id)
+    {   
+
+        file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->update(['labels' => $request->input('labels')]) ;
+
+    }
 }

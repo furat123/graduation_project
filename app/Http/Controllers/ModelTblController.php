@@ -194,8 +194,8 @@ class ModelTblController extends Controller
         $multipart[]=array('name'=>'image', 'contents'=>$request->input('image'));
         $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
         $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
-        //$apiRequest = $client->request('POST', 'http://127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
-        $apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
+        $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
+        //$apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
         return   $apiRequest->getBody();
     }
 
@@ -307,23 +307,36 @@ class ModelTblController extends Controller
         foreach ($request->file('images') as $file){
           try{
             file::create(['name'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , 'model_id' => $id ,'user_id' => $request->input('user_id')]);
-             
+            
         }catch(Exception $exception)
         {
             if($exception->getCode()==23000)
             {
-              $respose[$file->getClientOriginalName()]=$exception->getMessage();
+              $respose[$file->getClientOriginalName()]="Name of image duplicated";
             }
+            else 
+            $respose[$file->getClientOriginalName()]="Faild";
+           
             continue;
         }
-      
-        $cloudinary->uploadApi()->upload((string)$file,
-        ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
-         , "resource_type	" => "private" , "folder" => "models/".$id."/predict"."/".$request->input('user_id')]);
+        $guzzel = new Client();
+        $labels=new LabelController();
+        $labels=$labels->labelsForModel($id);
+       
+        $cloudinary->uploadApi()->upload((string)$file,["public_id" => pathinfo($file->getClientOriginalName(),
+        PATHINFO_FILENAME) , "type" => "private", "resource_type	" => "private" , "folder" => "models/".$id."/predict"."/images/".$request->input('user_id')]);
          $respose[$file->getClientOriginalName()]="success";
+         $multipart[]=array('name'=>'image', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+         $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
+         $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
+         $apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
         }
-       return response()->json($respose,200);
 
+        
+       
+      
+       return response()->json($respose,200);
+       
 
     }
 
@@ -341,7 +354,7 @@ class ModelTblController extends Controller
           $cloudinary = new Cloudinary($config);
           foreach ($request->input('publicIds') as &$node)
            {
-            $mod[]="models/".$id."/predict/".$request->input('user_id')."/".$node;
+            $mod[]="models/".$id."/predict/images/".$request->input('user_id')."/".$node;
             file::where('user_id',$request->input('user_id'))->where('model_id',$id)->where('name',$node)->delete();
              }
              file::where('user_id',$request->input('user_id'))->where('model_id',$id)->where('name',)->delete();
@@ -371,7 +384,7 @@ class ModelTblController extends Controller
               'secure' => true]]);
               $cloudinary = new Cloudinary($config);
 
-           $resposes=   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/predict/".$request->input('user_id'), "max_results" => 500 ,'type' => 'private']);
+           $resposes=   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/predict/images/".$request->input('user_id'), "max_results" => 500 ,'type' => 'private']);
          foreach($resposes['resources'] as &$respose)
          {
           $name= $this->name($respose['public_id']);
