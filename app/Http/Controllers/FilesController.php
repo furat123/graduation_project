@@ -105,6 +105,13 @@ class FilesController extends Controller
     
     }
 
+    public function predict($id)
+    {
+        
+        
+    
+    }
+    
     public function set_labels(Request $request,$id)
     {   
         
@@ -129,7 +136,7 @@ class FilesController extends Controller
     public function vs(Request $request,$id)
     {   
         
-        
+
        return file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->
        where('name',$request->input('image'))->pluck('verify_state')->toArray();
         

@@ -47,6 +47,7 @@ class ModelTblController extends Controller
      */
     public function store(Request $request)
     {
+    print_r($request->except('image'));
     $model_tbl = model_tbls::create($request->except('image'));
     $config = Configuration::instance([
       'cloud' => [
@@ -59,7 +60,7 @@ class ModelTblController extends Controller
 
         $cloudinary->uploadApi()->upload((string)$request->file('image'),
         ["public_id" => 'image' , "type" => "upload"
-         , "resource_type	" => "private" , "folder" => "models/".$model_tbl->id]);
+         , "resource_type	" => "raw" , "folder" => "models/".$model_tbl->id]);
 
 
 
@@ -189,15 +190,19 @@ class ModelTblController extends Controller
     public function predict(Request $request,$id)
     {
         $client= new Client();
-        $labels=new LabelController();
-        $labels=$labels->labelsForModel($id);
-
-        $multipart[]=array('name'=>'image', 'contents'=>$request->input('image'));
-        $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
-        $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
-        $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
-        //$apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
-        return   $apiRequest->getBody();
+   
+        $config = Configuration::instance([
+         'cloud' => [
+         'cloud_name' => 'hi5',
+         'api_key' => '323435588613243',
+         'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+         'url' => [
+         'secure' => true]]);
+         $cloudinary = new Cloudinary($config);
+         $apiRequest=$cloudinary->adminApi()->asset("models/".$id."/predict/". $request->input('user_id')."/jsons/".
+         $request->input('image').".json",  ['type' => 'private' ,'resource_type' => 'raw']);
+         return $apiRequest;
+       
     }
 
 
@@ -325,7 +330,7 @@ class ModelTblController extends Controller
         $labels=$labels->labelsForModel($id);
 
         $cloudinary->uploadApi()->upload((string)$file,["public_id" => pathinfo($file->getClientOriginalName(),
-        PATHINFO_FILENAME) , "type" => "private", "resource_type	" => "private" , "folder" => "models/".$id."/predict/".$request->input('user_id')."/images"]);
+        PATHINFO_FILENAME) , "type" => "private", "resource_type	" => "raw" , "folder" => "models/".$id."/predict/".$request->input('user_id')."/images"]);
          $respose[$file->getClientOriginalName()]="success";
          $multipart[]=array('name'=>'image', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
          $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));

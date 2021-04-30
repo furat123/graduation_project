@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LabelController;
 use App\Http\Middleware\AuthId;
+use Cloudinary\Cloudinary;
+use Cloudinary\Configuration\Configuration;
+use Cloudinary\Exception\ConfigurationException;
 
 /*
 |--------------------------------------------------------------------------
