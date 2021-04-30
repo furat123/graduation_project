@@ -330,7 +330,7 @@ class ModelTblController extends Controller
          $multipart[]=array('name'=>'image', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
          $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
          $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
-         $apiRequest = $guzzel->request('POST', 'https://graduationprojectt.herokuapp.com/api/predict/'.$id,['multipart' => $multipart]);
+         $apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
         }
 
 
