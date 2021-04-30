@@ -47,6 +47,7 @@ class ModelTblController extends Controller
      */
     public function store(Request $request)
     {
+    print_r($request->except('image'));
     $model_tbl = model_tbls::create($request->except('image'));
     $config = Configuration::instance([
       'cloud' => [
