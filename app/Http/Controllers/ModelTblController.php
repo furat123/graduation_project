@@ -314,11 +314,11 @@ class ModelTblController extends Controller
             if($exception->getCode()==23000)
             {
               $respose[$file->getClientOriginalName()]="Name of image duplicated";
-            }
+             }
             else
             $respose[$file->getClientOriginalName()]="Faild";
-
             continue;
+          
         }
         $guzzel = new Client();
         $labels=new LabelController();
@@ -330,7 +330,7 @@ class ModelTblController extends Controller
          $multipart[]=array('name'=>'image', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
          $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
          $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
-         $apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
+         $apiRequest = $guzzel->request('POST', 'https://graduationprojectt.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
         }
 
 
@@ -385,7 +385,7 @@ class ModelTblController extends Controller
               'secure' => true]]);
               $cloudinary = new Cloudinary($config);
 
-           $resposes=   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/predict/images/".$request->input('user_id'), "max_results" => 500 ,'type' => 'private']);
+          $resposes=   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/predict/images/".$request->input('user_id'), "max_results" => 500 ,'type' => 'private']);
          foreach($resposes['resources'] as &$respose)
          {
           $name= $this->name($respose['public_id']);

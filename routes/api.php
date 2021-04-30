@@ -105,9 +105,12 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
     Route::get('/model/image/{id}', "App\Http\Controllers\ModelTblController@image" );
 
+    Route::get('/vs/{id}' , "App\Http\Controllers\FilesController@vs");
+    Route::put('/vs/{id}' , "App\Http\Controllers\FilesController@update_vs");
 });
 
-Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_labels");
+
+
 
 //Route::group(['middleware' => ['AuthId']],function (){
 //
