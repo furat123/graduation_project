@@ -461,14 +461,14 @@ class ModelTblController extends Controller
 
     public function object_map_labeling(Request $request,$id)
     {
-          $multipart = [];
-          $client= new Client();
-          foreach ($request->file('csvs') as $file)
-          $multipart[] = array('name'=>'csv','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
-          foreach ($request->input('nodes') as $node)
-          $multipart[] = array('name'=>'nodes','contents'=>$node);
-          $apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
-          return  $apiRequest->getBody();
+          // $multipart = [];
+          // $client= new Client();
+          // foreach ($request->file('csvs') as $file)
+          // $multipart[] = array('name'=>'csv','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
+          // foreach ($request->input('nodes') as $node)
+          // $multipart[] = array('name'=>'nodes','contents'=>$node);
+          // //$apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
+          // return  $apiRequest->getBody();
 
 
     }
