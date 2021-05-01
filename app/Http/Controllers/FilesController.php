@@ -76,17 +76,17 @@ class FilesController extends Controller
      */
     public function update(Request $request, $id)
     {
-       /* $file_tbl=$request->except(['created_date','last_use_date','owner_id','state_id']);
-        $modeltbl=array_filter($modeltbl);
-        $update1=model_tbls::where('id',$id)->update($modeltbl);
+        $file_tbl=$request->except(['user_id','model_id']);
+        $file_tbl=array_filter($file_tbl);
 
-        if(is_null($modeltbl)){
+        if(file::where('id',$id)->update($file_tbl) == 0){
            return response()->json(["message"=>'record not find!!!'], 404);
        }
-        //$modeltbl->update($request->all());
+       return response()->json('Updated successfully',200);
     }
-*/
-    }
+
+
+    
 
     /**
      * Remove the specified resource from storage.
@@ -105,10 +105,12 @@ class FilesController extends Controller
     
     }
 
-    public function predict($id)
+    public function update_state(Request $request)
     {
-        
-        
+        if(file::where('user_id',$request->input('user_id'))->
+        where('model_id',$request->input('model_id'))->where('name',$request->input('image'))->update(["state_id"=>$request->input('state_id')]))
+        return response()->json('Updated successfully',200);
+        return response()->json(["message"=>'record not find!!!'], 404);
     
     }
     
@@ -144,6 +146,9 @@ class FilesController extends Controller
        
 
     }
+
+ 
+
 
 
 }

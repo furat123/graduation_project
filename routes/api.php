@@ -114,6 +114,11 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
     Route::get('/vs/{id}' , "App\Http\Controllers\FilesController@vs");
     Route::put('/vs/{id}' , "App\Http\Controllers\FilesController@update_vs");
+    Route::put('/update_state' , "App\Http\Controllers\FilesController@update_state");
+    
+    
+
+
 });
 
 

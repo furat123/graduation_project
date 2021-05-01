@@ -3522,6 +3522,7 @@ ame() at C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\app\\Http
 #50 C:\\Users\\ahmad\\Desktop\\laravel - hi5\\graduation_project\\server.php(21): require_once('C:\\\\Users\\\\ahmad\\\\...')
 #51 {main}
 "} 
+<<<<<<< HEAD
 [2021-04-30 21:11:22] local.ERROR: Command "make:UserController" is not defined.
 
 Did you mean one of these?
@@ -3794,4 +3795,498 @@ Did you mean this?
 #32 C:\\Users\\mohan\\Desktop\\The project\\graduation_project\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #33 C:\\Users\\mohan\\Desktop\\The project\\graduation_project\\server.php(21): require_once('C:\\\\Users\\\\mohan\\\\...')
 #34 {main}
+=======
+[2021-04-26 12:46:44] local.ERROR: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ (SQL: select `files`.`name` as `file_name`, `model_tbls`.`id`, `model_tbls`.`name`, `files`.`state_id` from `user_has_models` inner join `files` on `files`.`user_model_id` = `user_has_models`.`id` inner join `model_tbls` on `model_tbls`.`id` = `user_has_models`.`model_id` where `user_has_models`.`id` = 4 and `owner_id` = `user_id`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 2002): SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ (SQL: select `files`.`name` as `file_name`, `model_tbls`.`id`, `model_tbls`.`name`, `files`.`state_id` from `user_has_models` inner join `files` on `files`.`user_model_id` = `user_has_models`.`id` inner join `model_tbls` on `model_tbls`.`id` = `user_has_models`.`model_id` where `user_has_models`.`id` = 4 and `owner_id` = `user_id`) at C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:678)
+[stacktrace]
+#0 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(638): Illuminate\\Database\\Connection->runQueryCallback('select `files`....', Array, Object(Closure))
+#1 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(346): Illuminate\\Database\\Connection->run('select `files`....', Array, Object(Closure))
+#2 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2313): Illuminate\\Database\\Connection->select('select `files`....', Array, true)
+#3 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2301): Illuminate\\Database\\Query\\Builder->runSelect()
+#4 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2796): Illuminate\\Database\\Query\\Builder->Illuminate\\Database\\Query\\{closure}()
+#5 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2302): Illuminate\\Database\\Query\\Builder->onceWithColumns(Array, Object(Closure))
+#6 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\app\\Http\\Controllers\\Relation\\RelationsController.php(142): Illuminate\\Database\\Query\\Builder->get()
+#7 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Relation\\RelationsController->ShowModelOfowner('4')
+#8 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('ShowModelOfowne...', Array)
+#9 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(254): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Relation\\RelationsController), 'ShowModelOfowne...')
+#10 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(197): Illuminate\\Routing\\Route->runController()
+#11 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(695): Illuminate\\Routing\\Route->run()
+#12 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#13 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#14 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#15 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#16 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(103): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#17 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(55): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#18 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#19 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#20 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(697): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#21 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(672): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#22 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(636): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#23 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(625): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#24 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(166): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#25 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#26 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#27 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#37 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#38 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\fideloper\\proxy\\src\\TrustProxies.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#39 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#41 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(141): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#42 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(110): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#43 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#44 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\server.php(21): require_once('C:\\\\Users\\\\hp\\\\Des...')
+#45 {main}
+
+[previous exception] [object] (PDOException(code: 2002): SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ at C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
+[stacktrace]
+#0 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(70): PDO->__construct('mysql:host=127....', 'root', '', Array)
+#1 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(46): Illuminate\\Database\\Connectors\\Connector->createPdoConnection('mysql:host=127....', 'root', '', Array)
+#2 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\MySqlConnector.php(24): Illuminate\\Database\\Connectors\\Connector->createConnection('mysql:host=127....', Array, Array)
+#3 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php(184): Illuminate\\Database\\Connectors\\MySqlConnector->connect(Array)
+#4 [internal function]: Illuminate\\Database\\Connectors\\ConnectionFactory->Illuminate\\Database\\Connectors\\{closure}()
+#5 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(949): call_user_func(Object(Closure))
+#6 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(984): Illuminate\\Database\\Connection->getPdo()
+#7 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(412): Illuminate\\Database\\Connection->getReadPdo()
+#8 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(338): Illuminate\\Database\\Connection->getPdoForSelect(true)
+#9 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(671): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}('select `files`....', Array)
+#10 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(638): Illuminate\\Database\\Connection->runQueryCallback('select `files`....', Array, Object(Closure))
+#11 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(346): Illuminate\\Database\\Connection->run('select `files`....', Array, Object(Closure))
+#12 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2313): Illuminate\\Database\\Connection->select('select `files`....', Array, true)
+#13 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2301): Illuminate\\Database\\Query\\Builder->runSelect()
+#14 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2796): Illuminate\\Database\\Query\\Builder->Illuminate\\Database\\Query\\{closure}()
+#15 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2302): Illuminate\\Database\\Query\\Builder->onceWithColumns(Array, Object(Closure))
+#16 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\app\\Http\\Controllers\\Relation\\RelationsController.php(142): Illuminate\\Database\\Query\\Builder->get()
+#17 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Relation\\RelationsController->ShowModelOfowner('4')
+#18 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('ShowModelOfowne...', Array)
+#19 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(254): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Relation\\RelationsController), 'ShowModelOfowne...')
+#20 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(197): Illuminate\\Routing\\Route->runController()
+#21 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(695): Illuminate\\Routing\\Route->run()
+#22 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#23 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(103): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#27 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(55): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#28 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#29 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(697): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#31 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(672): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#32 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(636): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#33 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(625): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#34 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(166): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#35 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#36 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#37 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#38 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#45 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#46 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#47 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\fideloper\\proxy\\src\\TrustProxies.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(141): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#52 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(110): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#53 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#54 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\server.php(21): require_once('C:\\\\Users\\\\hp\\\\Des...')
+#55 {main}
+"} 
+[2021-04-26 12:48:10] local.ERROR: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ (SQL: select `files`.`name` as `file_name`, `model_tbls`.`id`, `model_tbls`.`name`, `files`.`state_id` from `user_has_models` inner join `files` on `files`.`user_model_id` = `user_has_models`.`id` inner join `model_tbls` on `model_tbls`.`id` = `user_has_models`.`model_id` where `user_has_models`.`id` = 4 and `owner_id` = `user_id`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 2002): SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ (SQL: select `files`.`name` as `file_name`, `model_tbls`.`id`, `model_tbls`.`name`, `files`.`state_id` from `user_has_models` inner join `files` on `files`.`user_model_id` = `user_has_models`.`id` inner join `model_tbls` on `model_tbls`.`id` = `user_has_models`.`model_id` where `user_has_models`.`id` = 4 and `owner_id` = `user_id`) at C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:678)
+[stacktrace]
+#0 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(638): Illuminate\\Database\\Connection->runQueryCallback('select `files`....', Array, Object(Closure))
+#1 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(346): Illuminate\\Database\\Connection->run('select `files`....', Array, Object(Closure))
+#2 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2313): Illuminate\\Database\\Connection->select('select `files`....', Array, true)
+#3 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2301): Illuminate\\Database\\Query\\Builder->runSelect()
+#4 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2796): Illuminate\\Database\\Query\\Builder->Illuminate\\Database\\Query\\{closure}()
+#5 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2302): Illuminate\\Database\\Query\\Builder->onceWithColumns(Array, Object(Closure))
+#6 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\app\\Http\\Controllers\\Relation\\RelationsController.php(142): Illuminate\\Database\\Query\\Builder->get()
+#7 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Relation\\RelationsController->ShowModelOfowner('4')
+#8 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('ShowModelOfowne...', Array)
+#9 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(254): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Relation\\RelationsController), 'ShowModelOfowne...')
+#10 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(197): Illuminate\\Routing\\Route->runController()
+#11 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(695): Illuminate\\Routing\\Route->run()
+#12 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#13 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#14 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#15 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#16 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(103): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#17 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(55): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#18 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#19 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#20 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(697): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#21 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(672): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#22 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(636): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#23 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(625): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#24 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(166): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#25 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#26 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#27 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#37 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#38 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\fideloper\\proxy\\src\\TrustProxies.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#39 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#41 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(141): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#42 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(110): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#43 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#44 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\server.php(21): require_once('C:\\\\Users\\\\hp\\\\Des...')
+#45 {main}
+
+[previous exception] [object] (PDOException(code: 2002): SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ at C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
+[stacktrace]
+#0 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(70): PDO->__construct('mysql:host=127....', 'root', '', Array)
+#1 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(46): Illuminate\\Database\\Connectors\\Connector->createPdoConnection('mysql:host=127....', 'root', '', Array)
+#2 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\MySqlConnector.php(24): Illuminate\\Database\\Connectors\\Connector->createConnection('mysql:host=127....', Array, Array)
+#3 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php(184): Illuminate\\Database\\Connectors\\MySqlConnector->connect(Array)
+#4 [internal function]: Illuminate\\Database\\Connectors\\ConnectionFactory->Illuminate\\Database\\Connectors\\{closure}()
+#5 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(949): call_user_func(Object(Closure))
+#6 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(984): Illuminate\\Database\\Connection->getPdo()
+#7 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(412): Illuminate\\Database\\Connection->getReadPdo()
+#8 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(338): Illuminate\\Database\\Connection->getPdoForSelect(true)
+#9 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(671): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}('select `files`....', Array)
+#10 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(638): Illuminate\\Database\\Connection->runQueryCallback('select `files`....', Array, Object(Closure))
+#11 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(346): Illuminate\\Database\\Connection->run('select `files`....', Array, Object(Closure))
+#12 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2313): Illuminate\\Database\\Connection->select('select `files`....', Array, true)
+#13 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2301): Illuminate\\Database\\Query\\Builder->runSelect()
+#14 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2796): Illuminate\\Database\\Query\\Builder->Illuminate\\Database\\Query\\{closure}()
+#15 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2302): Illuminate\\Database\\Query\\Builder->onceWithColumns(Array, Object(Closure))
+#16 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\app\\Http\\Controllers\\Relation\\RelationsController.php(142): Illuminate\\Database\\Query\\Builder->get()
+#17 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Relation\\RelationsController->ShowModelOfowner('4')
+#18 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('ShowModelOfowne...', Array)
+#19 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(254): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Relation\\RelationsController), 'ShowModelOfowne...')
+#20 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(197): Illuminate\\Routing\\Route->runController()
+#21 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(695): Illuminate\\Routing\\Route->run()
+#22 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#23 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(103): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#27 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(55): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#28 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#29 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(697): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#31 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(672): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#32 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(636): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#33 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(625): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#34 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(166): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#35 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#36 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#37 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#38 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#45 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#46 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#47 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\fideloper\\proxy\\src\\TrustProxies.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(141): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#52 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(110): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#53 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#54 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\server.php(21): require_once('C:\\\\Users\\\\hp\\\\Des...')
+#55 {main}
+"} 
+[2021-04-28 00:50:26] local.ERROR: Route [login] not defined. {"exception":"[object] (Symfony\\Component\\Routing\\Exception\\RouteNotFoundException(code: 0): Route [login] not defined. at C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php:429)
+[stacktrace]
+#0 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(726): Illuminate\\Routing\\UrlGenerator->route('login', Array, true)
+#1 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\app\\Http\\Middleware\\Authenticate.php(18): route('login')
+#2 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php(83): App\\Http\\Middleware\\Authenticate->redirectTo(Object(Illuminate\\Http\\Request))
+#3 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php(68): Illuminate\\Auth\\Middleware\\Authenticate->unauthenticated(Object(Illuminate\\Http\\Request), Array)
+#4 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php(42): Illuminate\\Auth\\Middleware\\Authenticate->authenticate(Object(Illuminate\\Http\\Request), Array)
+#5 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'sanctum')
+#6 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#7 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(697): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#8 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(672): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#9 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(636): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#10 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(625): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#11 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(166): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#12 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#13 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#14 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#15 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#19 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#20 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#21 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#22 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\fideloper\\proxy\\src\\TrustProxies.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(167): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(141): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#29 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(110): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#30 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#31 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\server.php(21): require_once('C:\\\\Users\\\\hp\\\\Des...')
+#32 {main}
+>>>>>>> 9e2663df1e131b4d42aa43f2e36a6dd130a9c121
 "} 
