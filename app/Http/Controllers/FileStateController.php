@@ -36,8 +36,9 @@ class FileStateController extends Controller
      */
     public function store(Request $request)
     {
-        
+    
         $file_state = file_state::create($request->all());
+
         return response()->json($file_state,201);
     }
 

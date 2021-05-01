@@ -78,14 +78,13 @@ class FilesController extends Controller
     {
         $file_tbl=$request->except(['user_id','model_id']);
         $file_tbl=array_filter($file_tbl);
-        $update1=file::where('id',$id)->update($file_tbl);
 
-        if(is_null($file_tbl)){
+        if(file::where('id',$id)->update($file_tbl) == 0){
            return response()->json(["message"=>'record not find!!!'], 404);
        }
        return response()->json('Updated successfully',200);
     }
-    
+
 
     
 
@@ -106,10 +105,12 @@ class FilesController extends Controller
     
     }
 
-    public function predict($id)
+    public function update_state(Request $request)
     {
-        
-        //
+        if(file::where('user_id',$request->input('user_id'))->
+        where('model_id',$request->input('model_id'))->where('name',$request->input('image'))->update(["state_id"=>$request->input('state_id')]))
+        return response()->json('Updated successfully',200);
+        return response()->json(["message"=>'record not find!!!'], 404);
     
     }
     

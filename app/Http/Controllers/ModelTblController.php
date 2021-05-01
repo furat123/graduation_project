@@ -99,7 +99,7 @@ class ModelTblController extends Controller
     {
         //
     }
-
+   
     /**
      * Update the specified resource in storage.
      *
@@ -388,22 +388,19 @@ class ModelTblController extends Controller
             'url' => [
               'secure' => true]]);
               $cloudinary = new Cloudinary($config);
-
-          $resposes=   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/predict/images/".$request->input('user_id'), "max_results" => 500 ,'type' => 'private']);
-         foreach($resposes['resources'] as &$respose)
-         {
-          $name= $this->name($respose['public_id']);
-          foreach(file::where("user_id",$request->input('user_id'))->where('model_id',$id)->where('name',$name)->get()->toArray() as $raw)
+          $resposes = [];
+          foreach(file::where("user_id",$request->input('user_id'))->where('model_id',$id)->get()->toArray() as $keyP => $raw)
           {
 
           foreach($raw as $key => $val)
-          $respose[$key]=$val;
-          }
-
-
-          //print_r($respose);
+          $resposes[$keyP][$key]=$val;
+          $res=$cloudinary->adminApi()->asset('models/'.$id.'/predict/'.$request->input('user_id').'/images/'. $resposes[$keyP]['name'] ,
+         ['type' => 'private']);
+          
+          foreach( $res as $key => $val)
+          $resposes[$keyP][$key]=$val;
          }
-         return $resposes["resources"];
+         return $resposes;
 
     }
     public function name($pi){
