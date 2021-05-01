@@ -3,11 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+
 use App\Http\Controllers\LabelController;
 use App\Http\Middleware\AuthId;
 use Cloudinary\Cloudinary;
 use Cloudinary\Configuration\Configuration;
 use Cloudinary\Exception\ConfigurationException;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +36,7 @@ Route::resource('/verify_state',"App\Http\Controllers\VerifyStateController");
 Route::resource('/train_file',"App\Http\Controllers\TrainingFileController");
 Route::resource('/train_state',"App\Http\Controllers\TrainingStateController");
 Route::resource('/label',"App\Http\Controllers\LabelController");
+Route::resource('/user' , UserController::class);
 ///// state of model
 Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfModel" );
 ///// state of file
@@ -98,7 +102,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
     Route::delete('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_all_dataset");
     Route::post('/datasetdel/{id}', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
-    
+
     Route::post('images/predict/{id}', "App\Http\Controllers\ModelTblController@store_predict" );
     Route::get('images/predict/{id}', "App\Http\Controllers\ModelTblController@get_predict" );
     Route::delete('images/predict/{id}', "App\Http\Controllers\ModelTblController@delete_all_predict");
@@ -122,7 +126,7 @@ Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_label
 Route::get('/show_model_user_owns/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelOfowner");
 //this relation to show the model which the user use
 Route::get('/show_model_user_use/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelUsed");
-//all models which the user own it or not 
+//all models which the user own it or not
 Route::get('/All_Model/{id}', "App\Http\Controllers\Relation\RelationsController@getallmodel");
 
 
