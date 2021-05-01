@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -71,6 +72,12 @@ class UserController extends Controller
     {
         //
         $user = $request->except(['created_at','updated_at']);
+
+
+        if(!is_null($user['password'])){
+            $user['password'] = bcrypt($user['password']);
+        }
+
         $updateduser = User::where('id' , $id)->update($user);
 
         if(is_null($updateduser)){
