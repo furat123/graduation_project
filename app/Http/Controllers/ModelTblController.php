@@ -15,6 +15,9 @@ use ZipArchive;
 use Cloudinary\Cloudinary as Cloudinary;
 use App\Models\file;
 use Exception;
+use Thread;
+use Threaded;
+
 class ModelTblController extends Controller
 {
     /**
@@ -106,7 +109,7 @@ class ModelTblController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $modeltbl=$request->except(['created_date','last_use_date','owner_id','state_id']);
+        $modeltbl=$request->except(['created_date','last_use_date','owner_id']);
         $modeltbl=array_filter($modeltbl);
         $update1=model_tbls::where('id',$id)->update($modeltbl);
 
@@ -114,7 +117,7 @@ class ModelTblController extends Controller
            return response()->json(["message"=>'record not find!!!'], 404);
        }
         //$modeltbl->update($request->all());
-     //  return response()->json($modeltbl,200);
+       return response()->json($modeltbl,200);
     }
 
     /**
@@ -190,7 +193,6 @@ class ModelTblController extends Controller
     public function predict(Request $request,$id)
     {
         $client= new Client();
-   
         $config = Configuration::instance([
          'cloud' => [
          'cloud_name' => 'hi5',
@@ -291,59 +293,54 @@ class ModelTblController extends Controller
           return   $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/dataset", ['type' => 'private']);
 
 
-
-
     }
 
 
     public function store_predict(Request $request,$id)
     {
 
-      // configure globally via a JSON object
-
-       $respose=[];
-       $config = Configuration::instance([
-        'cloud' => [
-        'cloud_name' => 'hi5',
-        'api_key' => '323435588613243',
-        'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
-        'url' => [
-        'secure' => true]]);
-        $cloudinary = new Cloudinary($config);
-        foreach ($request->file('images') as $file){
-          try{
-            file::create(['name'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , 'model_id' => $id ,'user_id' => $request->input('user_id')]);
-
-        }catch(Exception $exception)
-        {
-            if($exception->getCode()==23000)
-            {
-              $respose[$file->getClientOriginalName()]="Name of image duplicated";
-             }
-            else
-            $respose[$file->getClientOriginalName()]="Faild";
-            continue;
-          
-        }
-        $guzzel = new Client();
-        $labels=new LabelController();
-        $labels=$labels->labelsForModel($id);
-
-        $cloudinary->uploadApi()->upload((string)$file,["public_id" => pathinfo($file->getClientOriginalName(),
-        PATHINFO_FILENAME) , "type" => "private", "resource_type	" => "raw" , "folder" => "models/".$id."/predict/".$request->input('user_id')."/images"]);
-         $respose[$file->getClientOriginalName()]="success";
-         $multipart[]=array('name'=>'image', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
-         $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
-         $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
-         $apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
-        }
-
-
-
-
-       return response()->json($respose,200);
-
-
+     
+      $respose=[];
+      $config = Configuration::instance([
+       'cloud' => [
+       'cloud_name' => 'hi5',
+       'api_key' => '323435588613243',
+       'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+       'url' => [
+       'secure' => true]]);
+       $files =[];
+       $cloudinary = new Cloudinary($config);
+       foreach ($request->file('images') as $file){
+         try{
+           file::create(['name'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , 'model_id' => $id ,'user_id' => $request->input('user_id')]);
+           $respose[$file->getClientOriginalName()]='Pending';
+           $files[]=$file;
+       }catch(Exception $exception)
+       {
+           if($exception->getCode()==23000)
+           {
+             $respose[$file->getClientOriginalName()]="Name of image duplicated";
+            }
+           else
+           $respose[$file->getClientOriginalName()]="Faild";
+           
+         
+       }
+      }
+       $guzzel = new Client();
+       $labels=new LabelController();
+       $labels=$labels->labelsForModel($id);
+  
+       foreach($files as $file)
+       $multipart[]=array('name'=>'images', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+      
+       $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
+       $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
+       $apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
+       return  response()->json( $respose,200);
+     
+ 
+  
     }
 
     public function delete_from_predict(Request $request,$id)
@@ -360,10 +357,12 @@ class ModelTblController extends Controller
           $cloudinary = new Cloudinary($config);
           foreach ($request->input('publicIds') as &$node)
            {
-            $mod[]="models/".$id."/predict/images/".$request->input('user_id')."/".$node;
+            $mod[]="models/".$id."/predict/".$request->input('user_id')."/images/".$node;
+            $mod[]="models/".$id."/predict/".$request->input('user_id')."/jsons/".$node;
+            $mod[]="models/".$id."/predict/".$request->input('user_id')."/csvs/".$node;
             file::where('user_id',$request->input('user_id'))->where('model_id',$id)->where('name',$node)->delete();
              }
-             file::where('user_id',$request->input('user_id'))->where('model_id',$id)->where('name',)->delete();
+          
             foreach ($mod as &$node)
             print($node);
 
@@ -440,7 +439,9 @@ class ModelTblController extends Controller
           'secure' => true]]);
           $cloudinary = new Cloudinary($config);
          file::where('user_id',$request->input('user_id'))->where('model_id',$id)->delete();
-          return   $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/predict/".$request->input('user_id'), ['type' => 'private']);
+
+        return $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/predict/".$request->input('user_id'),
+        ['type' => 'private' , 'resource_type'=>'raw']);
 
 
 

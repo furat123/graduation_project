@@ -108,7 +108,7 @@ class FilesController extends Controller
     public function predict($id)
     {
         
-        
+        //
     
     }
     
@@ -144,6 +144,9 @@ class FilesController extends Controller
        
 
     }
+
+ 
+
 
 
 }

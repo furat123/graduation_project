@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d559a25021f6fe94e7824c61d02e028a",
+    "content-hash": "317100b4d6af84e5e7e57201e358617f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4828,6 +4828,44 @@
             "time": "2020-07-13T06:12:54+00:00"
         },
         {
+            "name": "unusorin/pthreads",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/unusorin/pthreads.git",
+                "reference": "1a2d098b714a7458033e4c341ee9e4ec22d26060"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/unusorin/pthreads/zipball/1a2d098b714a7458033e4c341ee9e4ec22d26060",
+                "reference": "1a2d098b714a7458033e4c341ee9e4ec22d26060",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OSL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Sorin Badea",
+                    "email": "sorin.badea91@gmail.com"
+                }
+            ],
+            "description": "Pthreads IDE support",
+            "support": {
+                "issues": "https://github.com/unusorin/pthreads/issues",
+                "source": "https://github.com/unusorin/pthreads/tree/master"
+            },
+            "time": "2014-04-11T09:55:30+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v5.3.0",
             "source": {
@@ -7544,7 +7582,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "unusorin/pthreads": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
