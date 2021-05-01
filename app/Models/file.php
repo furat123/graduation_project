@@ -11,13 +11,10 @@ class file extends Model
     protected $table="files";
     public $timestamps=false;
     protected $fillable=[
-        'user_model_id',
+        'user_id',
+        'model_id',
         'name',
-        'path',
-        'output_path',
-        'uploaded_date',
         'verify_state',
-        'remember_token',
          'state_id',
         'accuracy',
     ];

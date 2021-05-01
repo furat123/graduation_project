@@ -147,14 +147,14 @@ class RelationsController extends Controller
               
                  $data = DB::table('user_has_models')
                  ->join('files','files.user_model_id','=','user_has_models.id')
-                ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
-                  //orWhereNull('owner_id')
+                 ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
                  ->select('files.name as file_name','model_tbls.id','model_tbls.name','files.state_id')
                  ->where('user_has_models.id',$id)
                  ->whereColumn('owner_id','!=','user_id')
                  ->get();
                  return $data;
-               }
+                 }
+
 
                 public function getallmodel($id){
                 $data = DB::table('user_has_models')

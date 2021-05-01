@@ -104,4 +104,9 @@ class UserHasModelController extends Controller
         $user_model->delete();
     
     }
+    public function user_model_id($id,$modelId)
+    {
+   
+       return user_has_model::where('user_id', $id)->where('model_id',$modelId);
+    }
 }

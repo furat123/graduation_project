@@ -76,17 +76,17 @@ class FilesController extends Controller
      */
     public function update(Request $request, $id)
     {
-       /* $file_tbl=$request->except(['created_date','last_use_date','owner_id','state_id']);
-        $modeltbl=array_filter($modeltbl);
-        $update1=model_tbls::where('id',$id)->update($modeltbl);
+        $file_tbl=$request->except(['user_id','model_id']);
+        $file_tbl=array_filter($file_tbl);
+        $update1=file::where('id',$id)->update($file_tbl);
 
-        if(is_null($modeltbl)){
+        if(is_null($file_tbl)){
            return response()->json(["message"=>'record not find!!!'], 404);
        }
         //$modeltbl->update($request->all());
     }
-*/
-    }
+
+    
 
     /**
      * Remove the specified resource from storage.
@@ -104,4 +104,46 @@ class FilesController extends Controller
         return response()->json(null,204);
     
     }
+
+    public function predict($id)
+    {
+        
+        
+    
+    }
+    
+    public function set_labels(Request $request,$id)
+    {   
+        
+        file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->where('name',$request->input('image'))
+        ->update(['labels' => $request->input('labels')]);
+       
+
+    }
+
+    public function update_vs(Request $request,$id)
+    {   
+        
+        file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->
+        where('name',$request->input('image'))->update([ 'verify_state'
+        => file::raw('1-verify_state')]);
+
+        return file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->
+        where('name',$request->input('image'))->pluck('verify_state')->toArray();
+
+    }
+
+    public function vs(Request $request,$id)
+    {   
+        
+
+       return file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->
+       where('name',$request->input('image'))->pluck('verify_state')->toArray();
+        
+
+       
+
+    }
+
+
 }

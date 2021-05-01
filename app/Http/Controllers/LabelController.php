@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\file;
 use App\Models\label;
 use Illuminate\Http\Request;
 
@@ -55,7 +56,7 @@ class LabelController extends Controller
         }
         return response()->json($label_tbl, 200);
     }
-
+ 
     public function labelsForModel($id)
     {   
         $label_tbl=label::where('model_id', '=', $id)->orderBy('id')->pluck('label')->toArray();;

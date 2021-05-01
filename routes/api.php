@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LabelController;
 use App\Http\Middleware\AuthId;
+use Cloudinary\Cloudinary;
+use Cloudinary\Configuration\Configuration;
+use Cloudinary\Exception\ConfigurationException;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,10 +82,10 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 //    Route::post('/MuhannadAdmin', function () {
 //        return "muhannadAdmin";
 //    })->middleware(['AuthAdmin']);
-    ///////////// Authentication///////////////
+///////////// Authentication////////////
 
 
-//////// AI Algorithim Apis  ///////////
+//////// AI Algorithim Apis ///////////
     Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
     Route::get('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
     Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
@@ -92,14 +95,25 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/progress_op/{id}', "App\Http\Controllers\ModelTblController@getProgress_op" );
     Route::put('/progress_op/{id}', "App\Http\Controllers\ModelTblController@setProgress_op" );
     Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@store_dataset" );
-    Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" )->middleware(['AuthId']);
+    Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
     Route::delete('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_all_dataset");
-    Route::post('/dataset', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
+    Route::post('/datasetdel/{id}', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
+    
+    Route::post('images/predict/{id}', "App\Http\Controllers\ModelTblController@store_predict" );
+    Route::get('images/predict/{id}', "App\Http\Controllers\ModelTblController@get_predict" );
+    Route::delete('images/predict/{id}', "App\Http\Controllers\ModelTblController@delete_all_predict");
+    Route::post('images/predictdel/{id}', "App\Http\Controllers\ModelTblController@delete_from_predict" );
+
     Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
     Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
     Route::get('/model/image/{id}', "App\Http\Controllers\ModelTblController@image" );
 
+    Route::get('/vs/{id}' , "App\Http\Controllers\FilesController@vs");
+    Route::put('/vs/{id}' , "App\Http\Controllers\FilesController@update_vs");
 });
+
+
+Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_labels");
 
 //Route::group(['middleware' => ['AuthId']],function (){
 //

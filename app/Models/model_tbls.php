@@ -21,6 +21,8 @@ class model_tbls extends Model
         'state_id',
         'progress',
         'progress_op',
+        'description',
+        'short_description'
     ];
     protected $hidden=['pivot'];
    
