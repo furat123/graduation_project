@@ -76,17 +76,17 @@ class FilesController extends Controller
      */
     public function update(Request $request, $id)
     {
-       /* $file_tbl=$request->except(['created_date','last_use_date','owner_id','state_id']);
-        $modeltbl=array_filter($modeltbl);
-        $update1=model_tbls::where('id',$id)->update($modeltbl);
+        $file_tbl=$request->except(['user_id','model_id']);
+        $file_tbl=array_filter($file_tbl);
+        $update1=file::where('id',$id)->update($file_tbl);
 
-        if(is_null($modeltbl)){
+        if(is_null($file_tbl)){
            return response()->json(["message"=>'record not find!!!'], 404);
        }
         //$modeltbl->update($request->all());
     }
-*/
-    }
+
+    
 
     /**
      * Remove the specified resource from storage.
