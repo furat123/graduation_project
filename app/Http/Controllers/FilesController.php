@@ -83,8 +83,9 @@ class FilesController extends Controller
         if(is_null($file_tbl)){
            return response()->json(["message"=>'record not find!!!'], 404);
        }
-        //$modeltbl->update($request->all());
+       return response()->json('Updated successfully',200);
     }
+    
 
     
 
