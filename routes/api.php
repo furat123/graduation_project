@@ -27,45 +27,8 @@ use Cloudinary\Exception\ConfigurationException;
 //    return $request->user();
 //
 //});
-Route::resource('/model',"App\Http\Controllers\ModelTblController");
-Route::resource('/user_has_model',"App\Http\Controllers\UserHasModelController");
-Route::resource('/file',"App\Http\Controllers\FilesController");
-Route::resource('/model_state',"App\Http\Controllers\ModelStateController");
-Route::resource('/file_state',"App\Http\Controllers\FileStateController");
-Route::resource('/verify_state',"App\Http\Controllers\VerifyStateController");
-Route::resource('/train_file',"App\Http\Controllers\TrainingFileController");
-Route::resource('/train_state',"App\Http\Controllers\TrainingStateController");
-Route::resource('/label',"App\Http\Controllers\LabelController");
-Route::resource('/user' , UserController::class);
-///// state of model
-Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfModel" );
-///// state of file
-Route::get('/state_of_file/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfFile" );
-///// verify of file
-Route::get('/verify_of_file/{id}', "App\Http\Controllers\Relation\RelationsController@getVerifyOfFile" );
 
 
-
-
-
-
-//////// one to one relation  /////////// ----(has one to return the model which the user owner )
-//===========has one reverse to return the owner of model
-Route::get('/has-one/{id}', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
-Route::get('/has-one-reverse/{id}', "App\Http\Controllers\Relation\RelationsController@HasOneRelationReverse" );
-Route::get('/a',function (){
-    return "ahmad";
-});
-
-
-//////// one to many relation  ///////////
-Route::get('/userhasmodel/{id}', "App\Http\Controllers\Relation\RelationsController@getFilesOfMdel" );
-//Route::get('/label_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getLabelOfModel");
-
-
-//////// many to many relation  ///////////
-Route::get('/user_to_model/{id}', "App\Http\Controllers\Relation\RelationsController@getModelsOFUser" );
-Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getusersOFmodel" );
 
 //public api
 Route::post('/register', [AuthController::class, 'register']);
@@ -118,20 +81,58 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
 
 
+    Route::resource('/model',"App\Http\Controllers\ModelTblController");
+    Route::resource('/user_has_model',"App\Http\Controllers\UserHasModelController");
+    Route::resource('/file',"App\Http\Controllers\FilesController");
+    Route::resource('/model_state',"App\Http\Controllers\ModelStateController");
+    Route::resource('/file_state',"App\Http\Controllers\FileStateController");
+    Route::resource('/verify_state',"App\Http\Controllers\VerifyStateController");
+    Route::resource('/train_file',"App\Http\Controllers\TrainingFileController");
+    Route::resource('/train_state',"App\Http\Controllers\TrainingStateController");
+    Route::resource('/label',"App\Http\Controllers\LabelController");
+    Route::resource('/user' , UserController::class);
+///// state of model
+    Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfModel" );
+///// state of file
+    Route::get('/state_of_file/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfFile" );
+///// verify of file
+    Route::get('/verify_of_file/{id}', "App\Http\Controllers\Relation\RelationsController@getVerifyOfFile" );
+
+
+
+
+//////// one to one relation  /////////// ----(has one to return the model which the user owner )
+//===========has one reverse to return the owner of model
+    Route::get('/has-one/{id}', "App\Http\Controllers\Relation\RelationsController@HasOneRelation" );
+    Route::get('/has-one-reverse/{id}', "App\Http\Controllers\Relation\RelationsController@HasOneRelationReverse" );
+    Route::get('/a',function (){
+        return "ahmad";
+    });
+
+
+//////// one to many relation  ///////////
+    Route::get('/userhasmodel/{id}', "App\Http\Controllers\Relation\RelationsController@getFilesOfMdel" );
+//Route::get('/label_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getLabelOfModel");
+
+
+//////// many to many relation  ///////////
+    Route::get('/user_to_model/{id}', "App\Http\Controllers\Relation\RelationsController@getModelsOFUser" );
+    Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getusersOFmodel" );
+
+
+//this relation to show the model which the user owns
+    Route::get('/show_model_user_owns/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelOfowner");
+//this relation to show the model which the user use
+    Route::get('/show_model_user_use/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelUsed");
+//all models which the user own it or not
+    Route::get('/All_Model/{id}', "App\Http\Controllers\Relation\RelationsController@getallmodel");
+
+    Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_labels");
 
 });
 
 
-Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_labels");
-
 //Route::group(['middleware' => ['AuthId']],function (){
 //
 //});
-//this relation to show the model which the user owns
-Route::get('/show_model_user_owns/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelOfowner");
-//this relation to show the model which the user use
-Route::get('/show_model_user_use/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelUsed");
-//all models which the user own it or not
-Route::get('/All_Model/{id}', "App\Http\Controllers\Relation\RelationsController@getallmodel");
 
-// muhannad inajsdnfn kjndf
