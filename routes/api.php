@@ -57,10 +57,6 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
     Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
     Route::post('/predict/{id}', "App\Http\Controllers\ModelTblController@predict" );
-    Route::get('/progress/{id}', "App\Http\Controllers\ModelTblController@getProgress" );
-    Route::put('/progress/{id}', "App\Http\Controllers\ModelTblController@setProgress" );
-    Route::get('/progress_op/{id}', "App\Http\Controllers\ModelTblController@getProgress_op" );
-    Route::put('/progress_op/{id}', "App\Http\Controllers\ModelTblController@setProgress_op" );
     Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@store_dataset" );
     Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
     Route::delete('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_all_dataset");
@@ -75,9 +71,6 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
     Route::get('/model/image/{id}', "App\Http\Controllers\ModelTblController@image" );
 
-    Route::get('/vs/{id}' , "App\Http\Controllers\FilesController@vs");
-    Route::put('/vs/{id}' , "App\Http\Controllers\FilesController@update_vs");
-    Route::put('/update_state' , "App\Http\Controllers\FilesController@update_state");
 
 
 
@@ -127,10 +120,17 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 //all models which the user own it or not
     Route::get('/All_Model/{id}', "App\Http\Controllers\Relation\RelationsController@getallmodel");
 
-    Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_labels");
+   
 
 });
-
+Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_labels");
+Route::get('/vs/{id}' , "App\Http\Controllers\FilesController@vs");
+Route::put('/vs/{id}' , "App\Http\Controllers\FilesController@update_vs");
+Route::put('/update_state' , "App\Http\Controllers\FilesController@update_state");
+Route::get('/progress/{id}', "App\Http\Controllers\ModelTblController@getProgress" );
+Route::put('/progress/{id}', "App\Http\Controllers\ModelTblController@setProgress" );
+Route::get('/progress_op/{id}', "App\Http\Controllers\ModelTblController@getProgress_op" );
+Route::put('/progress_op/{id}', "App\Http\Controllers\ModelTblController@setProgress_op" );
 
 //Route::group(['middleware' => ['AuthId']],function (){
 //
