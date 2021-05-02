@@ -71,7 +71,11 @@ class AuthController extends Controller
                 'message' => 'Bad creds'
             ], 401);
         }
-
+        if(is_null($user['email_verified_at'])){
+            return response([
+                'message' => 'email not verficated'
+            ], 401);
+        }
      //  $token = $user->createToken('hi5Token', ['canLogout'])->plainTextToken;
         $token = $user->createToken('hi5Token')->plainTextToken;
         $response = [
@@ -133,4 +137,4 @@ class AuthController extends Controller
         //   return redirect()->away('https://www.google.com');
     }
 }
-//kjlasdfk
+
