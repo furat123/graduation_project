@@ -13,6 +13,5 @@ class verify_state extends Model
     protected $fillable=[
         'id',
         'verify_state',
-
     ];
 }

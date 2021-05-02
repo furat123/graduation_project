@@ -33,6 +33,7 @@ use Cloudinary\Exception\ConfigurationException;
 //public api
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/user/verify/{token}', [AuthController::class,'verifyUser']);
 
 
 

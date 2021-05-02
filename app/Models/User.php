@@ -31,6 +31,9 @@ class User extends Model
         return $this ->belongsToMany("App\Models\model_tbls",'user_has_models','user_id','model_id');
     }
 
-
+    public function verifyUser()
+    {
+        return $this->hasOne('App\VerifyUser');
+    }
 
 }
