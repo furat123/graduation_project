@@ -113,9 +113,9 @@ class AuthController extends Controller
 
         if(isset($verifyUser) ){
             $user = User::where('id', $verifyUser['id'])->first();
-            print(time());
+            print(now());
             if(is_null($user->email_verified_at)) {
-                $user->email_verified_at =  date('"M,d,Y h:i:s A"', time());
+                $user->email_verified_at =  now();
                 $user->save();
                 $status = "Your e-mail is verified. You can now login.";
             } else {
