@@ -228,14 +228,15 @@ class ModelTblController extends Controller
           $cloudinary->uploadApi()->upload((string)$file,
           ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
            , "resource_type	" => "private" , "folder" => "models/".$id."/dataset"]);
-          return "Ahmad mohammad ";
+         
+           return "Ahmad mohammad ";
 
 
     }
 
     public function delete_from_dataset(Request $request,$id)
     {
-
+     
           $config = Configuration::instance([
             'cloud' => [
               'cloud_name' => 'hi5',
@@ -319,10 +320,12 @@ class ModelTblController extends Controller
        {
            if($exception->getCode()==23000)
            {
-             $respose[$file->getClientOriginalName()]="Name of image duplicated";
+            
+            $respose[$file->getClientOriginalName()]=$exception->getMessage();
             }
            else
            $respose[$file->getClientOriginalName()]="Faild";
+
            
          
        }
@@ -336,7 +339,8 @@ class ModelTblController extends Controller
       
        $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
        $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
-       $apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
+       //$apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
+       $apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
        return  response()->json( $respose,200);
      
  
@@ -461,14 +465,14 @@ class ModelTblController extends Controller
 
     public function object_map_labeling(Request $request,$id)
     {
-          // $multipart = [];
-          // $client= new Client();
-          // foreach ($request->file('csvs') as $file)
-          // $multipart[] = array('name'=>'csv','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
-          // foreach ($request->input('nodes') as $node)
-          // $multipart[] = array('name'=>'nodes','contents'=>$node);
-          // //$apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
-          // return  $apiRequest->getBody();
+          $multipart = [];
+          $client= new Client();
+          foreach ($request->file('csvs') as $file)
+          $multipart[] = array('name'=>'csv','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
+          foreach ($request->input('nodes') as $node)
+          $multipart[] = array('name'=>'nodes','contents'=>$node);
+          $apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
+          return  $apiRequest->getBody();
 
 
     }
