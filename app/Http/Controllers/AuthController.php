@@ -49,7 +49,6 @@ class AuthController extends Controller
         // send token for testing
         return response()->json([
             'message'=>'verification Email Sent. Check your inbox',
-            'token' => $token
         ] , 201);
 
 
@@ -116,7 +115,7 @@ class AuthController extends Controller
             $user = User::where('id', $verifyUser['id'])->first();
             print(time());
             if(is_null($user->email_verified_at)) {
-                $user->email_verified_at =  date('Y-m-d', time());
+                $user->email_verified_at =  date('"M,d,Y h:i:s A"', time());
                 $user->save();
                 $status = "Your e-mail is verified. You can now login.";
             } else {
