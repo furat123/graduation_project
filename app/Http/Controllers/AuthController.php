@@ -35,7 +35,7 @@ class AuthController extends Controller
         ]);
 
         $to_name = $request['name'];
-        $to_email = 'mohanadimad9@gmail.com'; // my email just for testing
+        $to_email = $request['email']; // my email just for testing
         $data = array(
             'name'=> $to_name,
             'body' => 'A test mail',
@@ -76,6 +76,8 @@ class AuthController extends Controller
                 'message' => 'email not verficated'
             ], 401);
         }
+
+
      //  $token = $user->createToken('hi5Token', ['canLogout'])->plainTextToken;
         $token = $user->createToken('hi5Token')->plainTextToken;
         $response = [
