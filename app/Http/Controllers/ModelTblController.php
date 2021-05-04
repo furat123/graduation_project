@@ -206,7 +206,7 @@ class ModelTblController extends Controller
          $request->input('image').".json",  ['type' => 'private' ,'resource_type' => 'raw']);
          $apiRequest = $client->request('get',$apiRequest['url']);
          return response($apiRequest->getBody()->getContents(), 200)
-          ->header('Content-Type', 'application/json')->header('Content-disposition','attachment; filename='. $request->input('image').".json")
+          ->header('Content-Type', 'application/json')->header('Content-disposition','attachment; filename='. $request->input('image').".json");
          
          
        
