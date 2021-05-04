@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use function PHPUnit\Framework\isNull;
 
 class AuthController extends Controller
 {
@@ -35,7 +36,7 @@ class AuthController extends Controller
         ]);
 
         $to_name = $request['name'];
-        $to_email = $request['email']; // my email just for testing
+        $to_email = 'mohanadimad9@gmail.com'; // my email just for testing
         $data = array(
             'name'=> $to_name,
             'body' => 'A test mail',
@@ -131,11 +132,42 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token
         ];
-        return response($response, 201);
 
-        // return redirect('https://codebriefly.com/custom-user-email-verification-activation-laravel/')->with('status', $status);
-        //  return response()->json(['msg' => $status] ,200);
-        //   return redirect()->away('https://www.google.com');
+      return  redirect('https://www.google.com')->with('status', $status);
+
+      //    return response()->json(['msg' => $status] ,200);
+        //  return redirect()->away('https://www.google.com');
     }
+    public function send_email_password(Request $request){
+        $user = auth()->user();
+        $token = auth()->user()->tokens();
+        $to_name = $user->name;
+        $to_email = 'mohanadimad9@gmail.com'; // my email just for testing
+        $data = array(
+            'name'=> $to_name,
+            'body' => 'A test mail',
+            'token' => $token,
+            'new_password' => $request['new_password']
+        );
+        Mail::send('mails.resetPassword', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+                ->subject('Reset Password');
+            $message->from('hay55project@gmail.com','Hay5 Team');
+        });
+
+        return response()->json('email sent check your inbox');
+    }
+    public static function reset_password(Request $request){
+       $user = auth()->user()->tokens();
+       if(is_null($user) || isNull($request['new_password'])){
+           return response()->json('invalid user ' , 404);
+       }
+       $password = $request['new_password'];
+       $user->password = bcrypt($password);
+       $user->save();
+       return redirect('https://google.com');
+    }
+
+
 }
 

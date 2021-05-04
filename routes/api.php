@@ -121,7 +121,10 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 //all models which the user own it or not
     Route::get('/All_Model/{id}', "App\Http\Controllers\Relation\RelationsController@getallmodel");
 
-   
+    Route::get('/send_email_password', [AuthController::class,'send_email_password']);
+    Route::post('/user/verify/{token}', [AuthController::class,'reset_password']);
+
+
 
 });
 Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_labels");
