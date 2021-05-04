@@ -55,11 +55,12 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
 //////// AI Algorithim Apis ///////////
     Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
-    Route::get('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
+    Route::get( '/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
     Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
+    Route::post('/re_train/{id}', "App\Http\Controllers\ModelTblController@re_train" );
     Route::post('/predict/{id}', "App\Http\Controllers\ModelTblController@predict" );
     Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@store_dataset" );
-    Route::get('/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
+    Route::get( '/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
     Route::delete('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_all_dataset");
     Route::post('/datasetdel/{id}', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
 
@@ -71,6 +72,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
     Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
     Route::get('/model/image/{id}', "App\Http\Controllers\ModelTblController@image" );
+
 
 
 
@@ -125,13 +127,14 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
 });
 Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_labels");
+Route::post('/set_labels_model/{id}' , "App\Http\Controllers\TrainingFileController@set_labels");
 Route::get('/vs/{id}' , "App\Http\Controllers\FilesController@vs");
 Route::put('/vs/{id}' , "App\Http\Controllers\FilesController@update_vs");
 Route::put('/update_state' , "App\Http\Controllers\FilesController@update_state");
 Route::get('/progress/{id}', "App\Http\Controllers\ModelTblController@getProgress" );
 Route::put('/progress/{id}', "App\Http\Controllers\ModelTblController@setProgress" );
-Route::get('/progress_op/{id}', "App\Http\Controllers\ModelTblController@getProgress_op" );
-Route::put('/progress_op/{id}', "App\Http\Controllers\ModelTblController@setProgress_op" );
+Route::get('/progress_re/{id}', "App\Http\Controllers\ModelTblController@getProgress_re" );
+Route::put('/progress_re/{id}', "App\Http\Controllers\ModelTblController@setProgress_re" );
 
 //Route::group(['middleware' => ['AuthId']],function (){
 //

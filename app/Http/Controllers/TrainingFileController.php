@@ -94,4 +94,13 @@ class TrainingFileController extends Controller
         return response()->json(null,204);
     
     }
+    public function set_labels(Request $request,$id)
+    {   
+        
+        training_file::where('model_id',$id )->where('name',$request->input('image'))
+        ->update(['labels' => $request->input('labels')]);
+       
+
+    }
+
 }
