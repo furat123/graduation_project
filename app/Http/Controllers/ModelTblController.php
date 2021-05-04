@@ -204,10 +204,10 @@ class ModelTblController extends Controller
          $cloudinary = new Cloudinary($config);
          $apiRequest=$cloudinary->adminApi()->asset("models/".$id."/predict/". $request->input('user_id')."/jsons/".
          $request->input('image').".json",  ['type' => 'private' ,'resource_type' => 'raw']);
-         $api = $client->request('get',$apiRequest['url']);
-         $response = Response::make($api->getBody(), 200);
-         $response->header('Content-Type', 'application/json');
-         return $response;
+         $apiRequest = $client->request('get',$apiRequest['url']);
+         return response($apiRequest->getBody()->getContents(), 200)
+          ->header('Content-Type', 'application/json')->header('Content-disposition','attachment; filename='. $request->input('image').".json")
+         
          
        
     }
