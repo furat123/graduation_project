@@ -208,7 +208,7 @@ class ModelTblController extends Controller
          $response = Response::make($api->getBody(), 200);
          $response->header('Content-Type', 'application/json');
          return $response;
-         return ;
+         
        
     }
 
