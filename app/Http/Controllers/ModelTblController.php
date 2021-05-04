@@ -16,6 +16,7 @@ use Cloudinary\Cloudinary as Cloudinary;
 use App\Models\file;
 use App\Models\training_file;
 use Exception;
+use Illuminate\Http\Response;
 use Thread;
 use Threaded;
 
@@ -203,7 +204,11 @@ class ModelTblController extends Controller
          $cloudinary = new Cloudinary($config);
          $apiRequest=$cloudinary->adminApi()->asset("models/".$id."/predict/". $request->input('user_id')."/jsons/".
          $request->input('image').".json",  ['type' => 'private' ,'resource_type' => 'raw']);
-         return $apiRequest;
+         $api = $client->request($apiRequest['url']);
+         $response = Response::make($api->getBody(), 200);
+         $response->header('Content-Type', 'application/json');
+         return $response;
+         return ;
        
     }
 
