@@ -428,12 +428,16 @@ class ModelTblController extends Controller
 
           foreach($raw as $key => $val)
           $resposes[$keyP][$key]=$val;
+          
+          if($raw['state_id']==1){
           $res=$cloudinary->adminApi()->asset('models/'.$id.'/predict/'.$request->input('user_id').'/images/'. $resposes[$keyP]['name'] ,
          ['type' => 'private']);
           
           foreach( $res as $key => $val)
           $resposes[$keyP][$key]=$val;
+          }
          }
+
          return $resposes;
 
     }
@@ -498,8 +502,8 @@ class ModelTblController extends Controller
           $multipart = [];
           $client= new Client();
           $multipart[] = array('name'=>'nodes','contents'=>$request->input('nodes'));
-          //$apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
-           $apiRequest = $client->request('POST', "127.0.0.1:5000/object_map_labeling/".$id, [ 'multipart' => $multipart]);
+            $apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
+          //$apiRequest = $client->request('POST', "127.0.0.1:5000/object_map_labeling/".$id, [ 'multipart' => $multipart]);
           return  $apiRequest->getBody();
 
 
