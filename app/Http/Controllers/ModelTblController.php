@@ -228,7 +228,8 @@ class ModelTblController extends Controller
           'secure' => true]]);
           $f = true;
           $cloudinary = new Cloudinary($config);
-          if(training_file::where("model_id",$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) != null)
+          
+          if(training_file::where("model_id",$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->count()!=0)
           {
             training_file::where("model_id",$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->update(
               ["labels" => null]
