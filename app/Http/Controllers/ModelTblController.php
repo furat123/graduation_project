@@ -270,8 +270,7 @@ class ModelTblController extends Controller
                {$node = "models/".$id."/dataset/".$node;
                 $mod[]=$node;
                  }
-                foreach ($mod as &$node)
-                print($node);
+    
 
             return   $cloudinary->adminApi()->deleteAssets($mod,["type" => "private"]);
 
@@ -391,19 +390,17 @@ class ModelTblController extends Controller
         'url' => [
           'secure' => true]]);
           $mod=[];
+          $mod1=[];
           $cloudinary = new Cloudinary($config);
           foreach ($request->input('publicIds') as &$node)
            {
-            $mod[]="models/".$id."/predict/".$request->input('user_id')."/images/".$node;
-            $mod[]="models/".$id."/predict/".$request->input('user_id')."/jsons/".$node;
-            $mod[]="models/".$id."/predict/".$request->input('user_id')."/csvs/".$node;
+            $mod1[]="models/".$id."/predict/".$request->input('user_id')."/images/".$node;
+            $mod[]="models/".$id."/predict/".$request->input('user_id')."/jsons/".$node.".json";
+            $mod[]="models/".$id."/predict/".$request->input('user_id')."/csvs/".$node.".csv";
             file::where('user_id',$request->input('user_id'))->where('model_id',$id)->where('name',$node)->delete();
              }
-          
-            foreach ($mod as &$node)
-            print($node);
-
-        return   $cloudinary->adminApi()->deleteAssets($mod,["type" => "private"]);
+        $cloudinary->adminApi()->deleteAssets($mod1,["type" => "private"]);
+        return   $cloudinary->adminApi()->deleteAssets($mod,["type" => "private" , "resource_type" => "raw"]);
 
     }
 
