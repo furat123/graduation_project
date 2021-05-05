@@ -97,8 +97,9 @@ class TrainingFileController extends Controller
     public function set_labels(Request $request,$id)
     {   
         
-       return training_file::where('model_id',$id )->where('name',$request->input('image'))
+        training_file::where('model_id',$id )->where('name',$request->input('image'))
         ->update(['labels' => $request->input('labels')]);
+
        
 
     }
@@ -107,7 +108,7 @@ class TrainingFileController extends Controller
     {   
         
         training_file::where('model_id',$id )->where('name',$request->input('image'))
-        ->get()->toArray()['labels'];
+        ->get('labels');
        
 
     }
