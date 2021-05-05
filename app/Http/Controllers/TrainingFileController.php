@@ -107,7 +107,7 @@ class TrainingFileController extends Controller
     public function labels(Request $request,$id)
     {   
         
-        training_file::where('model_id',$id )->where('name',$request->input('image'))
+      return  training_file::where('model_id',$id )->where('name',$request->input('image'))
         ->get('labels');
        
 
