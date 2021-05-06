@@ -35,10 +35,10 @@ class HestoryOfModelController extends Controller
      */
     public function store(Request $request)
     {
-        $id = hestory_of_model::insertGetId(
+    hestory_of_model::create(
           $request->all()
     );
-    return $id;
+    return hestory_of_model::getPdo()->lastInsertId();;
     }
 
     /**
