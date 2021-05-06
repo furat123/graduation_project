@@ -87,13 +87,14 @@ class historyOfTrainController extends Controller
      */
     public function destroy($id)
     {
-        $ht = history_of_train::FindOrFail($id);
       
-        if(is_null($ht)){
-       // return response()->json(null,204);
-        return response()->json(["message"=>'record not find!!!'], 404);
-        }
+     }
+     public function show_hide($id)
+     {
+        history_of_train::where('id',$id)->update([ 'show_hide'
+        => history_of_train::raw('1-show_hide')]);
 
-        return $ht->delete();
-    }
+        return history_of_train::where('id',$id)->pluck('show_hide')->toArray();
+     }
+
 }

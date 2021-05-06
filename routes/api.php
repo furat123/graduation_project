@@ -115,6 +115,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getusersOFmodel" );
 
 
+
 //this relation to show the model which the user owns
     Route::get('/show_model_user_owns/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelOfowner");
 //this relation to show the model which the user use
@@ -136,6 +137,8 @@ Route::put('/progress/{id}', "App\Http\Controllers\ModelTblController@setProgres
 Route::get('/progress_re/{id}', "App\Http\Controllers\ModelTblController@getProgress_re" );
 Route::put('/progress_re/{id}', "App\Http\Controllers\ModelTblController@setProgress_re" );
 Route::resource('/history_of_train',"App\Http\Controllers\HistoryOfTrainController");
+Route::get('/history_of_train_show_or_hide/{id}', "App\Http\Controllers\HistoryOfTrainController@show_hide" );
+
 //Route::group(['middleware' => ['AuthId']],function (){
 //
 //});
