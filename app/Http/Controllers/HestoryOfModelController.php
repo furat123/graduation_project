@@ -35,6 +35,7 @@ class HestoryOfModelController extends Controller
      */
     public function store(Request $request)
     {
+    print_r($request->all());
     hestory_of_model::create(
           $request->all()
     );
