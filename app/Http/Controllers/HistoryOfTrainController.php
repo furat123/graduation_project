@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\hestory_of_model;
+use App\Models\history_of_train;
 use Illuminate\Http\Request;
 
-class HestoryOfModelController extends Controller
+class historyOfTrainController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,21 +35,18 @@ class HestoryOfModelController extends Controller
      */
     public function store(Request $request)
     {
-    print_r($request->all());
-    print_r("kkkk");
-    hestory_of_model::create(
+    return history_of_train::create(
           $request->all()
-    );
-    return hestory_of_model::getPdo()->lastInsertId();;
+    )->id;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\hestory_of_model  $hestory_of_model
+     * @param  \App\Models\history_of_train  $history_of_train
      * @return \Illuminate\Http\Response
      */
-    public function show(hestory_of_model $hestory_of_model)
+    public function show(history_of_train $history_of_train)
     {
         //
     }
@@ -57,10 +54,10 @@ class HestoryOfModelController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\hestory_of_model  $hestory_of_model
+     * @param  \App\Models\history_of_train  $history_of_train
      * @return \Illuminate\Http\Response
      */
-    public function edit(hestory_of_model $hestory_of_model)
+    public function edit(history_of_train $history_of_train)
     {
         //
     }
@@ -69,10 +66,10 @@ class HestoryOfModelController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\hestory_of_model  $hestory_of_model
+     * @param  \App\Models\history_of_train  $history_of_train
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, hestory_of_model $hestory_of_model)
+    public function update(Request $request, history_of_train $history_of_train)
     {
         //
     }
@@ -80,10 +77,10 @@ class HestoryOfModelController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\hestory_of_model  $hestory_of_model
+     * @param  \App\Models\history_of_train  $history_of_train
      * @return \Illuminate\Http\Response
      */
-    public function destroy(hestory_of_model $hestory_of_model)
+    public function destroy(history_of_train $history_of_train)
     {
         //
     }
