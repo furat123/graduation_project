@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class historyOfTrainController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +15,7 @@ class historyOfTrainController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(history_of_train::get(),200);
     }
 
     /**
@@ -43,21 +44,25 @@ class historyOfTrainController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\history_of_train  $history_of_train
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(history_of_train $history_of_train)
+    public function show($id)
     {
-        //
+        $row=history_of_train::FindOrFail($id);
+        if(is_null($row)){
+        return response()->json(["message"=>'record not find!!!'], 404);
+        }
+        return response()->json($row, 200);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\history_of_train  $history_of_train
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(history_of_train $history_of_train)
+    public function edit($id)
     {
         //
     }
@@ -66,10 +71,10 @@ class historyOfTrainController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\history_of_train  $history_of_train
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, history_of_train $history_of_train)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -77,11 +82,18 @@ class historyOfTrainController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\history_of_train  $history_of_train
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(history_of_train $history_of_train)
+    public function destroy($id)
     {
-        //
+        $ht = history_of_train::FindOrFail($id);
+      
+        if(is_null($ht)){
+       // return response()->json(null,204);
+        return response()->json(["message"=>'record not find!!!'], 404);
+        }
+
+        return $ht->delete();
     }
 }

@@ -79,11 +79,11 @@ class FileStateController extends Controller
     {
         $file_state=$request->except(['id']);
         $file_state=array_filter( $file_state);
-        $update1=file_state::where('id',$id)->update($file_state);
-
-        if(is_null($file_state)){
-           return response()->json(["message"=>'record not find!!!'], 404);
+        $update=file_state::where('id',$id)->update($file_state);
+        if($update==0){
+           return response()->json(["message"=>'Faild'], 404);
        }
+       return response()->json(["message"=>'success'], 200);
     }
 
     /**
