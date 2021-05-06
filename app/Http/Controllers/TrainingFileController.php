@@ -108,7 +108,7 @@ class TrainingFileController extends Controller
     {   
         
       return  training_file::where('model_id',$id )->where('name',$request->input('image'))
-        ->get('labels');
+      ->get('labels');
        
 
     }

@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
 
     Route::resource('/model',"App\Http\Controllers\ModelTblController");
-    Route::resource('/history_of_model',"App\Http\Controllers\hestory_of_model");
+    Route::resource('/history_of_model',"App\Http\Controllers\HestoryOfModelController");
     Route::resource('/user_has_model',"App\Http\Controllers\UserHasModelController");
     Route::resource('/file',"App\Http\Controllers\FilesController");
     Route::resource('/model_state',"App\Http\Controllers\ModelStateController");
