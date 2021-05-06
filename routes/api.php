@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
 
     Route::resource('/model',"App\Http\Controllers\ModelTblController");
-    Route::resource('/history_of_model',"App\Http\Controllers\HestoryOfModelController");
+
     Route::resource('/user_has_model',"App\Http\Controllers\UserHasModelController");
     Route::resource('/file',"App\Http\Controllers\FilesController");
     Route::resource('/model_state',"App\Http\Controllers\ModelStateController");
@@ -137,7 +137,7 @@ Route::get('/progress/{id}', "App\Http\Controllers\ModelTblController@getProgres
 Route::put('/progress/{id}', "App\Http\Controllers\ModelTblController@setProgress" );
 Route::get('/progress_re/{id}', "App\Http\Controllers\ModelTblController@getProgress_re" );
 Route::put('/progress_re/{id}', "App\Http\Controllers\ModelTblController@setProgress_re" );
-
+Route::resource('/history_of_model',"App\Http\Controllers\HestoryOfModelController");
 //Route::group(['middleware' => ['AuthId']],function (){
 //
 //});
