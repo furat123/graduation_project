@@ -35,8 +35,7 @@ class HestoryOfModelController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $id = hestory_of_model::table('users')-> insertGetId(
+        $id = hestory_of_model::insertGetId(
           $request->all()
     );
     return $id;
