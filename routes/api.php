@@ -34,7 +34,8 @@ use Cloudinary\Exception\ConfigurationException;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/user/verify/{token}', [AuthController::class,'verifyUser']);
-
+Route::post('/send_email_password', [AuthController::class,'send_email_password']);
+Route::get('/reset_password/{token}', [AuthController::class,'reset_password']);
 
 
 
@@ -121,8 +122,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 //all models which the user own it or not
     Route::get('/All_Model/{id}', "App\Http\Controllers\Relation\RelationsController@getallmodel");
 
-    Route::get('/send_email_password', [AuthController::class,'send_email_password']);
-    Route::post('/user/verify/{token}', [AuthController::class,'reset_password']);
+
 
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\password_reset;
 use App\Models\User;
 use App\Models\VerifyUser;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class AuthController extends Controller
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
-            'password' => 'required|string|confirmed'
+            'password' => 'required|string|confirmed|min:6'
         ]);
 
         $user = User::create([
@@ -138,18 +139,34 @@ class AuthController extends Controller
       //    return response()->json(['msg' => $status] ,200);
         //  return redirect()->away('https://www.google.com');
     }
+
+
+
     public function send_email_password(Request $request){
-        $user = auth()->user();
-        $token = auth()->user()->tokens();
-        $to_name = $user->name;
+
+        $fields = $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string|confirmed|min:6'
+        ]);
+
+        $token = bcrypt(now());
+        password_reset::create([
+            'email' => $fields['email'],
+            'token' => $token,
+            'password' => bcrypt($fields['password']),
+            'created_at' => now()
+        ]);
+
+        $user = User::where('email', $fields['email'])->first();
+
+        $to_name = $user['name'];
         $to_email = 'mohanadimad9@gmail.com'; // my email just for testing
         $data = array(
             'name'=> $to_name,
-            'body' => 'A test mail',
             'token' => $token,
-            'new_password' => $request['new_password']
         );
-        Mail::send('mails.resetPassword', $data, function($message) use ($to_name, $to_email) {
+
+        Mail::send('mails.reset', $data, function($message) use ($to_name, $to_email) {
             $message->to($to_email, $to_name)
                 ->subject('Reset Password');
             $message->from('hay55project@gmail.com','Hay5 Team');
@@ -157,14 +174,22 @@ class AuthController extends Controller
 
         return response()->json('email sent check your inbox');
     }
-    public static function reset_password(Request $request){
-       $user = auth()->user()->tokens();
-       if(is_null($user) || isNull($request['new_password'])){
+
+
+
+
+    public  function reset_password($token){
+
+        $raw = password_reset::where('token', $token)->first();
+        $user = User::where('email' , $raw['email'])->first();
+       if(is_null($user) ){
            return response()->json('invalid user ' , 404);
        }
-       $password = $request['new_password'];
-       $user->password = bcrypt($password);
-       $user->save();
+        $password = $raw['password'];
+        $user->password = $password;
+        $user->save();
+
+       password_reset::where('email', $raw['email'])->delete();
        return redirect('https://google.com');
     }
 
