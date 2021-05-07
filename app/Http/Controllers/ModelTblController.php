@@ -245,12 +245,12 @@ class ModelTblController extends Controller
          
           $cloudinary->uploadApi()->upload((string)$file,
           ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
-           , "resource_type	" => "private" , "folder" => "models/".$id."/dataset"]);
+           , "resource_type	" => "private" , "folder" => "models/".$id."/dataset/images"]);
 
            $client = new Client();
            $multipart[] = array('name'=>'image','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
-          // $client->request('Post','127.0.0.1:5000/object_map_generation/'.$id,['multipart' => $multipart]);
-          $client->request('Post','https://hi55.herokuapp.com/object_map_generation/'.$id,['multipart' => $multipart]);
+           $client->request('Post','127.0.0.1:5000/object_map_generation/'.$id,['multipart' => $multipart]);
+          //$client->request('Post','https://hi55.herokuapp.com/object_map_generation/'.$id,['multipart' => $multipart]);
            if($f)
            training_file::create(['model_id'=>$id,'name' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)]);
            return response()->json('success',200);
@@ -263,6 +263,7 @@ class ModelTblController extends Controller
     {
      
           $config = Configuration::instance([
+            
             'cloud' => [
               'cloud_name' => 'hi5',
               'api_key' => '323435588613243',
@@ -270,14 +271,19 @@ class ModelTblController extends Controller
             'url' => [
               'secure' => true]]);
               $mod=[];
+              $mod1=[];
               $cloudinary = new Cloudinary($config);
               foreach ($request->input('publicIds') as &$node)
-               {$node = "models/".$id."/dataset/".$node;
-                $mod[]=$node;
+               { $mod1[]="models/".$id."/dataset/images/".$node;
+                $mod[]= "models/".$id."/dataset/jsons/".$node.".json";
+                $mod[]= "models/".$id."/dataset/labeld_object_maps/".$node.".csv";
+                $mod[]= "models/".$id."/dataset/object_maps/".$node.".csv";
+                training_file::where("model_id",$id)->where("name",$node)->delete();
+              
                  }
-    
-
-            return   $cloudinary->adminApi()->deleteAssets($mod,["type" => "private"]);
+        
+            $cloudinary->adminApi()->deleteAssets($mod,["type" => "private" ,"resource_type" => "raw"]);
+            return   $cloudinary->adminApi()->deleteAssets($mod1,["type" => "private"]);
 
 
     }
@@ -300,7 +306,7 @@ class ModelTblController extends Controller
             'url' => [
               'secure' => true]]);
               $cloudinary = new Cloudinary($config);
-           return   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/dataset", "max_results" => 500 ,'type' => 'private']);
+           return   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/dataset/images", "max_results" => 500 ,'type' => 'private']);
            
 
     }
@@ -315,6 +321,8 @@ class ModelTblController extends Controller
         'url' => [
           'secure' => true]]);
           $cloudinary = new Cloudinary($config);
+          training_file::where('model_id',$id)->delete();
+            $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/dataset", ['type' => 'private',"resource_type" => "raw"]);
           return   $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/dataset", ['type' => 'private']);
 
 

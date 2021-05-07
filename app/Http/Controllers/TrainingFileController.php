@@ -123,7 +123,7 @@ class TrainingFileController extends Controller
       ->pluck('labels')->all()[0];
       
       $client = new Client();
-      $url = $cloudinary->adminApi()->asset("models/".$id."/jsons/".$request->input('image').".json",["resource_type" => "raw","type" => "private"])['url'];
+      $url = $cloudinary->adminApi()->asset("models/".$id."/dataset/jsons/".$request->input('image').".json",["resource_type" => "raw","type" => "private"])['url'];
       $res=$client->request('get',$url);
     
       $a[1] = $res->getBody()->getContents();
