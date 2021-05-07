@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\training_file;
+use Cloudinary\Cloudinary;
+use Cloudinary\Configuration\Configuration;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class TrainingFileController extends Controller
@@ -94,4 +97,38 @@ class TrainingFileController extends Controller
         return response()->json(null,204);
     
     }
+    public function set_labels(Request $request,$id)
+    {   
+        
+      return  training_file::where('model_id',$id )->where('name',$request->input('image'))
+        ->update(['labels' => $request->input('labels')]);
+
+       
+
+    }
+
+    public function labels(Request $request,$id)
+    {   
+    $config = Configuration::instance([
+        'cloud' => [
+            'cloud_name' => 'hi5',
+            'api_key' => '323435588613243',
+            'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+        'url' => [
+            'secure' => true]]);
+            $f = true;
+            $cloudinary = new Cloudinary($config);
+    $a=[];
+    $a[0]['labels']=training_file::where('model_id',$id )->where('name',$request->input('image'))
+      ->pluck('labels')->all()[0];
+      
+      $client = new Client();
+      $url = $cloudinary->adminApi()->asset("models/".$id."/jsons/".$request->input('image').".json",["resource_type" => "raw","type" => "private"])['url'];
+      $res=$client->request('get',$url);
+    
+      $a[1] = $res->getBody()->getContents();
+      return $a;
+
+    }
+
 }
