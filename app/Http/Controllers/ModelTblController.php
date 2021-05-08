@@ -66,7 +66,7 @@ class ModelTblController extends Controller
         $cloudinary->uploadApi()->upload((string)$request->file('image'),
         ["public_id" => 'image' , "type" => "upload"
          , "resource_type	" => "raw" , "folder" => "models/".$model_tbl->id]);
-
+        
 
 
     return response()->json($model_tbl,201);
@@ -195,7 +195,6 @@ class ModelTblController extends Controller
         return   $apiRequest->getBody();
     }
 
-
     public function predict(Request $request,$id)
     {
         $client= new Client();
@@ -212,17 +211,11 @@ class ModelTblController extends Controller
          $apiRequest = $client->request('get',$apiRequest['url']);
          return response($apiRequest->getBody()->getContents(), 200)
           ->header('Content-Type', 'application/json')->header('Content-disposition','attachment; filename='. $request->input('image').".json");
-         
-         
-       
     }
-
 
     public function store_dataset(Request $request,$id)
     {
-
       // configure globally via a JSON object
-
         $file = $request->file('image');
        $config = Configuration::instance([
         'cloud' => [
@@ -254,11 +247,8 @@ class ModelTblController extends Controller
            if($f)
            training_file::create(['model_id'=>$id,'name' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)]);
            return response()->json('success',200);
-           
-
-
     }
-
+   
     public function delete_from_dataset(Request $request,$id)
     {
      
@@ -284,8 +274,6 @@ class ModelTblController extends Controller
         
             $cloudinary->adminApi()->deleteAssets($mod,["type" => "private" ,"resource_type" => "raw"]);
             return   $cloudinary->adminApi()->deleteAssets($mod1,["type" => "private"]);
-
-
     }
 
 
@@ -298,6 +286,7 @@ class ModelTblController extends Controller
           // $apiRequest = $client->request('GET', (string)$url);
           // return response($apiRequest->getBody()->getContents(), 200)
           // ->header('Content-Type', 'application/zip')->header('Content-disposition','attachment; filename="data_set.zip"');
+
           $config = Configuration::instance([
             'cloud' => [
               'cloud_name' => 'hi5',
@@ -307,7 +296,6 @@ class ModelTblController extends Controller
               'secure' => true]]);
               $cloudinary = new Cloudinary($config);
            return   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/dataset/images", "max_results" => 500 ,'type' => 'private']);
-           
 
     }
 
@@ -340,7 +328,6 @@ class ModelTblController extends Controller
       //,'user_id' => $request->input('user_id')]]);
       return   $apiRequest->getBody();
   
-
     }
     public function store_predict(Request $request,$id)
     {
@@ -371,24 +358,21 @@ class ModelTblController extends Controller
            else
            $respose[$file->getClientOriginalName()]="Faild";
 
-           
-         
+          
        }
       }
+
        $guzzel = new Client();
        $labels=new LabelController();
        $labels=$labels->labelsForModel($id);
   
        foreach($files as $file)
        $multipart[]=array('name'=>'images', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
-      
        $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
        $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
        $apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
        //$apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
        return  response()->json( $respose,200);
-     
- 
   
     }
 
@@ -487,12 +471,10 @@ class ModelTblController extends Controller
           'secure' => true]]);
           $cloudinary = new Cloudinary($config);
          file::where('user_id',$request->input('user_id'))->where('model_id',$id)->delete();
-
+         $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/predict/".$request->input('user_id'),
+           ['type' => 'private' , 'resource_type'=>'raw']);
         return $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/predict/".$request->input('user_id'),
-        ['type' => 'private' , 'resource_type'=>'raw']);
-
-
-
+        ['type' => 'private']);
 
     }
 
