@@ -131,6 +131,8 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 });
 Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_labels");
 Route::get('/modelfile/labels/{id}' , "App\Http\Controllers\TrainingFileController@labels");
+Route::get('/verify/{id}' , "App\Http\Controllers\FilesController@verify");
+Route::get('/predictfile/labels/{id}' , "App\Http\Controllers\FilesController@labels");
 Route::post('/set_labels_model/{id}' , "App\Http\Controllers\TrainingFileController@set_labels");
 Route::get('/vs/{id}' , "App\Http\Controllers\FilesController@vs");
 Route::put('/vs/{id}' , "App\Http\Controllers\FilesController@update_vs");
@@ -141,7 +143,7 @@ Route::get('/progress_re/{id}', "App\Http\Controllers\ModelTblController@getProg
 Route::put('/progress_re/{id}', "App\Http\Controllers\ModelTblController@setProgress_re" );
 Route::resource('/history_of_train',"App\Http\Controllers\HistoryOfTrainController");
 Route::get('/history_of_train_show_or_hide/{id}', "App\Http\Controllers\HistoryOfTrainController@show_hide" );
-
+Route::get('/test/{id}', "App\Http\Controllers\LabelController@labelsForModel" );
 //Route::group(['middleware' => ['AuthId']],function (){
 //
 //});

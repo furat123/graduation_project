@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\training_file;
 use Cloudinary\Cloudinary;
 use Cloudinary\Configuration\Configuration;
+use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Mockery\Expectation;
 
 class TrainingFileController extends Controller
 {
@@ -121,12 +123,14 @@ class TrainingFileController extends Controller
     $a=[];
     $a[0]['labels']=training_file::where('model_id',$id )->where('name',$request->input('image'))
       ->pluck('labels')->all()[0];
-      
       $client = new Client();
-      $url = $cloudinary->adminApi()->asset("models/".$id."/jsons/".$request->input('image').".json",["resource_type" => "raw","type" => "private"])['url'];
+     try{ $url = $cloudinary->adminApi()->asset("models/".$id."/dataset/jsons/".$request->input('image').".json",["resource_type" => "raw","type" => "private"])['url'];
       $res=$client->request('get',$url);
-    
       $a[1] = $res->getBody()->getContents();
+     }
+     catch(Exception $exception){
+        $a[1] = null;
+     }
       return $a;
 
     }
