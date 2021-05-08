@@ -37,7 +37,7 @@ class AuthController extends Controller
         ]);
 
         $to_name = $request['name'];
-        $to_email = 'mohanadimad9@gmail.com'; // my email just for testing
+        $to_email = $request['email']; // my email just for testing
         $data = array(
             'name'=> $to_name,
             'body' => 'A test mail',
@@ -181,6 +181,7 @@ class AuthController extends Controller
     public  function reset_password($token){
 
         $raw = password_reset::where('token', $token)->first();
+
         $user = User::where('email' , $raw['email'])->first();
        if(is_null($user) ){
            return response()->json('invalid user ' , 404);
