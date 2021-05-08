@@ -195,6 +195,7 @@ class ModelTblController extends Controller
         return   $apiRequest->getBody();
     }
 
+
     public function predict(Request $request,$id)
     {
         $client= new Client();
@@ -239,13 +240,13 @@ class ModelTblController extends Controller
           $cloudinary->uploadApi()->upload((string)$file,
           ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
            , "resource_type	" => "private" , "folder" => "models/".$id."/dataset/images"]);
-
+           if($f)
+           training_file::create(['model_id'=>$id,'name' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)]);
            $client = new Client();
            $multipart[] = array('name'=>'image','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
            //$client->request('Post','127.0.0.1:5000/object_map_generation/'.$id,['multipart' => $multipart]);
           $client->request('Post','https://hi55.herokuapp.com/object_map_generation/'.$id,['multipart' => $multipart]);
-           if($f)
-           training_file::create(['model_id'=>$id,'name' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)]);
+      
            return response()->json('success',200);
     }
    
@@ -365,7 +366,6 @@ class ModelTblController extends Controller
        $guzzel = new Client();
        $labels=new LabelController();
        $labels=$labels->labelsForModel($id);
-  
        foreach($files as $file)
        $multipart[]=array('name'=>'images', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
        $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
