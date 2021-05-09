@@ -247,9 +247,9 @@ class ModelTblController extends Controller
            $client = new Client();
            $multipart[] = array('name'=>'image','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
            //$client->request('Post','127.0.0.1:5000/object_map_generation/'.$id,['multipart' => $multipart]);
-          //$client->request('Post','https://hi55.herokuapp.com/object_map_generation/'.$id,['multipart' => $multipart]);
+          $client->request('Post','https://hi55.herokuapp.com/object_map_generation/'.$id,['multipart' => $multipart]);
       
-           return response()->json('success',200);
+           return $f;
     }
    
     public function delete_from_dataset(Request $request,$id)
