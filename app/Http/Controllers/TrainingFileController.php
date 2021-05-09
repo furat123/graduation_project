@@ -123,8 +123,8 @@ class TrainingFileController extends Controller
     $a=[];
     $query = str_replace(array('?'), array('\'%s\''), training_file::where('model_id',$id)->where('name',$request->input('image'))->toSql());
     $query = vsprintf($query, training_file::where('model_id',$id)->where('name',$request->input('image'))->getBindings());
-    
     $a[0]['labels']=training_file::where('model_id',$id )->where('name',$request->input('image'))
+    
       ->pluck('labels')->all()[0];
       $client = new Client();
      try{ $url = $cloudinary->adminApi()->asset("models/".$id."/dataset/jsons/".$request->input('image').".json",["resource_type" => "raw","type" => "private"])['url'];
