@@ -228,8 +228,8 @@ class ModelTblController extends Controller
           $f = true;
           $cloudinary = new Cloudinary($config);
           $query = str_replace(array('?'), array('\'%s\''), training_file::where('model_id',$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->toSql());
-         $query = vsprintf($query, training_file::where('model_id',$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->getBindings());
-          return $query ;
+          $query = vsprintf($query, training_file::where('model_id',$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->getBindings());
+  
        if(training_file::where("model_id",$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->count()!=0)
           {
             training_file::where("model_id",$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->update(
@@ -237,7 +237,7 @@ class ModelTblController extends Controller
             );
             $f=false;
 
-          }
+        }
          
           $cloudinary->uploadApi()->upload((string)$file,
           ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
