@@ -123,7 +123,6 @@ class TrainingFileController extends Controller
     $a=[];
     $query = str_replace(array('?'), array('\'%s\''), training_file::where('model_id',$id)->where('name',$request->input('image'))->toSql());
     $query = vsprintf($query, training_file::where('model_id',$id)->where('name',$request->input('image'))->getBindings());
-    return $query;
     
     $a[0]['labels']=training_file::where('model_id',$id )->where('name',$request->input('image'))
       ->pluck('labels')->all()[0];
