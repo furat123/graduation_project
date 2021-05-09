@@ -228,7 +228,7 @@ class ModelTblController extends Controller
           $f = true;
           $cloudinary = new Cloudinary($config);
           $query = str_replace(array('?'), array('\'%s\''), training_file::where('model_id',$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->toSql());
-         // $query = vsprintf($query, training_file::where('model_id',$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
+         $query = vsprintf($query, training_file::where('model_id',$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->getBindings());
           return $query ;
        if(training_file::where("model_id",$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->count()!=0)
           {
