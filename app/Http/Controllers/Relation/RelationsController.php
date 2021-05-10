@@ -108,12 +108,12 @@ class RelationsController extends Controller
 
       
         $model=model_tbls::with('Users_Of_Model')->FindOrFail($id);
-      //   return $model->Users_Of_Model;
-             $name_of_user = $model -> Users_Of_Model;
-             foreach ($name_of_user as $var){
-             echo $var->name ; 
-             echo "\n";
-             }
+        return $model->Users_Of_Model;
+           //  $name_of_user = $model -> Users_Of_Model;
+            // foreach ($name_of_user as $var){
+            // echo $var->id ; 
+            // echo "\n";
+            // }
     
 
    }
