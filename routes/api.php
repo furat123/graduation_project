@@ -128,5 +128,8 @@ Route::get('/show_model_user_owns/{id}', "App\Http\Controllers\Relation\Relation
 Route::get('/show_model_user_use/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelUsed");
 //all models which the user own it or not 
 Route::get('/All_Model/{id}', "App\Http\Controllers\Relation\RelationsController@getallmodel");
+// get owner id of model that the user use
+Route::get('/owner_id/{id}', "App\Http\Controllers\Relation\RelationsController@getOwnerID");
+
 
 

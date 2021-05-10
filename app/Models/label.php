@@ -16,4 +16,8 @@ class label extends Model
         'color',
 
     ];
+    protected $casts = [
+
+        'label' => 'array'
+    ];
 }
