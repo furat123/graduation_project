@@ -6791,3 +6791,64 @@ ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Fou
 ew project\\graduation_project\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #26 {main}
 "} 
+[2021-05-10 23:20:27] local.ERROR: require(C:\Users\hp\Desktop\new project\graduation_project\routes/api.php): failed to open stream: No such file or directory {"exception":"[object] (ErrorException(code: 0): require(C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\outes/api.php): failed to open stream: No such file or directory at C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteFileRegistrar.php:35)
+[stacktrace]
+#0 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteFileRegistrar.php(35): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'require(C:\\\\User...', 'C:\\\\Users\\\\hp\\\\Des...', 35, Array)
+#1 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteFileRegistrar.php(35): require()
+#2 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(425): Illuminate\\Routing\\RouteFileRegistrar->register('C:\\\\Users\\\\hp\\\\Des...')
+#3 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(382): Illuminate\\Routing\\Router->loadRoutes('C:\\\\Users\\\\hp\\\\Des...')
+#4 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteRegistrar.php(135): Illuminate\\Routing\\Router->group(Array, 'C:\\\\Users\\\\hp\\\\Des...')
+#5 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\app\\Providers\\RouteServiceProvider.php(44): Illuminate\\Routing\\RouteRegistrar->group('C:\\\\Users\\\\hp\\\\Des...')
+#6 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): App\\Providers\\RouteServiceProvider->App\\Providers\\{closure}()
+#7 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#8 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(81): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#9 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#10 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(611): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#11 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider.php(120): Illuminate\\Container\\Container->call(Object(Closure))
+#12 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider.php(45): Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider->loadRoutes()
+#13 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider->Illuminate\\Foundation\\Support\\Providers\\{closure}()
+#14 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#15 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(81): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#16 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#17 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(611): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#18 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\ServiceProvider.php(113): Illuminate\\Container\\Container->call(Object(Closure))
+#19 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(917): Illuminate\\Support\\ServiceProvider->callBootedCallbacks()
+#20 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(895): Illuminate\\Foundation\\Application->bootProvider(Object(App\\Providers\\RouteServiceProvider))
+#21 [internal function]: Illuminate\\Foundation\\Application->Illuminate\\Foundation\\{closure}(Object(App\\Providers\\RouteServiceProvider), 25)
+#22 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(896): array_walk(Array, Object(Closure))
+#23 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\BootProviders.php(17): Illuminate\\Foundation\\Application->boot()
+#24 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(237): Illuminate\\Foundation\\Bootstrap\\BootProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#25 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(310): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#26 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(127): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#27 C:\\Users\\hp\\Desktop\
+ew project\\graduation_project\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#28 {main}
+"} 
