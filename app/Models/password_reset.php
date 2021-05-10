@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class verify_state extends Model
+class password_reset extends Model
 {
     use HasFactory;
-    protected $table="verify_states";
-    public $timestamps=false;
+    public $timestamps = false;
     protected $fillable=[
-        'id',
-        'verify_state',
+        'email',
+        'token',
+        'password',
+        'created_at',
     ];
 }

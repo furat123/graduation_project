@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class verify_state extends Model
+class history_of_train extends Model
 {
     use HasFactory;
-    protected $table="verify_states";
     public $timestamps=false;
     protected $fillable=[
-        'id',
-        'verify_state',
+        'model_id',
+        'user_id',
+        'acc',
     ];
 }

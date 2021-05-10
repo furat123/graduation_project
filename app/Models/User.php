@@ -14,11 +14,9 @@ class User extends Model
     protected $fillable=[
         'name',
         'email',
-        'email_verified_at',
         'password',
         'admin_status',
         'mobile',
-        'remember_token',
         'created_at',
         'updated_at',
     ];
@@ -32,7 +30,10 @@ class User extends Model
     public function User_Models(){
         return $this ->belongsToMany("App\Models\model_tbls",'user_has_models','user_id','model_id');
     }
-   
 
+    public function verifyUser()
+    {
+        return $this->hasOne('App\VerifyUser');
+    }
 
 }

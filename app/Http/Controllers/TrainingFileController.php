@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\training_file;
+use Cloudinary\Cloudinary;
+use Cloudinary\Configuration\Configuration;
+use Exception;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Mockery\Expectation;
 
 class TrainingFileController extends Controller
 {
@@ -94,4 +99,43 @@ class TrainingFileController extends Controller
         return response()->json(null,204);
     
     }
+    public function set_labels(Request $request,$id)
+    {   
+        
+      return  training_file::where('model_id',$id )->where('name',$request->input('image'))
+        ->update(['labels' => $request->input('labels')]);
+
+       
+
+    }
+
+    public function labels(Request $request,$id)
+    {   
+    $config = Configuration::instance([
+        'cloud' => [
+            'cloud_name' => 'hi5',
+            'api_key' => '323435588613243',
+            'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+        'url' => [
+            'secure' => true]]);
+            $f = true;
+            $cloudinary = new Cloudinary($config);
+    $a=[];
+    $query = str_replace(array('?'), array('\'%s\''), training_file::where('model_id',$id)->where('name',$request->input('image'))->toSql());
+    $query = vsprintf($query, training_file::where('model_id',$id)->where('name',$request->input('image'))->getBindings());
+    $a[0]['labels']=training_file::where('model_id',$id )->where('name',$request->input('image'))
+    
+      ->pluck('labels')->all()[0];
+      $client = new Client();
+     try{ $url = $cloudinary->adminApi()->asset("models/".$id."/dataset/jsons/".$request->input('image').".json",["resource_type" => "raw","type" => "private"])['url'];
+      $res=$client->request('get',$url);
+      $a[1] = $res->getBody()->getContents();
+     }
+     catch(Exception $exception){
+        $a[1] = null;
+     }
+      return $a;
+
+    }
+
 }

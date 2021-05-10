@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\file_state;
+use App\Models\history_of_train;
 use Illuminate\Http\Request;
 
-class FileStateController extends Controller
+class historyOfTrainController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +15,7 @@ class FileStateController extends Controller
      */
     public function index()
     {
-        return response()->json(file_state::get(),200);
-
+        return response()->json(history_of_train::get(),200);
     }
 
     /**
@@ -36,10 +36,9 @@ class FileStateController extends Controller
      */
     public function store(Request $request)
     {
-    
-        $file_state = file_state::create($request->all());
-
-        return response()->json($file_state,201);
+    return history_of_train::create(
+          $request->all()
+    )->id;
     }
 
     /**
@@ -50,11 +49,11 @@ class FileStateController extends Controller
      */
     public function show($id)
     {
-        $file_state=file_state::FindOrFail($id);
-        if(is_null( $file_state)){
+        $row=history_of_train::FindOrFail($id);
+        if(is_null($row)){
         return response()->json(["message"=>'record not find!!!'], 404);
         }
-        return response()->json( $file_state, 200);
+        return response()->json($row, 200);
     }
 
     /**
@@ -77,13 +76,7 @@ class FileStateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $file_state=$request->except(['id']);
-        $file_state=array_filter( $file_state);
-        $update=file_state::where('id',$id)->update($file_state);
-        if($update==0){
-           return response()->json(["message"=>'Faild'], 404);
-       }
-       return response()->json(["message"=>'success'], 200);
+        //
     }
 
     /**
@@ -94,14 +87,14 @@ class FileStateController extends Controller
      */
     public function destroy($id)
     {
-       
-        $file_state = file_state::FindOrFail($id);
-        if(is_null($file_state)){
-       // return response()->json(null,204);
-        return response()->json(["message"=>'record not find!!!'], 404);
-        }
+      
+     }
+     public function show_hide($id)
+     {
+        history_of_train::where('id',$id)->update([ 'show_hide'
+        => history_of_train::raw('1-show_hide')]);
 
-        $file_state->delete();
+        return history_of_train::where('id',$id)->pluck('show_hide')->toArray();
+     }
 
-    
-}}
+}

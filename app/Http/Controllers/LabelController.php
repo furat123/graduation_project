@@ -63,7 +63,7 @@ class LabelController extends Controller
         if(is_null($label_tbl)){
         return response()->json(["message"=>'record not find!!!'], 404);
         }
-
+        array_unshift($label_tbl , 'o');
         return $label_tbl;
     }
 

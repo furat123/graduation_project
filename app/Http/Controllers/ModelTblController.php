@@ -14,7 +14,9 @@ use Cloudinary\Configuration\Configuration;
 use ZipArchive;
 use Cloudinary\Cloudinary as Cloudinary;
 use App\Models\file;
+use App\Models\training_file;
 use Exception;
+use Illuminate\Http\Response;
 use Thread;
 use Threaded;
 
@@ -64,7 +66,7 @@ class ModelTblController extends Controller
         $cloudinary->uploadApi()->upload((string)$request->file('image'),
         ["public_id" => 'image' , "type" => "upload"
          , "resource_type	" => "raw" , "folder" => "models/".$model_tbl->id]);
-
+        
 
 
     return response()->json($model_tbl,201);
@@ -99,7 +101,7 @@ class ModelTblController extends Controller
     {
         //
     }
-
+   
     /**
      * Update the specified resource in storage.
      *
@@ -141,9 +143,8 @@ class ModelTblController extends Controller
         $client= new Client();
         foreach ($request->file('images') as $file)
        $multipart[] = array('name'=>'images','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
-       //$apiRequest = $client->request('POST', 'http://127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
-       $apiRequest = $client->request('POST','https://hi55.herokuapp.com/object_map_generation/'.$id,
-        ['multipart' => $multipart]);
+       $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/object_map_generation/'.$id,['multipart' => $multipart]);
+       // $apiRequest = $client->request('POST','https://hi55.herokuapp.com/object_map_generation/'.$id, ['multipart' => $multipart]);
         return   $apiRequest->getBody();
 
     }
@@ -163,14 +164,14 @@ class ModelTblController extends Controller
 
     }
 
-    public function getProgress_op(Request $request,$id)
+    public function getProgress_re(Request $request,$id)
     {
-    return model_tbls::FindOrFail($id)['progress_op'];
+    return model_tbls::FindOrFail($id)['progress_re'];
     }
 
-    public function setProgress_op(Request $request,$id)
+    public function setProgress_re(Request $request,$id)
     {
-     if(model_tbls::FindOrFail($id)->update(['progress_op'=> $request->input('progress')]))
+     if(model_tbls::FindOrFail($id)->update(['progress_re'=> $request->input('progress')]))
        return response()->json("Progress updated successfully",200);
      else
        return response()->json("Something goes wrong",500);
@@ -184,8 +185,13 @@ class ModelTblController extends Controller
         $client= new Client();
         $labels=new LabelController();
         $labels=$labels->labelsForModel($id);
-        //$apiRequest = $client->request('POST', 'http://127.0.0.1:5000/train/'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
-        $apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/train/'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
+        $owner = model_tbls::where('id',$id)->get('owner_id');
+        $owner=$owner->map(function ($owner) {
+          return $owner->only(['owner_id']);
+      });
+      $owner=$owner[0]['owner_id'];
+        $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/train/'.$id,['form_params' => [ "owner_id" => $owner ,"labels"=>json_encode($labels)]]);
+        //$apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/train/'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
         return   $apiRequest->getBody();
     }
 
@@ -203,17 +209,15 @@ class ModelTblController extends Controller
          $cloudinary = new Cloudinary($config);
          $apiRequest=$cloudinary->adminApi()->asset("models/".$id."/predict/". $request->input('user_id')."/jsons/".
          $request->input('image').".json",  ['type' => 'private' ,'resource_type' => 'raw']);
-         return $apiRequest;
-       
+         $apiRequest = $client->request('get',$apiRequest['url']);
+         return response($apiRequest->getBody()->getContents(), 200)
+          ->header('Content-Type', 'application/json')->header('Content-disposition','attachment; filename='. $request->input('image').".json");
     }
-
 
     public function store_dataset(Request $request,$id)
     {
-
       // configure globally via a JSON object
-
-
+        $file = $request->file('image');
        $config = Configuration::instance([
         'cloud' => [
           'cloud_name' => 'hi5',
@@ -221,22 +225,38 @@ class ModelTblController extends Controller
           'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
         'url' => [
           'secure' => true]]);
+          $f = true;
           $cloudinary = new Cloudinary($config);
+          $query = str_replace(array('?'), array('\'%s\''), training_file::where('model_id',$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->toSql());
+          $query = vsprintf($query, training_file::where('model_id',$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->getBindings());
+  
+       if(training_file::where("model_id",$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->count()!=0)
+          {
+            training_file::where("model_id",$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->update(
+              ["labels" => null]
+            );
+            $f=false;
 
-
-          foreach ($request->file('images') as $file)
+        }
+         
           $cloudinary->uploadApi()->upload((string)$file,
           ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
-           , "resource_type	" => "private" , "folder" => "models/".$id."/dataset"]);
-          return "Ahmad mohammad ";
-
-
+           , "resource_type	" => "private" , "folder" => "models/".$id."/dataset/images"]);
+           if($f)
+           training_file::create(['model_id'=>$id,'name' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)]);
+           $client = new Client();
+           $multipart[] = array('name'=>'image','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
+           //$client->request('Post','127.0.0.1:5000/object_map_generation/'.$id,['multipart' => $multipart]);
+          $client->request('Post','https://hi55.herokuapp.com/object_map_generation/'.$id,['multipart' => $multipart]);
+      
+           return $f;
     }
-
+   
     public function delete_from_dataset(Request $request,$id)
     {
-
+     
           $config = Configuration::instance([
+            
             'cloud' => [
               'cloud_name' => 'hi5',
               'api_key' => '323435588613243',
@@ -244,17 +264,19 @@ class ModelTblController extends Controller
             'url' => [
               'secure' => true]]);
               $mod=[];
+              $mod1=[];
               $cloudinary = new Cloudinary($config);
               foreach ($request->input('publicIds') as &$node)
-               {$node = "models/".$id."/dataset/".$node;
-                $mod[]=$node;
+               { $mod1[]="models/".$id."/dataset/images/".$node;
+                $mod[]= "models/".$id."/dataset/jsons/".$node.".json";
+                $mod[]= "models/".$id."/dataset/labeld_object_maps/".$node.".csv";
+                $mod[]= "models/".$id."/dataset/object_maps/".$node.".csv";
+                training_file::where("model_id",$id)->where("name",$node)->delete();
+              
                  }
-                foreach ($mod as &$node)
-                print($node);
-
-            return   $cloudinary->adminApi()->deleteAssets($mod,["type" => "private"]);
-
-
+        
+            $cloudinary->adminApi()->deleteAssets($mod,["type" => "private" ,"resource_type" => "raw"]);
+            return   $cloudinary->adminApi()->deleteAssets($mod1,["type" => "private"]);
     }
 
 
@@ -267,6 +289,7 @@ class ModelTblController extends Controller
           // $apiRequest = $client->request('GET', (string)$url);
           // return response($apiRequest->getBody()->getContents(), 200)
           // ->header('Content-Type', 'application/zip')->header('Content-disposition','attachment; filename="data_set.zip"');
+
           $config = Configuration::instance([
             'cloud' => [
               'cloud_name' => 'hi5',
@@ -275,8 +298,7 @@ class ModelTblController extends Controller
             'url' => [
               'secure' => true]]);
               $cloudinary = new Cloudinary($config);
-           return   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/dataset", "max_results" => 500 ,'type' => 'private']);
-
+           return   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/dataset/images", "max_results" => 500 ,'type' => 'private']);
 
     }
 
@@ -290,12 +312,26 @@ class ModelTblController extends Controller
         'url' => [
           'secure' => true]]);
           $cloudinary = new Cloudinary($config);
+          training_file::where('model_id',$id)->delete();
+            $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/dataset", ['type' => 'private',"resource_type" => "raw"]);
           return   $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/dataset", ['type' => 'private']);
 
 
     }
 
+    public function Re_train(Request $request,$id)
+    {   
 
+      $client= new Client();
+      $labels=new LabelController();
+      $labels=$labels->labelsForModel($id);
+      $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/re_train/'.$id,['form_params' => ["labels"=>json_encode($labels)
+      ,'user_id' => $request->input('user_id')]]);
+      //$apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/re_train/'.$id,['form_params' => ["labels"=>json_encode($labels)
+      //,'user_id' => $request->input('user_id')]]);
+      return   $apiRequest->getBody();
+  
+    }
     public function store_predict(Request $request,$id)
     {
 
@@ -319,27 +355,26 @@ class ModelTblController extends Controller
        {
            if($exception->getCode()==23000)
            {
-             $respose[$file->getClientOriginalName()]="Name of image duplicated";
+            
+            $respose[$file->getClientOriginalName()]=$exception->getMessage();
             }
            else
            $respose[$file->getClientOriginalName()]="Faild";
-           
-         
+
+          
        }
       }
+
        $guzzel = new Client();
        $labels=new LabelController();
        $labels=$labels->labelsForModel($id);
-  
        foreach($files as $file)
        $multipart[]=array('name'=>'images', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
-      
        $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
        $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
-       $apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
+       $apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
+       //$apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
        return  response()->json( $respose,200);
-     
- 
   
     }
 
@@ -354,19 +389,17 @@ class ModelTblController extends Controller
         'url' => [
           'secure' => true]]);
           $mod=[];
+          $mod1=[];
           $cloudinary = new Cloudinary($config);
           foreach ($request->input('publicIds') as &$node)
            {
-            $mod[]="models/".$id."/predict/".$request->input('user_id')."/images/".$node;
-            $mod[]="models/".$id."/predict/".$request->input('user_id')."/jsons/".$node;
-            $mod[]="models/".$id."/predict/".$request->input('user_id')."/csvs/".$node;
+            $mod1[]="models/".$id."/predict/".$request->input('user_id')."/images/".$node;
+            $mod[]="models/".$id."/predict/".$request->input('user_id')."/jsons/".$node.".json";
+            $mod[]="models/".$id."/predict/".$request->input('user_id')."/csvs/".$node.".csv";
             file::where('user_id',$request->input('user_id'))->where('model_id',$id)->where('name',$node)->delete();
              }
-          
-            foreach ($mod as &$node)
-            print($node);
-
-        return   $cloudinary->adminApi()->deleteAssets($mod,["type" => "private"]);
+        $cloudinary->adminApi()->deleteAssets($mod1,["type" => "private"]);
+        return   $cloudinary->adminApi()->deleteAssets($mod,["type" => "private" , "resource_type" => "raw"]);
 
     }
 
@@ -388,22 +421,23 @@ class ModelTblController extends Controller
             'url' => [
               'secure' => true]]);
               $cloudinary = new Cloudinary($config);
-
-          $resposes=   $cloudinary->adminApi()->assets(["prefix"=>"models/".$id."/predict/images/".$request->input('user_id'), "max_results" => 500 ,'type' => 'private']);
-         foreach($resposes['resources'] as &$respose)
-         {
-          $name= $this->name($respose['public_id']);
-          foreach(file::where("user_id",$request->input('user_id'))->where('model_id',$id)->where('name',$name)->get()->toArray() as $raw)
+          $resposes = [];
+          foreach(file::where("user_id",$request->input('user_id'))->where('model_id',$id)->get()->toArray() as $keyP => $raw)
           {
 
           foreach($raw as $key => $val)
-          $respose[$key]=$val;
+          $resposes[$keyP][$key]=$val;
+          
+          if($raw['state_id']==1){
+          $res=$cloudinary->adminApi()->asset('models/'.$id.'/predict/'.$request->input('user_id').'/images/'. $resposes[$keyP]['name'] ,
+         ['type' => 'private']);
+          
+          foreach( $res as $key => $val)
+          $resposes[$keyP][$key]=$val;
           }
-
-
-          //print_r($respose);
          }
-         return $resposes["resources"];
+
+         return $resposes;
 
     }
     public function name($pi){
@@ -439,12 +473,10 @@ class ModelTblController extends Controller
           'secure' => true]]);
           $cloudinary = new Cloudinary($config);
          file::where('user_id',$request->input('user_id'))->where('model_id',$id)->delete();
-
+         $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/predict/".$request->input('user_id'),
+           ['type' => 'private' , 'resource_type'=>'raw']);
         return $cloudinary->adminApi()->deleteAssetsByPrefix("models/".$id."/predict/".$request->input('user_id'),
-        ['type' => 'private' , 'resource_type'=>'raw']);
-
-
-
+        ['type' => 'private']);
 
     }
 
@@ -466,11 +498,9 @@ class ModelTblController extends Controller
     {
           $multipart = [];
           $client= new Client();
-          foreach ($request->file('csvs') as $file)
-          $multipart[] = array('name'=>'csv','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
-          foreach ($request->input('nodes') as $node)
-          $multipart[] = array('name'=>'nodes','contents'=>$node);
+          $multipart[] = array('name'=>'nodes','contents'=>$request->input('nodes'));
           $apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
+          //$apiRequest = $client->request('POST', "127.0.0.1:5000/object_map_labeling/".$id, [ 'multipart' => $multipart]);
           return  $apiRequest->getBody();
 
 

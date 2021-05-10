@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\file;
+use Cloudinary\Cloudinary;
+use Cloudinary\Configuration\Configuration;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -78,14 +81,13 @@ class FilesController extends Controller
     {
         $file_tbl=$request->except(['user_id','model_id']);
         $file_tbl=array_filter($file_tbl);
-        $update1=file::where('id',$id)->update($file_tbl);
 
-        if(is_null($file_tbl)){
+        if(file::where('id',$id)->update($file_tbl) == 0){
            return response()->json(["message"=>'record not find!!!'], 404);
        }
        return response()->json('Updated successfully',200);
     }
-    
+
 
     
 
@@ -106,12 +108,36 @@ class FilesController extends Controller
     
     }
 
-    public function predict($id)
+    public function update_state(Request $request)
     {
-        
-        //
+        if(file::where('user_id',$request->input('user_id'))->
+        where('model_id',$request->input('model_id'))->where('name',$request->input('image'))->update(["state_id"=>$request->input('state_id')]))
+        return response()->json('Updated successfully',200);
+        return response()->json(["message"=>'record not find!!!'], 404);
     
     }
+    public function labels(Request $request,$id)
+    {   
+    $config = Configuration::instance([
+        'cloud' => [
+            'cloud_name' => 'hi5',
+            'api_key' => '323435588613243',
+            'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+        'url' => [
+            'secure' => true]]);
+            $f = true;
+            $cloudinary = new Cloudinary($config);
+    $a=[];
+    $a[0]['labels']=file::where('model_id',$id )->where('name',$request->input('image'))->where('user_id',$request->input('user_id'))
+      ->pluck('labels')->all();
+      
+      $client = new Client();
+      $url = $cloudinary->adminApi()->asset("models/".$id."/predict/".$request->input('user_id')."/jsons/".$request->input('image').".json",["resource_type" => "raw","type" => "private"])['url'];
+      $res=$client->request('get',$url);
+    
+      $a[1] = $res->getBody()->getContents();
+      return $a;
+        }
     
     public function set_labels(Request $request,$id)
     {   
@@ -119,7 +145,30 @@ class FilesController extends Controller
         file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->where('name',$request->input('image'))
         ->update(['labels' => $request->input('labels')]);
        
+    }
+    public function verify(Request $request , $id)
+    {
+        $config = Configuration::instance([
+            'cloud' => [
+                'cloud_name' => 'hi5',
+                'api_key' => '323435588613243',
+                'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+            'url' => [
+                'secure' => true]]);
+                $f = true;
+                $cloudinary = new Cloudinary($config);
+                 print_r(json_decode ($request->input('json'),true));
+                file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->where('name',$request->input('image'))
+                ->update(['labels' => $request->input('labels')]);
+                $temp = tmpfile();
+                fwrite($temp, $request->input('json'));
+                fseek($temp, 0);
+                $cloudinary->uploadApi()->upload($temp,
+                ["public_id" => $request->input('image').".json" , "type" => "private"
+                 , "resource_type" => "raw" , "format" => "json", "folder" => "models/".$id."/predict/".$request->input('user_id')."/jsons"]);
+                 return response()->json("File verify" , 200);
 
+            
     }
 
     public function update_vs(Request $request,$id)
@@ -133,18 +182,14 @@ class FilesController extends Controller
         where('name',$request->input('image'))->pluck('verify_state')->toArray();
 
     }
-
+  
     public function vs(Request $request,$id)
     {   
-        
-
        return file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->
        where('name',$request->input('image'))->pluck('verify_state')->toArray();
-        
-
-       
 
     }
+    
 
  
 

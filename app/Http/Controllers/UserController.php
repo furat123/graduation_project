@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\file_state;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
-class FileStateController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,7 @@ class FileStateController extends Controller
      */
     public function index()
     {
-        return response()->json(file_state::get(),200);
-
+        //
     }
 
     /**
@@ -36,10 +36,7 @@ class FileStateController extends Controller
      */
     public function store(Request $request)
     {
-    
-        $file_state = file_state::create($request->all());
-
-        return response()->json($file_state,201);
+        //
     }
 
     /**
@@ -50,11 +47,7 @@ class FileStateController extends Controller
      */
     public function show($id)
     {
-        $file_state=file_state::FindOrFail($id);
-        if(is_null( $file_state)){
-        return response()->json(["message"=>'record not find!!!'], 404);
-        }
-        return response()->json( $file_state, 200);
+        //
     }
 
     /**
@@ -77,13 +70,22 @@ class FileStateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $file_state=$request->except(['id']);
-        $file_state=array_filter( $file_state);
-        $update=file_state::where('id',$id)->update($file_state);
-        if($update==0){
-           return response()->json(["message"=>'Faild'], 404);
-       }
-       return response()->json(["message"=>'success'], 200);
+        //
+        $user = $request->except(['created_at','updated_at']);
+
+
+        if(!is_null($user['password'])){
+            $user['password'] = bcrypt($user['password']);
+        }
+
+        $updateduser = User::where('id' , $id)->update($user);
+
+        if(is_null($updateduser)){
+            return response()->json("no user with this id" , 404);
+        }
+
+        return response()->json("user updated" , 200);
+
     }
 
     /**
@@ -94,14 +96,6 @@ class FileStateController extends Controller
      */
     public function destroy($id)
     {
-       
-        $file_state = file_state::FindOrFail($id);
-        if(is_null($file_state)){
-       // return response()->json(null,204);
-        return response()->json(["message"=>'record not find!!!'], 404);
-        }
-
-        $file_state->delete();
-
-    
-}}
+        //
+    }
+}
