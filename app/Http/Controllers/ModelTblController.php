@@ -68,7 +68,7 @@ class ModelTblController extends Controller
         ["public_id" => 'image' , "type" => "upload"
          , "resource_type	" => "raw" , "folder" => "models/".$model_tbl->id]);
         $uid =$request->user()['id'];
-        user_has_model::create([["user_id"] =>$uid ,"model_id" => $model_tbl->id,"accept" => 1]);
+        user_has_model::create(["user_id" =>$uid ,"model_id" => $model_tbl->id,"accept" => 1]);
 
     return response()->json($model_tbl,201);
     }
