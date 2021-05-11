@@ -123,7 +123,7 @@ class RelationsController extends Controller
     $model= model_tbls::with('label_for_model')->FindOrFail($id);
     //return $FilesOfMdel ;
     $allFile=$model->label_for_model;
-    return $allFile;
+    return $allFile->pluck('label');
    
 }
    public function ShowModelOfowner($id){
