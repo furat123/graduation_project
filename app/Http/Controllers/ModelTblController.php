@@ -15,6 +15,7 @@ use ZipArchive;
 use Cloudinary\Cloudinary as Cloudinary;
 use App\Models\file;
 use App\Models\training_file;
+use App\Models\user_has_model;
 use Exception;
 use Illuminate\Http\Response;
 use Thread;
@@ -66,8 +67,8 @@ class ModelTblController extends Controller
         $cloudinary->uploadApi()->upload((string)$request->file('image'),
         ["public_id" => 'image' , "type" => "upload"
          , "resource_type	" => "raw" , "folder" => "models/".$model_tbl->id]);
-        
-
+        $uid =$request->user()['id'];
+        user_has_model::create([["user_id"] =>$uid ,"model_id" => $model_tbl->id,"accept" => 1]);
 
     return response()->json($model_tbl,201);
     }
@@ -194,8 +195,17 @@ class ModelTblController extends Controller
         //$apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/train/'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
         return   $apiRequest->getBody();
     }
-
-
+    public function test(Request  $request){
+      $all = model_tbls::all();
+      foreach($all as $k => $r)
+      {
+        print($r->id);
+        $r=$r->toArray();
+        print_r($r);
+       user_has_model::create(["user_id" =>$r['owner_id'] ,"model_id" => $r['id'],"accept" => 1]);
+      }
+      return $all;
+    } 
     public function predict(Request $request,$id)
     {
         $client= new Client();
@@ -249,7 +259,7 @@ class ModelTblController extends Controller
            //$client->request('Post','127.0.0.1:5000/object_map_generation/'.$id,['multipart' => $multipart]);
           $client->request('Post','https://hi55.herokuapp.com/object_map_generation/'.$id,['multipart' => $multipart]);
       
-           return $f;
+           return response()->json('success',200);
     }
    
     public function delete_from_dataset(Request $request,$id)
