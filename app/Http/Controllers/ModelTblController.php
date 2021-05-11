@@ -439,7 +439,7 @@ class ModelTblController extends Controller
           $resposes[$keyP][$key]=$val;
           
           if($raw['state_id']==1){
-          $res=$cloudinary->adminApi()->asset('models/'.$id.'/predict/'.$request->input('user_id').'/images/'. $resposes[$keyP]['name'] ,
+          $res=$cloudinary->adminApi()->asset('models/'.$id.'/predict/'.$request->input('user_id').'/dataset/images/'. $resposes[$keyP]['name'] ,
          ['type' => 'private']);
           
           foreach( $res as $key => $val)
