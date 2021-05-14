@@ -125,6 +125,7 @@ Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_label
 Route::get('/show_model_user_owns/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelOfowner");
 //this relation to show the model which the user use
 Route::get('/show_model_user_use/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelUsed");
+Route::get('/public_model', "App\Http\Controllers\Relation\RelationsController@ShowPublicModel");
 
 Route::get('/All_Model/{id}', "App\Http\Controllers\Relation\RelationsController@getallmodel");
 // get owner id of model that the user use

@@ -177,6 +177,13 @@ class RelationsController extends Controller
               }
 
                }
+
+               public function ShowPublicModel(){
+                $data = DB::table('model_tbls')
+                ->where('public_state',1)
+                ->get();
+                return $data;
+                }
                
                 
 
