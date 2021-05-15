@@ -18,6 +18,12 @@ class UserHasModelController extends Controller
       
     }
 
+    public function showforuser( $id )
+    {
+        return response()->json(user_has_model::where('user_id',$id)->get(),200);
+      
+    }
+
     /**
      * Show the form for creating a new resource.
      *

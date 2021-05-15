@@ -149,7 +149,7 @@ class FilesController extends Controller
 
     
 
-    public function save(Request $request , $id)
+    public function verify(Request $request , $id)
     {
        
         $config = Configuration::instance([
@@ -173,16 +173,22 @@ class FilesController extends Controller
     }
 
 
-    public function verify(Request $request , $id)
+    public function save(Request $request , $id)
     {
     
                 $f = true;        
                 file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->where('name',$request->input('image'))
                 ->update(['labels' => $request->input('labels')]);
                 $client= new Client();
-                $apiRequest = $client->request('GET', "https://hi55.herokuapp.com/save/".$id,['user_id'=>$request->input('user_id'),'image' =>
-                $request->input('image')]);
-                 return response()->json("File verify" , 200);
+                $apiRequest = $client->request('Post', "https://hi55.herokuapp.com/save/".$id,[  'multipart' =>[
+                   ['name'     => 'nodes',
+                    'contents' => $request->input('labels')],
+                [
+                    'name'     => 'user_id',
+                    'contents' => $request->input('user_id')
+                ]
+                ]]);
+                 return $apiRequest -> getBody();
 
             
     }
