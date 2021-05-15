@@ -146,26 +146,39 @@ class FilesController extends Controller
         ->update(['labels' => $request->input('labels')]);
        
     }
-    public function verify(Request $request , $id)
+
+    
+
+    public function save(Request $request , $id)
     {
+       
         $config = Configuration::instance([
             'cloud' => [
                 'cloud_name' => 'hi5',
                 'api_key' => '323435588613243',
                 'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
-            'url' => [
+                'url' => [
                 'secure' => true]]);
-                $f = true;
+                
                 $cloudinary = new Cloudinary($config);
-                 print_r(json_decode ($request->input('json'),true));
-                file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->where('name',$request->input('image'))
-                ->update(['labels' => $request->input('labels')]);
                 $temp = tmpfile();
                 fwrite($temp, $request->input('json'));
                 fseek($temp, 0);
                 $cloudinary->uploadApi()->upload($temp,
                 ["public_id" => $request->input('image').".json" , "type" => "private"
                  , "resource_type" => "raw" , "format" => "json", "folder" => "models/".$id."/predict/".$request->input('user_id')."jsons"]);
+
+
+    }
+
+
+    public function verify(Request $request , $id)
+    {
+    
+                $f = true;        
+                file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->where('name',$request->input('image'))
+                ->update(['labels' => $request->input('labels')]);
+       
                  return response()->json("File verify" , 200);
 
             
