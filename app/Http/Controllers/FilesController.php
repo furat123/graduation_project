@@ -159,7 +159,7 @@ class FilesController extends Controller
                 'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
                 'url' => [
                 'secure' => true]]);
-                
+
                 $cloudinary = new Cloudinary($config);
                 $temp = tmpfile();
                 fwrite($temp, $request->input('json'));
@@ -167,6 +167,7 @@ class FilesController extends Controller
                 $cloudinary->uploadApi()->upload($temp,
                 ["public_id" => $request->input('image').".json" , "type" => "private"
                  , "resource_type" => "raw" , "format" => "json", "folder" => "models/".$id."/predict/".$request->input('user_id')."jsons"]);
+
 
 
     }
@@ -178,7 +179,9 @@ class FilesController extends Controller
                 $f = true;        
                 file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->where('name',$request->input('image'))
                 ->update(['labels' => $request->input('labels')]);
-       
+                $client= new Client();
+                $apiRequest = $client->request('GET', "https://hi55.herokuapp.com/save/".$id,['user_id'=>$request->input('user_id'),'image' =>
+                $request->input('image')]);
                  return response()->json("File verify" , 200);
 
             
@@ -190,7 +193,7 @@ class FilesController extends Controller
         file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->
         where('name',$request->input('image'))->update([ 'verify_state'
         => file::raw('1-verify_state')]);
-
+   
         return file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->
         where('name',$request->input('image'))->pluck('verify_state')->toArray();
 
