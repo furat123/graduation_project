@@ -356,6 +356,7 @@ class ModelTblController extends Controller
        'secure' => true]]);
        $files =[];
        $cloudinary = new Cloudinary($config);
+
        foreach ($request->file('images') as $file){
          try{
            file::create(['name'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , 'model_id' => $id ,'user_id' => $request->input('user_id')]);
@@ -373,6 +374,7 @@ class ModelTblController extends Controller
 
           
        }
+       
       }
 
        $guzzel = new Client();

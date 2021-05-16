@@ -146,27 +146,49 @@ class FilesController extends Controller
         ->update(['labels' => $request->input('labels')]);
        
     }
+
+    
+
     public function verify(Request $request , $id)
     {
+       
         $config = Configuration::instance([
             'cloud' => [
                 'cloud_name' => 'hi5',
                 'api_key' => '323435588613243',
                 'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
-            'url' => [
+                'url' => [
                 'secure' => true]]);
-                $f = true;
+
                 $cloudinary = new Cloudinary($config);
-                 print_r(json_decode ($request->input('json'),true));
-                file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->where('name',$request->input('image'))
-                ->update(['labels' => $request->input('labels')]);
                 $temp = tmpfile();
                 fwrite($temp, $request->input('json'));
                 fseek($temp, 0);
                 $cloudinary->uploadApi()->upload($temp,
                 ["public_id" => $request->input('image').".json" , "type" => "private"
                  , "resource_type" => "raw" , "format" => "json", "folder" => "models/".$id."/predict/".$request->input('user_id')."jsons"]);
-                 return response()->json("File verify" , 200);
+
+
+
+    }
+
+
+    public function save(Request $request , $id)
+    {
+    
+                $f = true;        
+                file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->where('name',$request->input('image'))
+                ->update(['labels' => $request->input('labels')]);
+                $client= new Client();
+                $apiRequest = $client->request('Post', "https://hi55.herokuapp.com/save/".$id,[  'multipart' =>[
+                   ['name'     => 'nodes',
+                    'contents' => $request->input('labels')],
+                [
+                    'name'     => 'user_id',
+                    'contents' => $request->input('user_id')
+                ]
+                ]]);
+                 return $apiRequest -> getBody();
 
             
     }
@@ -177,7 +199,7 @@ class FilesController extends Controller
         file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->
         where('name',$request->input('image'))->update([ 'verify_state'
         => file::raw('1-verify_state')]);
-
+   
         return file::where('user_id' , $request->input('user_id'))->where('model_id',$id )->
         where('name',$request->input('image'))->pluck('verify_state')->toArray();
 
