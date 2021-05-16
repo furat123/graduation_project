@@ -31,7 +31,7 @@ class model_tbls extends Model
         return $this ->belongsTo('App\Models\User', 'owner_id');
     }
     public function Users_Of_Model(){
-        return $this ->belongsToMany("App\Models\User",'user_has_models','model_id','user_id');
+        return $this ->belongsToMany("App\Models\User",'user_has_models','model_id','id');
     }
     public function State_Of_Model(){
        return $this ->belongsTo('App\Models\model_states', 'state_id');

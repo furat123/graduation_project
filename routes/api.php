@@ -40,7 +40,7 @@ Route::get('/reset_password/{token}', [AuthController::class,'reset_password']);
 
 
 //////////////// protected api
-Route::group(['middleware' => ['auth:sanctum']],function (){
+ Route::group(['middleware' => ['auth:sanctum']],function (){
 
     Route::post('/logout', [AuthController::class, 'logout']);
 //    Route::get('/Muhannad', [LabelController::class, 'index'])
@@ -123,22 +123,18 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/show_model_user_use/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelUsed");
 //all models which the user own it or not
     Route::get('/All_Model/{id}', "App\Http\Controllers\Relation\RelationsController@getallmodel");
-<<<<<<< HEAD
+
 
     Route::get('/public_model', "App\Http\Controllers\Relation\RelationsController@ShowPublicModel");
 
 
     
-=======
-    Route::get('/public_model', "App\Http\Controllers\Relation\RelationsController@ShowPublicModel");
->>>>>>> a56b4587e604ad55d6c4e1097bcbe5739142e2b3
 
 
 
 
 
-
-});
+ });
 Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_labels");
 Route::get('/modelfile/labels/{id}' , "App\Http\Controllers\TrainingFileController@labels");
 Route::get('/verify/{id}' , "App\Http\Controllers\FilesController@verify");
