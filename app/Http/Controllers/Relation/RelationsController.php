@@ -137,7 +137,7 @@ class RelationsController extends Controller
            
            foreach($data as $key => &$val){
            $x =  DB::table('user_has_models')->where('model_id' ,  $val->id )->where( 'accept' ,  1 )->count();
-           $val->number_of_req =$x;
+           $val->number_of_req =$x-1;
           }
            return $data;
         }
@@ -182,6 +182,13 @@ class RelationsController extends Controller
               }
 
                }
+
+               public function ShowPublicModel(){
+                $data = DB::table('model_tbls')
+                ->where('public_state',1)
+                ->get();
+                return $data;
+                }
                
                 
 
