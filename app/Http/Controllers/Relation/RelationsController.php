@@ -123,19 +123,22 @@ class RelationsController extends Controller
     $model= model_tbls::with('label_for_model')->FindOrFail($id);
     //return $FilesOfMdel ;
     $allFile=$model->label_for_model;
-    foreach ($allFile as $var){
-        echo $var->label ; 
-        echo "\n";
+    return $allFile->pluck('label');
    
-}}
+}
    public function ShowModelOfowner($id){
        
           $data = DB::table('model_tbls')
-        //  ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
-        //  ->select('model_tbls.id','model_tbls.name',)
-         // ->where('user_has_models.user_id',$id)
+          //  ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
+          //  ->select('model_tbls.id','model_tbls.name',)
+          // ->where('user_has_models.user_id',$id)
           ->where('model_tbls.owner_id',$id)
           ->get();
+           
+           foreach($data as $key => &$val){
+           $x =  DB::table('user_has_models')->where('model_id' ,  $val->id )->where( 'accept' ,  1 )->count();
+           $val->number_of_req =$x-1;
+          }
            return $data;
         }
 
@@ -143,11 +146,13 @@ class RelationsController extends Controller
               
                  $data = DB::table('user_has_models')
                  ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
+                 ->groupBy('rte_origin', 'rte_destination')
                  ->where('user_has_models.user_id',$id)
                  ->whereColumn('owner_id','!=','user_id')
                  ->get();
                  return $data;
                  }
+
 
                 public function getallmodel($id){
                 $data = DB::table('user_has_models')
