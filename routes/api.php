@@ -88,7 +88,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::resource('/train_file',"App\Http\Controllers\TrainingFileController");
     Route::resource('/train_state',"App\Http\Controllers\TrainingStateController");
     Route::resource('/label',"App\Http\Controllers\LabelController");
-    Route::resource('/user' , UserController::class);
+    Route::put('/user' , [UserController::class,'update']);
 ///// state of model
     Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfModel" );
 ///// state of file
