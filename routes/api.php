@@ -107,7 +107,6 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/label_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getLabelOfModel");
 //////// many to many relation  ///////////
     Route::get('/user_to_model/{id}', "App\Http\Controllers\Relation\RelationsController@getModelsOFUser" );
-    Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getusersOFmodel" );
 
 
 
@@ -142,3 +141,4 @@ Route::get('/history_of_train_show_or_hide/{id}', "App\Http\Controllers\HistoryO
 //});
 
 
+Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getusersOFmodel" );
