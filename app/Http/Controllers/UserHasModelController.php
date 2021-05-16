@@ -28,7 +28,7 @@ class UserHasModelController extends Controller
     {
         return response()->json(user_has_model::join('model_tbls' ,'user_has_models.model_id', '=', 'model_tbls.id')
         ->join('users','users.id',"=","user_has_models.user_id")
-         ->where('user_id',$id)->where('accept',0)->select('user_has_models.*','users.name','owner_id')->get(),200);
+         ->where('owner_id',$id)->select('user_has_models.*','users.name','owner_id')->get(),200);
       
     }
 
