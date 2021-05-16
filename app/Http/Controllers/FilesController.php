@@ -165,7 +165,7 @@ class FilesController extends Controller
                 fseek($temp, 0);
                 $cloudinary->uploadApi()->upload($temp,
                 ["public_id" => $request->input('image').".json" , "type" => "private"
-                 , "resource_type" => "raw" , "format" => "json", "folder" => "models/".$id."/predict/".$request->input('user_id')."/jsons"]);
+                 , "resource_type" => "raw" , "format" => "json", "folder" => "models/".$id."/predict/".$request->input('user_id')."jsons"]);
                  return response()->json("File verify" , 200);
 
             
