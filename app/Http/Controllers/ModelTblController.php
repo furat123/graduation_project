@@ -15,6 +15,7 @@ use ZipArchive;
 use Cloudinary\Cloudinary as Cloudinary;
 use App\Models\file;
 use App\Models\training_file;
+use App\Models\user_has_model;
 use Exception;
 use Illuminate\Http\Response;
 use Thread;
@@ -66,8 +67,8 @@ class ModelTblController extends Controller
         $cloudinary->uploadApi()->upload((string)$request->file('image'),
         ["public_id" => 'image' , "type" => "upload"
          , "resource_type	" => "raw" , "folder" => "models/".$model_tbl->id]);
-        
-
+        $uid =$request->user()['id'];
+        user_has_model::create(["user_id" =>$uid ,"model_id" => $model_tbl->id,"accept" => 1]);
 
     return response()->json($model_tbl,201);
     }
@@ -194,7 +195,17 @@ class ModelTblController extends Controller
         //$apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/train/'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
         return   $apiRequest->getBody();
     }
-
+    public function test(Request  $request){
+      $all = model_tbls::all();
+      foreach($all as $k => $r)
+      {
+        print($r->id);
+        $r=$r->toArray();
+        print_r($r);
+       user_has_model::create(["user_id" =>$r['owner_id'] ,"model_id" => $r['id'],"accept" => 1]);
+      }
+      return $all;
+    } 
     public function predict(Request $request,$id)
     {
         $client= new Client();
@@ -226,26 +237,28 @@ class ModelTblController extends Controller
           'secure' => true]]);
           $f = true;
           $cloudinary = new Cloudinary($config);
-          
-          if(training_file::where("model_id",$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->count()!=0)
+          $query = str_replace(array('?'), array('\'%s\''), training_file::where('model_id',$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->toSql());
+          $query = vsprintf($query, training_file::where('model_id',$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->getBindings());
+  
+       if(training_file::where("model_id",$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->count()!=0)
           {
             training_file::where("model_id",$id)->where('name',pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))->update(
               ["labels" => null]
             );
             $f=false;
 
-          }
+        }
          
           $cloudinary->uploadApi()->upload((string)$file,
           ["public_id" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , "type" => "private"
            , "resource_type	" => "private" , "folder" => "models/".$id."/dataset/images"]);
-
+           if($f)
+           training_file::create(['model_id'=>$id,'name' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)]);
            $client = new Client();
            $multipart[] = array('name'=>'image','contents'=>fopen($file,'r'),'filename'=>$file->getClientOriginalName());
            //$client->request('Post','127.0.0.1:5000/object_map_generation/'.$id,['multipart' => $multipart]);
           $client->request('Post','https://hi55.herokuapp.com/object_map_generation/'.$id,['multipart' => $multipart]);
-           if($f)
-           training_file::create(['model_id'=>$id,'name' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)]);
+      
            return response()->json('success',200);
     }
    
@@ -343,6 +356,7 @@ class ModelTblController extends Controller
        'secure' => true]]);
        $files =[];
        $cloudinary = new Cloudinary($config);
+
        foreach ($request->file('images') as $file){
          try{
            file::create(['name'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) , 'model_id' => $id ,'user_id' => $request->input('user_id')]);
@@ -360,18 +374,18 @@ class ModelTblController extends Controller
 
           
        }
+       
       }
 
        $guzzel = new Client();
        $labels=new LabelController();
        $labels=$labels->labelsForModel($id);
-  
        foreach($files as $file)
        $multipart[]=array('name'=>'images', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
        $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
        $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
-       $apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
-       //$apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
+      $apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
+      // $apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
        return  response()->json( $respose,200);
   
     }
@@ -427,12 +441,13 @@ class ModelTblController extends Controller
           $resposes[$keyP][$key]=$val;
           
           if($raw['state_id']==1){
-          $res=$cloudinary->adminApi()->asset('models/'.$id.'/predict/'.$request->input('user_id').'/images/'. $resposes[$keyP]['name'] ,
+         try{ $res=$cloudinary->adminApi()->asset('models/'.$id.'/predict/'.$request->input('user_id').'/images/'. $resposes[$keyP]['name'] ,
          ['type' => 'private']);
-          
           foreach( $res as $key => $val)
           $resposes[$keyP][$key]=$val;
-          }
+          }catch(Exception $e){}
+        }
+          
          }
 
          return $resposes;

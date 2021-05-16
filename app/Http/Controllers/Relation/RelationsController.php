@@ -108,12 +108,12 @@ class RelationsController extends Controller
 
       
         $model=model_tbls::with('Users_Of_Model')->FindOrFail($id);
-      //   return $model->Users_Of_Model;
-             $name_of_user = $model -> Users_Of_Model;
-             foreach ($name_of_user as $var){
-             echo $var->name ; 
-             echo "\n";
-             }
+        return $model->Users_Of_Model;
+           //  $name_of_user = $model -> Users_Of_Model;
+            // foreach ($name_of_user as $var){
+            // echo $var->id ; 
+            // echo "\n";
+            // }
     
 
    }
@@ -123,33 +123,31 @@ class RelationsController extends Controller
     $model= model_tbls::with('label_for_model')->FindOrFail($id);
     //return $FilesOfMdel ;
     $allFile=$model->label_for_model;
-    foreach ($allFile as $var){
-        echo $var->label ; 
-        echo "\n";
+    return $allFile->pluck('label');
    
-}}
+}
    public function ShowModelOfowner($id){
-    
-   // $FilesOfMdel= user_has_model::with('fun_file','User_Models')->get();
-   
-   // return $FilesOfMdel;;
-          $data = DB::table('user_has_models')
-          ->join('files','files.user_model_id','=','user_has_models.id')
-          ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
-          ->select('files.name as file_name','model_tbls.id','model_tbls.name','files.state_id')
-          ->where('user_has_models.id',$id)
-          ->whereColumn('owner_id','=','user_id')
+       
+          $data = DB::table('model_tbls')
+          //  ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
+          //  ->select('model_tbls.id','model_tbls.name',)
+          // ->where('user_has_models.user_id',$id)
+          ->where('model_tbls.owner_id',$id)
           ->get();
-          return $data;
+           
+           foreach($data as $key => &$val){
+           $x =  DB::table('user_has_models')->where('model_id' ,  $val->id )->where( 'accept' ,  1 )->count();
+           $val->number_of_req =$x;
+          }
+           return $data;
         }
 
         public function ShowModelUsed($id){
               
                  $data = DB::table('user_has_models')
-                 ->join('files','files.user_model_id','=','user_has_models.id')
                  ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
-                 ->select('files.name as file_name','model_tbls.id','model_tbls.name','files.state_id')
-                 ->where('user_has_models.id',$id)
+                 ->groupBy('rte_origin', 'rte_destination')
+                 ->where('user_has_models.user_id',$id)
                  ->whereColumn('owner_id','!=','user_id')
                  ->get();
                  return $data;
@@ -158,15 +156,31 @@ class RelationsController extends Controller
 
                 public function getallmodel($id){
                 $data = DB::table('user_has_models')
+                ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
                 //->select('model_id')
                 ->where('user_id',$id)
                 ->where('accept',1)
+              
+               // -> select('name','created_date',)
                 ->get();
-               // return $data;
-               foreach($data as $val){
-                 echo $val->model_id;
-                 echo "\n";
+                return $data;
+             //  foreach($data as $val){
+             //    echo $val->name;
+             //    echo "\n";
+             //  }
                }
+               public function getOwnerID($id){
+                $data = DB::table('user_has_models')
+                ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
+               // ->select('model_tbls.owner_id')
+                ->where('user_has_models.id',$id)
+                ->get();
+               //  return $data;
+               foreach($data as $val){
+                echo $val->owner_id;
+                echo "\n";
+              }
+
                }
                
                 

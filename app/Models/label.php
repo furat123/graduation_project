@@ -16,4 +16,5 @@ class label extends Model
         'color',
 
     ];
+  
 }

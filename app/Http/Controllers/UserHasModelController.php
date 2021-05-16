@@ -18,6 +18,19 @@ class UserHasModelController extends Controller
       
     }
 
+    public function showforuser( $id )
+    {
+        return response()->json(user_has_model::where('user_id',$id)->get(),200);
+      
+    }
+
+    public function showforowner( $id )
+    {
+        return response()->json(user_has_model::join('model_tbls' ,'user_has_models.model_id', '=', 'model_tbls.id')
+         ->where('user_id',$id)->where('accept',0)->select('user_has_models.*','owner_id')->get(),200);
+      
+    }
+
     /**
      * Show the form for creating a new resource.
      *
