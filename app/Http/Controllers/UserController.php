@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\AuthController;
 
 class UserController extends Controller
 {
@@ -65,27 +66,40 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+ * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
-        $user = $request->except(['created_at','updated_at']);
+      //  $user =array_filter($request->except(['created_at','updated_at','password', '']));
 
-
-        if(!is_null($user['password'])){
-            $user['password'] = bcrypt($user['password']);
+//        if(!is_null($user['password'])){
+//            $user['password'] = bcrypt($user['password']);
+//        }
+        $user = auth()->user();
+        if(is_null($user)){
+            return response()->json("not authenticated user" , 404);
         }
 
-        $updateduser = User::where('id' , $id)->update($user);
-
-        if(is_null($updateduser)){
-            return response()->json("no user with this id" , 404);
+        if(!Hash::check($request['password'], $user->password)) {
+            return response([
+                'message' => 'password incorrect'
+            ], 403);
         }
+
+        $fields = $request->validate([
+            'name' => 'sometimes|string',
+            'email' => 'sometimes|string|unique:users,email',
+        ]);
+
+        if ($request->has(['name', 'email'])) {
+                $user->name = $fields['name'];
+                $user->email = $request['email'];
+            }
+
+        $user->save();
 
         return response()->json("user updated" , 200);
-
     }
 
     /**
