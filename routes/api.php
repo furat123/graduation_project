@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
 //////// AI Algorithim Apis ///////////
     Route::get('/get_uhm_by_user/{id}', "App\Http\Controllers\UserHasModelController@showforuser" );
+    Route::get('/get_uhm_by_owner/{id}', "App\Http\Controllers\UserHasModelController@showforowner" );
     Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
     Route::get( '/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
     Route::post('/train/{id}',   "App\Http\Controllers\ModelTblController@train" );
