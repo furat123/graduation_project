@@ -117,7 +117,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/show_model_user_use/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelUsed");
 //all models which the user own it or not
     Route::get('/All_Model/{id}', "App\Http\Controllers\Relation\RelationsController@getallmodel");
-    Route::get('/public_model', "App\Http\Controllers\Relation\RelationsController@ShowPublicMode");
+    Route::get('/public_model', "App\Http\Controllers\Relation\RelationsController@ShowPublicModel");
 
 
 
