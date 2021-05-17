@@ -55,6 +55,8 @@ class ModelTblController extends Controller
     {
     //print_r($request->except('image'));
     $model_tbl = model_tbls::create($request->except('image'));
+    $model_tbl = model_tbls::create($request->all());
+
     $config = Configuration::instance([
       'cloud' => [
         'cloud_name' => 'hi5',
