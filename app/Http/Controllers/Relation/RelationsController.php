@@ -25,7 +25,6 @@ class RelationsController extends Controller
        //  $user = User::with(['Model_Name'=>function($q){
         //     $q -> select('name','owner_id');
       //  }])->FindOrFail($id);
-
         //return "ddddd";
         if(is_null($user)){
             return response()->json(["message"=>'record not find!!!'], 404);
@@ -183,9 +182,11 @@ class RelationsController extends Controller
 
                }
                
-               public function ShowPublicModel(){
+               public function ShowPublicModel(Request $request){
+                $get =  $request->user();
                 $data = DB::table('model_tbls')
                 ->where('public_state',1)
+                ->where('owner_id','!=',$get->id)
                 ->get();
                 return $data;
                 }
