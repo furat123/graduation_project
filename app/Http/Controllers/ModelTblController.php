@@ -149,7 +149,6 @@ class ModelTblController extends Controller
        $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/object_map_generation/'.$id,['multipart' => $multipart]);
        // $apiRequest = $client->request('POST','https://hi55.herokuapp.com/object_map_generation/'.$id, ['multipart' => $multipart]);
         return   $apiRequest->getBody();
-
     }
 
     public function getProgress(Request $request,$id)
@@ -163,8 +162,6 @@ class ModelTblController extends Controller
        return response()->json("Progress updated successfully",200);
      else
        return response()->json("Something goes wrong",500);
-
-
     }
 
     public function getProgress_re(Request $request,$id)
@@ -184,7 +181,6 @@ class ModelTblController extends Controller
 
     public function train(Request $request,$id)
     {
-
         $client= new Client();
         $labels=new LabelController();
         $labels=$labels->labelsForModel($id);
@@ -197,6 +193,7 @@ class ModelTblController extends Controller
         //$apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/train/'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
         return   $apiRequest->getBody();
     }
+
     public function test(Request  $request){
       $all = model_tbls::all();
       foreach($all as $k => $r)
@@ -207,7 +204,8 @@ class ModelTblController extends Controller
        user_has_model::create(["user_id" =>$r['owner_id'] ,"model_id" => $r['id'],"accept" => 1]);
       }
       return $all;
-    } 
+    }
+
     public function predict(Request $request,$id)
     {
         $client= new Client();

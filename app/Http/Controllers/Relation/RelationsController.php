@@ -135,8 +135,8 @@ class RelationsController extends Controller
           ->get();
            
            foreach($data as $key => &$val){
-           $x =  DB::table('user_has_models')->where('model_id' ,  $val->id )->where( 'accept' ,  1 )->count();
-           $val->number_of_req =$x-1;
+           $x =  DB::table('user_has_models')->where('model_id' ,  $val->id )->where( 'accept' ,  0 )->count();
+           $val->number_of_req =$x;
           }
            return $data;
         }
