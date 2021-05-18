@@ -28,14 +28,14 @@ class UserHasModelController extends Controller
     {
         return response()->json(user_has_model::join('model_tbls' ,'user_has_models.model_id', '=', 'model_tbls.id')
         ->join('users','users.id',"=","user_has_models.user_id")
-         ->where('owner_id',$id)->select('user_has_models.*','users.name','owner_id')->get(),200); 
+         ->where('owner_id',$id)->where('user_id','!=',$id)->select('user_has_models.*','users.name','owner_id')->get(),200); 
     }
 
     public function showformodel(Request $request ,$id)
     {    $uid =  $request->user()->id;
         return response()->json(user_has_model::join('model_tbls' ,'user_has_models.model_id', '=', 'model_tbls.id')
         ->join('users','users.id',"=","user_has_models.user_id")
-         ->where('owner_id',$uid)->where('user_has_models.model_id',$id)->select('user_has_models.*','users.name','owner_id')->get(),200); 
+         ->where('owner_id',$uid)->where('user_id','!=',$uid)->where('user_has_models.model_id',$id)->select('user_has_models.*','users.name','owner_id')->get(),200); 
     }
 
 
