@@ -145,7 +145,6 @@ class RelationsController extends Controller
               
                  $data = DB::table('user_has_models')
                  ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
-                 ->groupBy('rte_origin', 'rte_destination')
                  ->where('user_has_models.user_id',$id)
                  ->whereColumn('owner_id','!=','user_id')
                  ->get();
