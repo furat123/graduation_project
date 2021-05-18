@@ -55,7 +55,7 @@ class ModelTblController extends Controller
     {
     //print_r($request->except('image'));
     $model_tbl = model_tbls::create($request->except('image'));
-    $model_tbl = model_tbls::create($request->all());
+    //$model_tbl = model_tbls::create($request->all());
 
     $config = Configuration::instance([
       'cloud' => [
@@ -71,7 +71,7 @@ class ModelTblController extends Controller
          , "resource_type	" => "raw" , "folder" => "models/".$model_tbl->id]);
         $uid =$request->user()['id'];
         user_has_model::create(["user_id" =>$uid ,"model_id" => $model_tbl->id,"accept" => 1]);
-
+       
     return response()->json($model_tbl,201);
     }
 
