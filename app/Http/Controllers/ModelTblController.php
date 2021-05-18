@@ -85,7 +85,6 @@ class ModelTblController extends Controller
      */
     public function show($id)
     {
-       print_r($this->getCurrent());
        $modeltbl = model_tbls::Find($id);
 
        if(is_null($modeltbl)){
