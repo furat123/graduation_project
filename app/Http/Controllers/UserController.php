@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        //
+
       //  $user =array_filter($request->except(['created_at','updated_at','password', '']));
 
 //        if(!is_null($user['password'])){
@@ -83,23 +83,29 @@ class UserController extends Controller
 
         if(!Hash::check($request['password'], $user->password)) {
             return response([
-                'message' => 'password incorrect'
+                'message' => 'password incorrect .'
             ], 403);
         }
 
         $fields = $request->validate([
             'name' => 'sometimes|string',
-            'email' => 'sometimes|string|unique:users,email',
+            'email' => 'sometimes|string|email',
+        ], [
+            'email.unique' => 'Sorry, This Email Address Is Already Used By Another User. Please Try With Different One, Thank You.'
         ]);
-
-        if ($request->has(['name', 'email'])) {
-                $user->name = $fields['name'];
+        $users = User::where('email', '=', $request['email'])->first();
+        if(!is_null($users)){
+            return response()->json('Sorry, This Email Address Is Already Used By Another User. Please Try With Different One, Thank You.',409);
+        }
+        if ($request->has(['email'])) {
                 $user->email = $request['email'];
             }
+        if ($request->has(['name'])) {
+            $user->name = $fields['name'];
+        }
 
         $user->save();
-
-        return response()->json("user updated" , 200);
+        return response()->json("user updated" , 201);
     }
 
     /**

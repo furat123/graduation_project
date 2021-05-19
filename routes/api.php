@@ -40,7 +40,7 @@ Route::get('/reset_password/{token}', [AuthController::class,'reset_password']);
 
 
 //////////////// protected api
-Route::group(['middleware' => ['auth:sanctum']],function (){
+ Route::group(['middleware' => ['auth:sanctum']],function (){
 
     Route::post('/logout', [AuthController::class, 'logout']);
 //    Route::get('/Muhannad', [LabelController::class, 'index'])
@@ -55,25 +55,31 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
 
 //////// AI Algorithim Apis ///////////
-    Route::get('/get_uhm_by_user/{id}', "App\Http\Controllers\UserHasModelController@showforuser" );
-    Route::get('/get_uhm_by_owner/{id}', "App\Http\Controllers\UserHasModelController@showforowner" );
     Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
     Route::get( '/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
-    Route::post('/train/{id}',   "App\Http\Controllers\ModelTblController@train" );
+    Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
     Route::post('/re_train/{id}', "App\Http\Controllers\ModelTblController@re_train" );
-    Route::post('/predict/{id}',   "App\Http\Controllers\ModelTblController@predict" );
-    Route::post('/dataset/{id}',    "App\Http\Controllers\ModelTblController@store_dataset" );
-    Route::get( '/dataset/{id}',     "App\Http\Controllers\ModelTblController@get_dataset" );
-    Route::delete('/dataset/{id}',    "App\Http\Controllers\ModelTblController@delete_all_dataset");
-    Route::post('/datasetdel/{id}',    "App\Http\Controllers\ModelTblController@delete_from_dataset" );
-    Route::post('images/predict/{id}',  "App\Http\Controllers\ModelTblController@store_predict" );
-    Route::get('images/predict/{id}',    "App\Http\Controllers\ModelTblController@get_predict" );
-    Route::delete('images/predict/{id}',  "App\Http\Controllers\ModelTblController@delete_all_predict");
-    Route::post('images/predictdel/{id}',  "App\Http\Controllers\ModelTblController@delete_from_predict" );
-    Route::post('/object_map_labeling/{id}',"App\Http\Controllers\ModelTblController@object_map_labeling" );
+    Route::post('/predict/{id}', "App\Http\Controllers\ModelTblController@predict" );
+    Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@store_dataset" );
+    Route::get( '/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
+    Route::delete('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_all_dataset");
+    Route::post('/datasetdel/{id}', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
+
+    Route::post('images/predict/{id}', "App\Http\Controllers\ModelTblController@store_predict" );
+    Route::get('images/predict/{id}', "App\Http\Controllers\ModelTblController@get_predict" );
+    Route::delete('images/predict/{id}', "App\Http\Controllers\ModelTblController@delete_all_predict");
+    Route::post('images/predictdel/{id}', "App\Http\Controllers\ModelTblController@delete_from_predict" );
+
+    Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
     Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
     Route::get('/model/image/{id}', "App\Http\Controllers\ModelTblController@image" );
+
+
+
+
+
     Route::resource('/model',"App\Http\Controllers\ModelTblController");
+
     Route::resource('/user_has_model',"App\Http\Controllers\UserHasModelController");
     Route::resource('/file',"App\Http\Controllers\FilesController");
     Route::resource('/model_state',"App\Http\Controllers\ModelStateController");
@@ -82,7 +88,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::resource('/train_file',"App\Http\Controllers\TrainingFileController");
     Route::resource('/train_state',"App\Http\Controllers\TrainingStateController");
     Route::resource('/label',"App\Http\Controllers\LabelController");
-    Route::put('/user' , [UserController::class,'update']);
+    Route::put('/user' , [UserController::class , 'update']);
 ///// state of model
     Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfModel" );
 ///// state of file
@@ -107,7 +113,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/label_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getLabelOfModel");
 //////// many to many relation  ///////////
     Route::get('/user_to_model/{id}', "App\Http\Controllers\Relation\RelationsController@getModelsOFUser" );
-    Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getusersOFmodel" );
+
 
 
 
@@ -117,19 +123,21 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/show_model_user_use/{id}', "App\Http\Controllers\Relation\RelationsController@ShowModelUsed");
 //all models which the user own it or not
     Route::get('/All_Model/{id}', "App\Http\Controllers\Relation\RelationsController@getallmodel");
+
+
     Route::get('/public_model', "App\Http\Controllers\Relation\RelationsController@ShowPublicModel");
 
+     Route::get('/model_to_user/{id}', "App\Http\Controllers\Relation\RelationsController@getusersOFmodel" );
 
 
 
 
 
 
-});
+ });
 Route::post('/set_labels/{id}' , "App\Http\Controllers\FilesController@set_labels");
 Route::get('/modelfile/labels/{id}' , "App\Http\Controllers\TrainingFileController@labels");
-Route::post('/edit/{id}' , "App\Http\Controllers\FilesController@save");
-Route::post('/verify/{id}' , "App\Http\Controllers\FilesController@verify");
+Route::get('/verify/{id}' , "App\Http\Controllers\FilesController@verify");
 Route::get('/predictfile/labels/{id}' , "App\Http\Controllers\FilesController@labels");
 Route::post('/set_labels_model/{id}' , "App\Http\Controllers\TrainingFileController@set_labels");
 Route::get('/vs/{id}' , "App\Http\Controllers\FilesController@vs");
@@ -146,3 +154,6 @@ Route::get('/history_of_train_show_or_hide/{id}', "App\Http\Controllers\HistoryO
 //});
 
 
+//    Route::get('/Muhannad', function () {
+//        return "muhannad";
+//    });
