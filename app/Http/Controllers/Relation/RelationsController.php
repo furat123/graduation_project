@@ -25,7 +25,6 @@ class RelationsController extends Controller
        //  $user = User::with(['Model_Name'=>function($q){
         //     $q -> select('name','owner_id');
       //  }])->FindOrFail($id);
-
         //return "ddddd";
         if(is_null($user)){
             return response()->json(["message"=>'record not find!!!'], 404);
@@ -136,8 +135,8 @@ class RelationsController extends Controller
           ->get();
            
            foreach($data as $key => &$val){
-           $x =  DB::table('user_has_models')->where('model_id' ,  $val->id )->where( 'accept' ,  1 )->count();
-           $val->number_of_req =$x-1;
+           $x =  DB::table('user_has_models')->where('model_id' ,  $val->id )->where( 'accept' ,  0 )->count();
+           $val->number_of_req =$x;
           }
            return $data;
         }
@@ -146,7 +145,6 @@ class RelationsController extends Controller
               
                  $data = DB::table('user_has_models')
                  ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
-                 ->groupBy('rte_origin', 'rte_destination')
                  ->where('user_has_models.user_id',$id)
                  ->whereColumn('owner_id','!=','user_id')
                  ->get();
@@ -183,9 +181,11 @@ class RelationsController extends Controller
 
                }
                
-               public function ShowPublicModel(){
+               public function ShowPublicModel(Request $request){
+                $get =  $request->user();
                 $data = DB::table('model_tbls')
                 ->where('public_state',1)
+                ->where('owner_id','!=',$get->id)
                 ->get();
                 return $data;
                 }
