@@ -61,6 +61,11 @@ class UserHasModelController extends Controller
      */
     public function store(Request $request)
     {
+    $num = user_has_model::where('user_id',$request->user_id)->where('model_id',$request->model_id)->count();
+    if($num > 0)
+    {
+        return response()->json("Error the user was sent request to this model ",400);
+    }
     $user_model = user_has_model::create($request->all());
     return response()->json($user_model,201);
     }

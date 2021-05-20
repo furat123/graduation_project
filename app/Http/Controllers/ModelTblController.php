@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Http\Controllers\UserHasModelController;
 use Illuminate\Support\Facades\Http;
@@ -74,7 +73,7 @@ class ModelTblController extends Controller
         $uid =$request->user()['id'];
         user_has_model::create(["user_id" =>$uid ,"model_id" => $model_tbl->id,"accept" => 1]);
        
-    return response()->json($model_tbl,201);
+      return response()->json($model_tbl,201);
     }
 
     /**
@@ -141,6 +140,7 @@ class ModelTblController extends Controller
         $modeltbl->delete();
         return response()->json(null,204);
     }
+
      public function csvs(Request $request,$id)
     {
         $multipart=[];
@@ -188,12 +188,13 @@ class ModelTblController extends Controller
         $owner = model_tbls::where('id',$id)->get('owner_id');
         $owner=$owner->map(function ($owner) {
         return $owner->only(['owner_id']);
+
       });
 
       $owner=$owner[0]['owner_id'];
-        $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/train/'.$id,['form_params' => [ "owner_id" => $owner ,"labels"=>json_encode($labels)]]);
-        //$apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/train/'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
-        return   $apiRequest->getBody();
+      $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/train/'.$id,['form_params' => [ "owner_id" => $owner ,"labels"=>json_encode($labels)]]);
+      //$apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/train/'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
+      return   $apiRequest->getBody();
     }
 
     public function test(Request  $request){
@@ -208,11 +209,30 @@ class ModelTblController extends Controller
       return $all;
     }
 
-    public function getCurrent(){
-    return DB::table('history_of_trains')
+    public function getCurrent($id){
+   $x=  DB::table('history_of_trains')
+    ->where('model_id',$id)
     ->where('verifiy', 1 )
     ->max('id');
+  $x1= DB::table('history_of_trains')
+  ->where('model_id',$id)
+  ->max('id');
+  if($x != $x1)
+  {
+    return -1;
+  }
+
+  return $x;
+
     }
+
+    public function getCurrent_for_predict($id){
+      return DB::table('history_of_trains')
+       ->where('model_id',$id)
+       ->where('verifiy', 1 )
+       ->max('id');
+   
+       }
 
     public function predict(Request $request,$id)
     {
@@ -344,9 +364,12 @@ class ModelTblController extends Controller
       $client= new Client();
       $labels=new LabelController();
       $labels=$labels->labelsForModel($id);
-      $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/re_train/'.$id,['form_params' => ['v_id' => $this->getCurrent(),"labels"=>json_encode($labels)
+      $prog = model_tbls::find($id)->get()->progress ;
+      if( $this->getCurrent($id) == -1 || ($prog != 0 && $prog != 1)  )
+      return response()->json("You cannt do re train while previous version didn't finish and verified",401);
+      $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/re_train/'.$id,['form_params' => ['v_id' => $this->getCurrent($id),"labels"=>json_encode($labels)
       ,'user_id' => $request->input('user_id')]]);
-      //$apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/re_train/'.$id,['form_params' => ["labels"=>json_encode($labels)
+      //$apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/re_train/'.$id,['form_params' => ['v_id' => $this->getCurrent($id),"labels"=>json_encode($labels)
       //,'user_id' => $request->input('user_id')]]);
       return   $apiRequest->getBody();
   
@@ -379,8 +402,6 @@ class ModelTblController extends Controller
             }
            else
            $respose[$file->getClientOriginalName()]="Faild";
-
-          
        }
       }
 
@@ -390,7 +411,7 @@ class ModelTblController extends Controller
        foreach($files as $file)
        $multipart[]=array('name'=>'images', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
        $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
-       $multipart[]=array('name'=>'labels','contents'=>$this->getCurrent());
+       $multipart[]=array('name'=>'labels','contents'=>$this->getCurrent_for_predict($id));
        $multipart[]=array('name'=>'v_id','contents'=>json_encode($labels));
       $apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
       // $apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
@@ -530,10 +551,7 @@ class ModelTblController extends Controller
     public function image(Request $request,$id)
     {
           $url = "https://res.cloudinary.com/hi5/image/upload/v1619392994/models/".$id."/image";
-
           return  $url;
-
-
     }
 
     public function text_form_box(Request $request)
