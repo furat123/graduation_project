@@ -186,6 +186,7 @@ class RelationsController extends Controller
                 $data = DB::table('model_tbls')
                 ->where('public_state',1)
                 ->where('owner_id','!=',$get->id)
+                ->where('user_id','!=',$get->id)
                 ->get();
                 return $data;
                 }
