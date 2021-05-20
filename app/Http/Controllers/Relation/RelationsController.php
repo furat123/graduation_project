@@ -184,9 +184,12 @@ class RelationsController extends Controller
                public function ShowPublicModel(Request $request){
                 $get =  $request->user();
                 $data = DB::table('model_tbls')
+                ->join('users','owner_id',"users.id")
+                ->join('user_has_models',"model_id","model_tbls.id")
                 ->where('public_state',1)
                 ->where('owner_id','!=',$get->id)
                 ->where('user_id','!=',$get->id)
+                ->select('model_tbls.*','users.name')
                 ->get();
                 return $data;
                 }
