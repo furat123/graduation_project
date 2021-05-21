@@ -189,7 +189,8 @@ class RelationsController extends Controller
                 ->where('public_state',1)
                 ->where('owner_id','!=',$get->id)
                 ->where('user_id','!=',$get->id)
-                ->select('model_tbls.*','users.name')
+                ->select('model_tbls.*','users.name as owner_name')
+                ->distinct()
                 ->get();
                 return $data;
                 }

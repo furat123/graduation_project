@@ -40,7 +40,7 @@ class LabelController extends Controller
         $label_tbl = label::create($request->all());
         $x = label::where('color',$request->color)->where('model_id',$request->model_id)->count;
         if($x>0)
-        return response()->json("This color duplicated for modle",400);
+        return response()->json("This color duplicated for model",400);
         return response()->json($label_tbl,201);
    
     }
