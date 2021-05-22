@@ -135,7 +135,7 @@ class ModelTblController extends Controller
             ["public_id" => 'image' , "type" => "upload"
              , "resource_type	" => "raw" , "folder" => "models/".$id]);
           }catch(Exception $e){
-
+            return response()->json("false",404);
           }
         
 
