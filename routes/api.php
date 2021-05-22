@@ -85,11 +85,8 @@ Route::get('/reset_password/{token}', [AuthController::class,'reset_password']);
     Route::resource('/train_state',"App\Http\Controllers\TrainingStateController");
     Route::resource('/label',"App\Http\Controllers\LabelController");
     Route::put('/user' , [UserController::class , 'update']);
-<<<<<<< Updated upstream
     Route::put('/user/change_password',[AuthController::class,'change_password']);
-=======
     Route::post('/model/{id}', "App\Http\Controllers\ModelTblController@update" );
->>>>>>> Stashed changes
 ///// state of model
     Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfModel" );
 ///// state of file
