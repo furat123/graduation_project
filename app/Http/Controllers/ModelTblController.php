@@ -130,13 +130,16 @@ class ModelTblController extends Controller
           'url' => [
             'secure' => true]]);
             $cloudinary = new Cloudinary($config);
-    
+          try{
             $cloudinary->uploadApi()->upload((string)$request->file('image'),
             ["public_id" => 'image' , "type" => "upload"
              , "resource_type	" => "raw" , "folder" => "models/".$id]);
+          }catch(Exception $e){
+
+          }
         
 
-       return response()->json($update1,200);
+       return response()->json("true",200);
     }
    
     /**
