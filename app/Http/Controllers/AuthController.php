@@ -146,7 +146,8 @@ class AuthController extends Controller
 
         $fields = $request->validate([
             'email' => 'required|string',
-            'password' => 'required|string|confirmed|min:6'
+            'password' => 'required|string|confirmed|min:6',
+
         ]);
 
         $token = bcrypt(now());
@@ -158,6 +159,15 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email', $fields['email'])->first();
+//        if(!$user){
+//            return response()->json('email is not correct' ,400);
+//        }
+//        if( !Hash::check($fields['old_password'], $user->password)) {
+//            return response([
+//                'message' => 'old password is incorrect .'
+//            ], 403);
+//        }
+
 
         $to_name = $user['name'];
         $to_email = 'mohanadimad9@gmail.com'; // my email just for testing
@@ -191,8 +201,29 @@ class AuthController extends Controller
         $user->save();
 
        password_reset::where('email', $raw['email'])->delete();
-       return redirect('https://google.com');
+       return redirect('https://hi5hi5.netlify.app');
     }
+
+    public function change_password(Request $request){
+        $fields = $request->validate([
+            'old_password' => 'required|string',
+            'password' => 'required|string|confirmed|min:6',
+
+        ]);
+
+        $user = auth()->user();
+        // Check password
+        if(!$user || !Hash::check($fields['old_password'], $user->password)) {
+            return response([
+                'message' => 'Bad creds'
+            ], 401);
+        }
+
+        $user->password = bcrypt($fields['password']);
+        $user->save();
+        return response()->json([],204);
+    }
+
 
 
 }

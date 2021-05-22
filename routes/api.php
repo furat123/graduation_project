@@ -94,6 +94,7 @@ Route::get('/reset_password/{token}', [AuthController::class,'reset_password']);
     Route::resource('/train_state',"App\Http\Controllers\TrainingStateController");
     Route::resource('/label',"App\Http\Controllers\LabelController");
     Route::put('/user' , [UserController::class , 'update']);
+    Route::put('/user/change_password',[AuthController::class,'change_password']);
 ///// state of model
     Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfModel" );
 ///// state of file
@@ -136,7 +137,9 @@ Route::get('/reset_password/{token}', [AuthController::class,'reset_password']);
 
 
 
-
+     Route::get('/Muhannad/{id}', function () {
+         return "muhannad";
+     })->middleware(['AuthId']);
 
 
  });
@@ -154,9 +157,12 @@ Route::get('/progress_re/{id}', "App\Http\Controllers\ModelTblController@getProg
 Route::put('/progress_re/{id}', "App\Http\Controllers\ModelTblController@setProgress_re" );
 Route::resource('/history_of_train',"App\Http\Controllers\HistoryOfTrainController");
 Route::get('/history_of_train_show_or_hide/{id}', "App\Http\Controllers\HistoryOfTrainController@show_hide" );
+
+
 //Route::group(['middleware' => ['AuthId']],function (){
-//
+
 //});
+
 
 
 //    Route::get('/Muhannad', function () {

@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\DB;
 class RelationsController extends Controller
 {
     public function HasOneRelation($id){
-      
+
         $user =User::FindOrFail($id);
-        return  $user-> Model_Name -> name ; 
-     
-        // $user = User::with('Model_Name')->FindOrFail(1);//return table of user and model 
+        return  $user-> Model_Name -> name ;
+
+        // $user = User::with('Model_Name')->FindOrFail(1);//return table of user and model
        //  $user = User::with(['Model_Name'=>function($q){
         //     $q -> select('name','owner_id');
       //  }])->FindOrFail($id);
@@ -29,19 +29,19 @@ class RelationsController extends Controller
         if(is_null($user)){
             return response()->json(["message"=>'record not find!!!'], 404);
            }
-        //return $user ->Model_Name->name;// model of this user 
+        //return $user ->Model_Name->name;// model of this user
         return response()->json($user, 200);
 
-      
-         
+
+
     }
     public function HasOneRelationReverse($id){
-    
+
         $model= model_tbls::FindOrFail($id);
-        return $model-> OwnerModel -> name; 
-      
-    
-     
+        return $model-> OwnerModel -> name;
+
+
+
       if(is_null($model)){
         return response()->json(["message"=>'record not find!!!'], 404);
        }
@@ -51,25 +51,25 @@ class RelationsController extends Controller
     }
 
     public function getStateOfModel($id){
-        
+
             $model =model_tbls::FindOrFail($id);
-            return  $model-> State_Of_Model -> state ; 
+            return  $model-> State_Of_Model -> state ;
         }
 
-        
+
 
     public function getStateOfFile($id){
          $file= file::FindOrFail($id);
          return  $file ->  State_Of_File -> state_name ;// -> state ; //State_Of_File
-          
+
          //  $file= file::with('State_Of_File')->FindOrFail($id);
 
        // $file= file::with(['State_Of_File'=>function($q){
         //    $q -> select('state_name','id');
           //        }])->FindOrFail(1);
-   
+
     }
-  
+
     public function getVerifyOfFile($id){
     //  return 0;
       $file= file::FindOrFail($id);
@@ -77,43 +77,44 @@ class RelationsController extends Controller
 
     }
 
-    ///////////////// one to many relation 
+    ///////////////// one to many relation
     public function  getFilesOfMdel($id){
-      //nothing to commit 
+      //nothing to commit
        //$FilesOfMdel= user_has_model::FindOrFail(1);
       // return $FilesOfMdel->fun_file;
       $FilesOfMdel= user_has_model::with('fun_file')->FindOrFail($id);
       //return $FilesOfMdel ;
       $allFile=$FilesOfMdel->fun_file;
       foreach ($allFile as $var){
-          echo $var->name ; 
+          echo $var->name ;
           echo "\n";
 
     }}
 
-    ///////////////// many to many relation 
+    ///////////////// many to many relation
     public function getModelsOFUser($id){
         $user= User::with('User_Models')->FindOrFail($id);
        //  return $user->User_Models;
          $name_of_model=$user->User_Models;
          foreach ($name_of_model as $var){
-             echo $var->name ; 
+             echo $var->name ;
              echo "\n";
-   
+
        }
+
     }
-     //nothing to commit 
+     //nothing to commit
     public function getusersOFmodel($id){
 
-      
+
         $model=model_tbls::with('Users_Of_Model')->FindOrFail($id);
         return $model->Users_Of_Model;
            //  $name_of_user = $model -> Users_Of_Model;
             // foreach ($name_of_user as $var){
-            // echo $var->id ; 
+            // echo $var->id ;
             // echo "\n";
             // }
-    
+
 
    }
 
@@ -123,17 +124,17 @@ class RelationsController extends Controller
     //return $FilesOfMdel ;
     $allFile=$model->label_for_model;
     return $allFile->pluck('label');
-   
+
 }
    public function ShowModelOfowner($id){
-       
+
           $data = DB::table('model_tbls')
           //  ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
           //  ->select('model_tbls.id','model_tbls.name',)
           // ->where('user_has_models.user_id',$id)
           ->where('model_tbls.owner_id',$id)
           ->get();
-           
+
            foreach($data as $key => &$val){
            $x =  DB::table('user_has_models')->where('model_id' ,  $val->id )->where( 'accept' ,  0 )->count();
            $val->number_of_req =$x;
@@ -142,7 +143,7 @@ class RelationsController extends Controller
         }
 
         public function ShowModelUsed($id){
-              
+
                  $data = DB::table('user_has_models')
                  ->join('model_tbls','model_tbls.id','=','user_has_models.model_id')
                  ->where('user_has_models.user_id',$id)
@@ -158,7 +159,7 @@ class RelationsController extends Controller
                 //->select('model_id')
                 ->where('user_id',$id)
                 ->where('accept',1)
-              
+
                // -> select('name','created_date',)
                 ->get();
                 return $data;
@@ -180,7 +181,7 @@ class RelationsController extends Controller
               }
 
                }
-               
+
                public function ShowPublicModel(Request $request){
                 $get =  $request->user();
                 $data = DB::table('model_tbls')
@@ -189,11 +190,11 @@ class RelationsController extends Controller
                 ->get();
                 return $data;
                 }
-                 
 
-                
-              
-            
+
+
+
+
 
 
 }
