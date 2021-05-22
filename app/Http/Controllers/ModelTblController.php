@@ -114,7 +114,7 @@ class ModelTblController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $modeltbl=$request->except(['created_date','last_use_date','owner_id']);
+        $modeltbl=$request->except(['created_date','last_use_date','owner_id','image']);
         $modeltbl=array_filter($modeltbl);
         $update1=model_tbls::where('id',$id)->update($modeltbl);
 
@@ -122,9 +122,23 @@ class ModelTblController extends Controller
            return response()->json(["message"=>'record not find!!!'], 404);
        }
         //$modeltbl->update($request->all());
-       return response()->json($modeltbl,200);
-    }
+        $config = Configuration::instance([
+          'cloud' => [
+            'cloud_name' => 'hi5',
+            'api_key' => '323435588613243',
+            'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+          'url' => [
+            'secure' => true]]);
+            $cloudinary = new Cloudinary($config);
+    
+            $cloudinary->uploadApi()->upload((string)$request->file('image'),
+            ["public_id" => 'image' , "type" => "upload"
+             , "resource_type	" => "raw" , "folder" => "models/".$id]);
+        
 
+       return response()->json($update1,200);
+    }
+   
     /**
      * Remove the specified resource from storage.
      *

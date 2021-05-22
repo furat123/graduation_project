@@ -59,7 +59,6 @@ Route::get('/reset_password/{token}', [AuthController::class,'reset_password']);
     Route::get('/get_uhm_by_user/{id}', "App\Http\Controllers\UserHasModelController@showforuser" );
     Route::get('/get_uhm_by_owner/{id}', "App\Http\Controllers\UserHasModelController@showforowner" );
     Route::get('/get_uhm_by_model/{id}', "App\Http\Controllers\UserHasModelController@showformodel" );
-
     Route::post('/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@csvs" );
     Route::get( '/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
     Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
@@ -69,22 +68,14 @@ Route::get('/reset_password/{token}', [AuthController::class,'reset_password']);
     Route::get( '/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
     Route::delete('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_all_dataset");
     Route::post('/datasetdel/{id}', "App\Http\Controllers\ModelTblController@delete_from_dataset" );
-
     Route::post('images/predict/{id}', "App\Http\Controllers\ModelTblController@store_predict" );
     Route::get('images/predict/{id}', "App\Http\Controllers\ModelTblController@get_predict" );
     Route::delete('images/predict/{id}', "App\Http\Controllers\ModelTblController@delete_all_predict");
     Route::post('images/predictdel/{id}', "App\Http\Controllers\ModelTblController@delete_from_predict" );
-
     Route::post('/object_map_labeling/{id}', "App\Http\Controllers\ModelTblController@object_map_labeling" );
     Route::post('/text_form_box', "App\Http\Controllers\ModelTblController@text_form_box" );
     Route::get('/model/image/{id}', "App\Http\Controllers\ModelTblController@image" );
-
-
-
-
-
     Route::resource('/model',"App\Http\Controllers\ModelTblController");
-
     Route::resource('/user_has_model',"App\Http\Controllers\UserHasModelController");
     Route::resource('/file',"App\Http\Controllers\FilesController");
     Route::resource('/model_state',"App\Http\Controllers\ModelStateController");
@@ -94,7 +85,11 @@ Route::get('/reset_password/{token}', [AuthController::class,'reset_password']);
     Route::resource('/train_state',"App\Http\Controllers\TrainingStateController");
     Route::resource('/label',"App\Http\Controllers\LabelController");
     Route::put('/user' , [UserController::class , 'update']);
+<<<<<<< Updated upstream
     Route::put('/user/change_password',[AuthController::class,'change_password']);
+=======
+    Route::post('/model/{id}', "App\Http\Controllers\ModelTblController@update" );
+>>>>>>> Stashed changes
 ///// state of model
     Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfModel" );
 ///// state of file
