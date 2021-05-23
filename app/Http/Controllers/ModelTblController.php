@@ -569,7 +569,7 @@ class ModelTblController extends Controller
 
     public function image(Request $request,$id)
     {
-          $url = "https://res.cloudinary.com/hi5/image/upload/v1619392994/models/".$id."/image";
+          $url = "https://res.cloudinary.com/hi5/image/upload/models/".$id."/image";
           return  $url;
     }
 

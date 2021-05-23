@@ -108,6 +108,23 @@ class TrainingFileController extends Controller
        
 
     }
+    
+    public function set_description_image(Request $request)
+    {   
+
+    $config = Configuration::instance([
+        'cloud' => [
+            'cloud_name' => 'hi5',
+            'api_key' => '323435588613243',
+            'api_secret' => 'cWSgE3yKhL0alVclbqPLsT6PY1g'],
+        'url' => [
+            'secure' => true]]);
+            $f = true;
+            $cloudinary = new Cloudinary($config);
+            training_file::where('name', $request->input('image'));
+            
+    
+    }
 
     public function labels(Request $request,$id)
     {   
