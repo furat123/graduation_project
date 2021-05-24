@@ -103,7 +103,6 @@ class UserController extends Controller
         if ($request->has(['name'])) {
             $user->name = $fields['name'];
         }
-
         $user->save();
         return response()->json("user updated" , 201);
     }
