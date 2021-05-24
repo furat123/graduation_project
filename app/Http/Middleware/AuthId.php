@@ -44,6 +44,7 @@ class AuthId
          print('askjdhf');
         foreach ($users as $u){
             print($u['id']);
+            print($user['id']);
             if($user['id'] == $u['id'] ){
                 $x = true;
                 break;
