@@ -43,7 +43,7 @@ class AuthId
 
         foreach ($users as $i)
             print($i);
-
+        return response()->json('stop');
 //        print($user['id']);
 //         $x = false;
 //         print('xxxxx');
