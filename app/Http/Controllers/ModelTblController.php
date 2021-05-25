@@ -559,8 +559,8 @@ class ModelTblController extends Controller
           $des=DB::table('model_tbls')->find($id)->description_image;
           $multipart[] = array('name'=>'de','contents'=>$des);
           $multipart[] = array('name'=>'nodes','contents'=>$request->input('nodes'));
-          //$apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
-          $apiRequest = $client->request('POST', "127.0.0.1:5000/object_map_labeling/".$id, [ 'multipart' => $multipart]);
+          $apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
+          //$apiRequest = $client->request('POST', "127.0.0.1:5000/object_map_labeling/".$id, [ 'multipart' => $multipart]);
           return  $apiRequest->getBody();
 
     }
