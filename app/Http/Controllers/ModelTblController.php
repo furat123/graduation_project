@@ -383,7 +383,7 @@ class ModelTblController extends Controller
       $client= new Client();
       $labels=new LabelController();
       $labels=$labels->labelsForModel($id);
-      $prog = model_tbls::find($id)->get()->progress ;
+      $prog = model_tbls::find($id)->progress;
       if( $this->getCurrent($id) == -1 || ($prog != 0 && $prog != 1)  )
       return response()->json("You cannt do re train while previous version didn't finish and verified",401);
       $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/re_train/'.$id,['form_params' => ['v_id' => $this->getCurrent($id),"labels"=>json_encode($labels)
