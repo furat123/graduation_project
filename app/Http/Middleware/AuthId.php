@@ -41,12 +41,11 @@ class AuthId
 //            ] , 403);
 
 
-        foreach ($users as $i)
-            print($i);
 
-        print($user['id']);
+
+//        print($user['id']);
          $x = false;
-         print('xxxxx');
+       //  print('xxxxx');
         foreach ($users as $u){
             print($u['id']);
             print($user['id']);
