@@ -43,19 +43,19 @@ class AuthId
 
         foreach ($users as $i)
             print($i);
-        return response()->json('stop');
-//        print($user['id']);
-//         $x = false;
-//         print('xxxxx');
-//        foreach ($users as $u){
-//            print($u['id']);
-//            print($user['id']);
-//            if($user['id'] == $u['id'] ){
-//                $x = true;
-//                break;
-//            }
-//        }
-//        if(!$x) return response()->json('not authorized to use this model',403);
+
+        print($user['id']);
+         $x = false;
+         print('xxxxx');
+        foreach ($users as $u){
+            print($u['id']);
+            print($user['id']);
+            if($user['id'] == $u['id'] ){
+                $x = true;
+                break;
+            }
+        }
+        if(!$x) return response()->json('not authorized to use this model',403);
 
 
         return $next($request);
