@@ -228,7 +228,7 @@ class ModelTblController extends Controller
       return $all;
     }
 
-    public function getCurrent($id){
+  public function getCurrent($id){
    $x=  DB::table('history_of_trains')
     ->where('model_id',$id)
     ->where('verifiy', 1 )
@@ -544,26 +544,24 @@ class ModelTblController extends Controller
 
     public function get_csvs(Request $request,$id)
     {
-
           $client= new Client();
           $apiRequest = $client->request('GET', "https://hi55.herokuapp.com/get_object_maps/".$id);
           $url =  $apiRequest->getBody();
           $apiRequest = $client->request('GET', (string)$url);
           return response($apiRequest->getBody()->getContents(), 200)
           ->header('Content-Type', 'application/zip')->header('Content-disposition','attachment; filename="object_maps.zip"');
-
-
     }
 
     public function object_map_labeling(Request $request,$id)
     {
           $multipart = [];
           $client= new Client();
+          $des=DB::table('model_tbls')->find($id)->description_image;
+          $multipart[] = array('name'=>'de','contents'=>$des);
           $multipart[] = array('name'=>'nodes','contents'=>$request->input('nodes'));
-          $apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
-          //$apiRequest = $client->request('POST', "127.0.0.1:5000/object_map_labeling/".$id, [ 'multipart' => $multipart]);
+          //$apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
+          $apiRequest = $client->request('POST', "127.0.0.1:5000/object_map_labeling/".$id, [ 'multipart' => $multipart]);
           return  $apiRequest->getBody();
-
 
     }
 
