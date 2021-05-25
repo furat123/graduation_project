@@ -40,17 +40,22 @@ class AuthId
 //            return response()->json(['msg' => 'not authorized to use this model',
 //            ] , 403);
 
-         $x = false;
-         print('askjdhf');
-        foreach ($users as $u){
-            print($u['id']);
-            print($user['id']);
-            if($user['id'] == $u['id'] ){
-                $x = true;
-                break;
-            }
-        }
-        if(!$x) return response()->json('not authorized to use this model',403);
+
+        foreach ($users as $i)
+            print($i);
+
+//        print($user['id']);
+//         $x = false;
+//         print('xxxxx');
+//        foreach ($users as $u){
+//            print($u['id']);
+//            print($user['id']);
+//            if($user['id'] == $u['id'] ){
+//                $x = true;
+//                break;
+//            }
+//        }
+//        if(!$x) return response()->json('not authorized to use this model',403);
 
 
         return $next($request);
