@@ -88,7 +88,7 @@ Route::get('/reset_password/{token}', [AuthController::class,'reset_password']);
     Route::put('/user/change_password',[AuthController::class,'change_password']);
     Route::post('/model/{id}', "App\Http\Controllers\ModelTblController@update" );
 ///// state of model
-    Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfModel" );
+    Route::get('/state_of_model/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfModel" )->middleware(['AuthId']);
 ///// state of file
     Route::get('/state_of_file/{id}', "App\Http\Controllers\Relation\RelationsController@getStateOfFile" );
 ///// verify of file

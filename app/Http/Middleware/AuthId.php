@@ -47,8 +47,8 @@ class AuthId
          $x = false;
        //  print('xxxxx');
         foreach ($users as $u){
-            print($u['id']);
-            print($user['id']);
+//            print($u['id']);
+//            print($user['id']);
             if($user['id'] == $u['id'] ){
                 $x = true;
                 break;
