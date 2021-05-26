@@ -209,6 +209,7 @@ class ModelTblController extends Controller
         return $owner->only(['owner_id']);
 
       });
+      print_r($labels);
 
       $owner=$owner[0]['owner_id'];
       //$apiRequest = $client->request('POST', 'http://127.0.0.1:5000/train/'.$id,['form_params' => [ "owner_id" => $owner ,"labels"=>json_encode($labels)]]);
