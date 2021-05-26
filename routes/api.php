@@ -63,7 +63,7 @@ Route::get('/reset_password/{token}', [AuthController::class,'reset_password']);
     Route::get( '/object_map_generation/{id}', "App\Http\Controllers\ModelTblController@get_csvs" );
     Route::post('/train/{id}', "App\Http\Controllers\ModelTblController@train" );
     Route::post('/re_train/{id}', "App\Http\Controllers\ModelTblController@re_train" );
-    Route::get('/predict/{id}', "App\Http\Controllers\ModelTblController@predict" );
+    Route::post('/predict/{id}', "App\Http\Controllers\ModelTblController@predict" );
     Route::post('/dataset/{id}', "App\Http\Controllers\ModelTblController@store_dataset" );
     Route::get( '/dataset/{id}', "App\Http\Controllers\ModelTblController@get_dataset" );
     Route::delete('/dataset/{id}', "App\Http\Controllers\ModelTblController@delete_all_dataset");
