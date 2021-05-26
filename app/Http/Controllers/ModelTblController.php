@@ -431,10 +431,10 @@ class ModelTblController extends Controller
        foreach($files as $file)
        $multipart[]=array('name'=>'images', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
        $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
-       $multipart[]=array('name'=>'labels','contents'=>$this->getCurrent_for_predict($id));
-       $multipart[]=array('name'=>'v_id','contents'=>json_encode($labels));
+       $multipart[]=array('name'=>'v_id','contents'=>$this->getCurrent_for_predict($id));
+       $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
       $apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
-      // $apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
+      //$apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
        return  response()->json( $respose,200);
   
     }
