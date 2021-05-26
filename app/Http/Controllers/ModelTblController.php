@@ -232,7 +232,7 @@ class ModelTblController extends Controller
   public function getCurrent($id){
    $x=  DB::table('history_of_trains')
     ->where('model_id',$id)
-    ->where('verifiy', 1 )
+    ->where('verify', 1 )
     ->max('id');
   $x1= DB::table('history_of_trains')
   ->where('model_id',$id)
@@ -249,7 +249,7 @@ class ModelTblController extends Controller
     public function getCurrent_for_predict($id){
       return DB::table('history_of_trains')
        ->where('model_id',$id)
-       ->where('verifiy', 1 )
+       ->where('verify', 1 )
        ->max('id');
       
    
@@ -398,7 +398,10 @@ class ModelTblController extends Controller
     public function store_predict(Request $request,$id)
     {
 
-     
+      if($this->getCurrent_for_predict($id) == null){
+        return response()->json('You muts have trained version',406);
+      }
+
       $respose=[];
       $config = Configuration::instance([
        'cloud' => [
@@ -434,7 +437,7 @@ class ModelTblController extends Controller
        $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
        $multipart[]=array('name'=>'v_id','contents'=>$this->getCurrent_for_predict($id));
        $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
-      $apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
+       $apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
       //$apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
        return  response()->json( $respose,200);
   
