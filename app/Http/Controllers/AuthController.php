@@ -134,7 +134,7 @@ class AuthController extends Controller
             'token' => $token
         ];
 
-      return  redirect('https://www.google.com')->with('status', $status);
+      return  redirect('https://hi5hi5.netlify.app')->with('status', $status);
 
       //    return response()->json(['msg' => $status] ,200);
         //  return redirect()->away('https://www.google.com');
