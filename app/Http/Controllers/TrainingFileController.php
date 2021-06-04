@@ -122,7 +122,7 @@ class TrainingFileController extends Controller
             $f = true;
             $cloudinary = new Cloudinary($config);
             training_file::where('name', $request->input('image'));
-            
+     
     
     }
 

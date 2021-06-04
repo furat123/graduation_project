@@ -13,5 +13,6 @@ class history_of_train extends Model
         'model_id',
         'user_id',
         'acc',
+        'verify',
     ];
 }

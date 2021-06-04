@@ -211,8 +211,9 @@ class ModelTblController extends Controller
       });
 
       $owner=$owner[0]['owner_id'];
-      $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/train/'.$id,['form_params' => [ "owner_id" => $owner ,"labels"=>json_encode($labels)]]);
-      //$apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/train/'.$id,['form_params' => ["labels"=>json_encode($labels)]]);
+      print($owner);
+      //$apiRequest = $client->request('POST', 'http://127.0.0.1:5000/train/'.$id,['form_params' => [ "owner_id" => $owner ,"labels"=>json_encode($labels)]]);
+      $apiRequest = $client->request('POST', 'https://hi55.herokuapp.com/train/'.$id,['form_params' => ["owner_id" => $owner ,"labels"=>json_encode($labels)]]);
       return   $apiRequest->getBody();
     }
 
@@ -228,10 +229,10 @@ class ModelTblController extends Controller
       return $all;
     }
 
-    public function getCurrent($id){
+  public function getCurrent($id){
    $x=  DB::table('history_of_trains')
     ->where('model_id',$id)
-    ->where('verifiy', 1 )
+    ->where('verify', 1 )
     ->max('id');
   $x1= DB::table('history_of_trains')
   ->where('model_id',$id)
@@ -248,8 +249,9 @@ class ModelTblController extends Controller
     public function getCurrent_for_predict($id){
       return DB::table('history_of_trains')
        ->where('model_id',$id)
-       ->where('verifiy', 1 )
+       ->where('verify', 1 )
        ->max('id');
+      
    
        }
 
@@ -383,7 +385,7 @@ class ModelTblController extends Controller
       $client= new Client();
       $labels=new LabelController();
       $labels=$labels->labelsForModel($id);
-      $prog = model_tbls::find($id)->get()->progress ;
+      $prog = model_tbls::find($id)->progress;
       if( $this->getCurrent($id) == -1 || ($prog != 0 && $prog != 1)  )
       return response()->json("You cannt do re train while previous version didn't finish and verified",401);
       $apiRequest = $client->request('POST', 'http://127.0.0.1:5000/re_train/'.$id,['form_params' => ['v_id' => $this->getCurrent($id),"labels"=>json_encode($labels)
@@ -396,7 +398,10 @@ class ModelTblController extends Controller
     public function store_predict(Request $request,$id)
     {
 
-     
+      if($this->getCurrent_for_predict($id) == null){
+        return response()->json('You muts have trained version',406);
+      }
+
       $respose=[];
       $config = Configuration::instance([
        'cloud' => [
@@ -430,10 +435,10 @@ class ModelTblController extends Controller
        foreach($files as $file)
        $multipart[]=array('name'=>'images', 'contents'=>fopen($file,'r'),'filename'=>pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
        $multipart[]=array('name'=>'user_id','contents'=>$request->input('user_id'));
-       $multipart[]=array('name'=>'labels','contents'=>$this->getCurrent_for_predict($id));
-       $multipart[]=array('name'=>'v_id','contents'=>json_encode($labels));
-      $apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
-      // $apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
+       $multipart[]=array('name'=>'v_id','contents'=>$this->getCurrent_for_predict($id));
+       $multipart[]=array('name'=>'labels','contents'=>json_encode($labels));
+       $apiRequest = $guzzel->request('POST', 'https://hi55.herokuapp.com/predict/'.$id,['multipart' => $multipart]);
+      //$apiRequest = $guzzel->request('POST', '127.0.0.1:5000/predict/'.$id,['multipart' => $multipart]);
        return  response()->json( $respose,200);
   
     }
@@ -544,26 +549,24 @@ class ModelTblController extends Controller
 
     public function get_csvs(Request $request,$id)
     {
-
           $client= new Client();
           $apiRequest = $client->request('GET', "https://hi55.herokuapp.com/get_object_maps/".$id);
           $url =  $apiRequest->getBody();
           $apiRequest = $client->request('GET', (string)$url);
           return response($apiRequest->getBody()->getContents(), 200)
           ->header('Content-Type', 'application/zip')->header('Content-disposition','attachment; filename="object_maps.zip"');
-
-
     }
 
     public function object_map_labeling(Request $request,$id)
     {
           $multipart = [];
           $client= new Client();
+          $des=DB::table('model_tbls')->find($id)->description_image;
+          $multipart[] = array('name'=>'de','contents'=>$des);
           $multipart[] = array('name'=>'nodes','contents'=>$request->input('nodes'));
           $apiRequest = $client->request('POST', "https://hi55.herokuapp.com/object_map_labeling/".$id, [ 'multipart' => $multipart]);
           //$apiRequest = $client->request('POST', "127.0.0.1:5000/object_map_labeling/".$id, [ 'multipart' => $multipart]);
           return  $apiRequest->getBody();
-
 
     }
 
